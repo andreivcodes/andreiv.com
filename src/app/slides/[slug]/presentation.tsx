@@ -81,9 +81,6 @@ export function Presentation({ presentation }: PresentationProps) {
             },
           );
 
-          // Ensure <br> tags are rendered correctly
-          processedSlide = processedSlide.replace(/<br\s*\/?>/g, "<br />");
-
           return processedSlide;
         }),
       );
@@ -115,14 +112,9 @@ export function Presentation({ presentation }: PresentationProps) {
   useEffect(() => {
     const handleResize = () => {
       if (slideRef.current && containerRef.current) {
-        const containerWidth = containerRef.current.clientWidth;
         const containerHeight = containerRef.current.clientHeight;
-        const slideWidth = 960;
-        const slideHeight = 700;
-
-        const scaleX = (containerWidth - 100) / slideWidth;
-        const scaleY = (containerHeight - 100) / slideHeight;
-        const scale = Math.min(scaleX, scaleY, 1);
+        const slideHeight = 700; // Fixed slide height
+        const scale = (containerHeight - 100) / slideHeight; // Scale based on height
 
         setScale(scale);
       }
@@ -191,14 +183,14 @@ export function Presentation({ presentation }: PresentationProps) {
           style={{
             transform: `scale(${scale})`,
             transformOrigin: "center",
-            width: "960px",
-            height: "700px",
+            width: "100%", // Full width
+            height: "700px", // Fixed height
           }}
           className="relative flex items-center justify-center"
         >
           <div className="w-full overflow-hidden">
             <div
-              className="markdown-content"
+              className="markdown-content w-full"
               dangerouslySetInnerHTML={{ __html: slides[currentSlide] }}
             />
           </div>
