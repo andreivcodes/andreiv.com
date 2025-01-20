@@ -66,11 +66,11 @@ export function Presentation({ presentation }: PresentationProps) {
           // Process the markdown content
           const result = await unified()
             .use(remarkParse)
-            .use(remarkGfm)
-            .use(remarkMath)
-            .use(remarkRehype)
-            .use(rehypeKatex)
-            .use(rehypeStringify)
+            .use(remarkGfm) // Enable GitHub Flavored Markdown (tables, etc.)
+            .use(remarkMath) // Enable math support
+            .use(remarkRehype, { allowDangerousHtml: true }) // Allow raw HTML
+            .use(rehypeKatex) // Enable KaTeX for math
+            .use(rehypeStringify, { allowDangerousHtml: true }) // Allow raw HTML in output
             .process(processedSlide);
 
           // Replace placeholders with mermaid div elements
@@ -80,6 +80,9 @@ export function Presentation({ presentation }: PresentationProps) {
               return `<div class="mermaid">${mermaidBlocks[parseInt(index)]}</div>`;
             },
           );
+
+          // Ensure <br> tags are rendered correctly
+          processedSlide = processedSlide.replace(/<br\s*\/?>/g, "<br />");
 
           return processedSlide;
         }),
@@ -169,7 +172,7 @@ export function Presentation({ presentation }: PresentationProps) {
         <Button
           variant="ghost"
           onClick={() => router.push("/slides")}
-          className="text-sm"
+          className="text-sm rounded-none"
         >
           Exit
         </Button>
@@ -205,16 +208,18 @@ export function Presentation({ presentation }: PresentationProps) {
       {/* Navigation controls */}
       <div className="p-4 flex justify-between items-center border-t border-[#333]">
         <Button
-          variant="outline"
+          variant="secondary"
           onClick={previousSlide}
           disabled={currentSlide === 0}
+          className="rounded-none"
         >
           Previous
         </Button>
         <Button
-          variant="outline"
+          variant="secondary"
           onClick={nextSlide}
           disabled={currentSlide === slides.length - 1}
+          className="rounded-none"
         >
           Next
         </Button>
