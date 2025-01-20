@@ -99,13 +99,17 @@ For more details about my background, check out my application:
 ---
 
 <div style="max-width: 800px; margin: auto; padding: 20px;">
-  <h1 style="font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 40px;">how good dev tooling looks like</h1>
+  <h1 style="font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 40px;">what good dev tooling looks like</h1>
   <div style="font-size: 1.2rem; line-height: 1.6; text-align: left;">
     <pre>
-      echo "plz fund good tools" | cowsay -f alpaca | lolcat
+        curl -s "https://jsonplaceholder.typicode.com/posts" | jq 'map(select(.userId == 1)) | .[0:5] | .[].title
     </pre>
+    <p style="font-size: 1rem; margin-bottom: 20px; text-align: center;">
+         <span style="font-weight: bold;">Workflow:</span>
+         fetches data → filters user → selects first 5 posts → extracts title
+       </p>
     <img
-      src="/slides/da_application/alpaca-output.png"
+      src="/slides/da_application/cli-example.png"
       alt="Alpaca Output"
       style="width: 100%; max-width: 800px; height: auto;"
     />
@@ -117,24 +121,30 @@ For more details about my background, check out my application:
 <div style="margin: auto; padding: 20px; width: 100%; max-width: 1200px;">
   <h1 style="font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 40px;">less extreme examples</h1>
   <div style="width: 100%; max-width: 1200px;display: flex; flex-direction: row; gap: 40px; align-items: center; justify-content: space-between;">
-    <div style="text-align: center; flex: 1;">
+    <div style="text-align: center; flex: 1; align-self:start;">
       <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 10px;">clerk.com</p>
+      <p style="font-size: 1rem; margin-bottom: 6px;">amazing dx</p>
+      <p style="font-size: 1rem; margin-bottom: 6px;">not open :(</p>
       <img
         src="/slides/da_application/clerk-sign-in.webp"
         alt="Clerk Sign-In"
         style="width: 100%; min-width: 250px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
       />
     </div>
-    <div style="text-align: center; flex: 1;">
+    <div style="text-align: center; flex: 1; align-self:start;">
       <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 10px;">posthog.com</p>
+      <p style="font-size: 1rem; margin-bottom: 6px;">easy to integrate</p>
+      <p style="font-size: 1rem; margin-bottom: 6px;">mostly open</p>
       <img
         src="/slides/da_application/posthog.png"
         alt="PostHog Analytics"
         style="width: 100%; min-width: 400px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
       />
     </div>
-    <div style="text-align: center; flex: 1;">
+    <div style="text-align: center; flex: 1; align-self:start;">
       <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 10px;">onchainkit.xyz</p>
+      <p style="font-size: 1rem; margin-bottom: 6px;">easy to integrate</p>
+      <p style="font-size: 1rem; margin-bottom: 6px;">closed backend :(</p>
       <img
         src="/slides/da_application/onchainkit.png"
         alt="OnchainKit Interface"
