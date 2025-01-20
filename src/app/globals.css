@@ -107,7 +107,7 @@
 }
 
 .markdown-content {
-    @apply text-white px-8 max-w-4xl mx-auto text-center; /* Center all text */
+    @apply text-white px-8 max-w-6xl mx-auto text-center; /* Center all text */
 }
 
 /* Headings */
