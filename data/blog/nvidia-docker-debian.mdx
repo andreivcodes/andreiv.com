@@ -93,3 +93,57 @@ If you encounter any issues:
 ## Conclusion
 
 You now have a Debian system configured to run Docker containers with NVIDIA GPU support. This setup allows you to leverage your GPU's power in containerized applications, perfect for video encoding, AI, and other GPU-intensive tasks.
+
+
+## Extra
+
+```yaml
+services:
+  ollama:
+    volumes:
+      - ./ollama:/root/.ollama
+    container_name: ollama
+    pull_policy: always
+    tty: true
+    restart: always
+    image: ollama/ollama:latest
+    ports:
+      - 7869:11434
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+    networks:
+      - ollama-docker
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  ollama-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: ollama-webui
+    volumes:
+      - ./ollama_web:/app/backend/data
+    depends_on:
+      - ollama
+    ports:
+      - 8080:8080
+    environment: # https://docs.openwebui.com/getting-started/env-configuration#default_models
+      - OLLAMA_BASE_URLS=http://host.docker.internal:7869 #comma separated ollama hosts
+      - ENV=prod
+      - WEBUI_NAME=your.domain.com
+      - WEBUI_AUTH=True
+      - WEBUI_URL=http://localhost:8080
+      - WEBUI_SECRET_KEY=t0p-s33333cr33333t
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    restart: always
+    networks:
+      - ollama-docker
+
+networks:
+  ollama-docker:
+    external: false
+```
