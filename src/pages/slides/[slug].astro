@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 const { presentation } = Astro.props;
 
 const title = `${presentation.data.title} - Andrei Voinea`;
-const description = `Presentation: ${presentation.data.title}`;
+const description = presentation.data.description || `Presentation: ${presentation.data.title}`;
 
 // Prepare the presentation data in the format expected by the component
 const presentationData = {
@@ -26,5 +26,16 @@ const presentationData = {
 ---
 
 <BaseLayout title={title} description={description}>
-  <Presentation presentation={presentationData} client:only="react" />
+  <div class="min-h-screen">
+    <noscript>
+      <div class="flex items-center justify-center h-screen">
+        <p class="text-xl">JavaScript is required to view this presentation.</p>
+      </div>
+    </noscript>
+    <Presentation presentation={presentationData} client:load>
+      <div class="flex items-center justify-center h-screen">
+        <p class="text-xl">Loading presentation...</p>
+      </div>
+    </Presentation>
+  </div>
 </BaseLayout>

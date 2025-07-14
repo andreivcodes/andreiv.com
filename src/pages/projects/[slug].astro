@@ -3,10 +3,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import { getCollection } from 'astro:content';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { GithubIcon } from '@/components/icons/GithubIcon';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, ExternalLink, Calendar } from 'lucide-react';
+import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -26,62 +26,126 @@ const description = project.data.shortDescription;
 <BaseLayout title={title} description={description}>
   <div class="min-h-screen flex flex-col">
     <Header />
-    <main class="flex-1 flex justify-center">
-      <article class="flex w-full max-w-3xl h-full flex-col p-4 md:p-8 gap-8">
-        <div class="flex items-center gap-4 mb-4">
-          <a href="/projects">
-            <Button variant="ghost" size="icon">
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
+    <main class="flex-1">
+      <div class="max-w-4xl mx-auto px-4 md:px-8">
+        {/* Breadcrumb navigation */}
+        <nav class="py-8">
+          <a href="/projects" class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group">
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+            <span>Back to all projects</span>
           </a>
-          <span class="text-sm text-muted-foreground">Back to Projects</span>
-        </div>
+        </nav>
 
-        <header class="mb-8">
-          <h1 class="text-4xl font-bold mb-4">{project.data.name}</h1>
-          <p class="text-lg text-muted-foreground mb-4">{project.data.shortDescription}</p>
+        <article>
+          {/* Hero Section with Featured Image */}
+          {project.data.featuredImage && (
+            <div class="aspect-video rounded-lg overflow-hidden mb-12 bg-muted">
+              <img 
+                src={project.data.featuredImage} 
+                alt={`${project.data.name} preview`}
+                class="w-full h-full object-cover"
+              />
+            </div>
+          )}
+
+          {/* Project Header */}
+          <header class="mb-12 pb-8 border-b">
+            <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">{project.data.name}</h1>
+            
+            {/* Meta Information */}
+            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+              <Calendar className="h-4 w-4" />
+              <span>{project.data.date}</span>
+            </div>
+            
+            {/* Description */}
+            <p class="text-lg text-muted-foreground leading-relaxed mb-8">
+              {project.data.shortDescription}
+            </p>
+            
+            {/* Tech Stack */}
+            <div class="mb-8">
+              <h3 class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">Tech Stack</h3>
+              <div class="flex flex-wrap gap-2">
+                {project.data.stackPrimary?.map((tech) => (
+                  <Badge variant="default" className="text-sm py-1 px-3 rounded-full pointer-events-none">
+                    {tech}
+                  </Badge>
+                ))}
+                {project.data.stackSecondary?.map((tech) => (
+                  <Badge variant="secondary" className="text-sm py-1 px-3 rounded-full pointer-events-none">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div class="flex flex-wrap gap-4">
+              {project.data.url && (
+                <a 
+                  href={project.data.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <Button size="default" className="gap-2">
+                    <ExternalLink className="h-4 w-4" />
+                    View Live Demo
+                  </Button>
+                </a>
+              )}
+              {project.data.repository && (
+                <a 
+                  href={project.data.repository} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="outline" size="default" className="gap-2">
+                    <GitHubLogoIcon className="h-4 w-4" />
+                    View Source Code
+                  </Button>
+                </a>
+              )}
+            </div>
+          </header>
+
+          {/* Project Content */}
+          <div class="max-w-none mb-16 
+            [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mb-4 [&>h2]:mt-8
+            [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:mb-3 [&>h3]:mt-6
+            [&>p]:mb-4 [&>p]:leading-relaxed
+            [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6
+            [&>li]:mb-2
+            [&>pre]:bg-muted [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-4
+            [&>code]:bg-muted [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>code]:font-mono
+            [&>pre>code]:bg-transparent [&>pre>code]:p-0
+            [&>img]:rounded-lg [&>img]:my-6
+            [&>a]:text-primary [&>a]:underline [&>a]:underline-offset-2 [&>a:hover]:opacity-80">
+            <Content />
+          </div>
           
-          <div class="flex flex-wrap gap-2 mb-4">
-            {project.data.stackPrimary?.map((tech) => (
-              <Badge variant="default">{tech}</Badge>
-            ))}
-            {project.data.stackSecondary?.map((tech) => (
-              <Badge variant="secondary">{tech}</Badge>
-            ))}
-          </div>
-
-          <div class="flex gap-4">
-            {project.data.url && (
-              <a 
-                href={project.data.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <Button variant="outline" size="sm">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Live Demo
-                </Button>
+          {/* Project Footer */}
+          <footer class="mt-12 mb-16 pt-8 border-t">
+            <div class="flex justify-between items-center">
+              <a href="/projects" class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group">
+                <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                <span>Back to all projects</span>
               </a>
-            )}
-            {project.data.repository && (
-              <a 
-                href={project.data.repository} 
-                target="_blank" 
-                rel="noopener noreferrer"
+              
+              <button 
+                onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+                class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
-                <Button variant="outline" size="sm">
-                  <GithubIcon className="h-4 w-4 mr-2" />
-                  Source Code
-                </Button>
-              </a>
-            )}
-          </div>
-        </header>
-
-        <div class="prose prose-neutral max-w-none">
-          <Content />
-        </div>
-      </article>
+                <span>Back to top</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-y-1 transition-transform">
+                  <line x1="12" x2="12" y1="19" y2="5"/>
+                  <polyline points="5 12 12 5 19 12"/>
+                </svg>
+              </button>
+            </div>
+          </footer>
+        </article>
+      </div>
     </main>
     <Footer />
   </div>

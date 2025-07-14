@@ -2,8 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import AboutLong from '@/components/about/AboutLong.astro';
-import Skills from '@/components/about/Skills.astro';
+import AboutCombined from '@/components/about/AboutCombined.astro';
 import Professional from '@/components/about/Professional.astro';
 import Education from '@/components/about/Education.astro';
 import MobileTimelineTabs from '@/components/about/MobileTimelineTabs.astro';
@@ -16,9 +15,9 @@ const description = "Learn more about Andrei Voinea, a software engineer passion
     <Header />
     <main class="flex-1 flex justify-center">
       <div class="flex w-full max-w-7xl h-full flex-col p-2 md:p-8 gap-12 md:gap-24">
-        <div class="flex flex-col md:flex-row">
-          <AboutLong />
-          <Skills />
+        <!-- Combined About and Skills card spanning full width -->
+        <div class="w-full">
+          <AboutCombined />
         </div>
 
         <!-- Mobile view with tabs -->

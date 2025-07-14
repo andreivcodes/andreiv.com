@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -27,8 +26,10 @@ export function Presentation({ presentation }: PresentationProps) {
   const [slides, setSlides] = useState<string[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [scale, setScale] = useState(1);
+  const [showControls, setShowControls] = useState(true);
   const slideRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Initialize mermaid
   useEffect(() => {
@@ -167,67 +168,148 @@ export function Presentation({ presentation }: PresentationProps) {
     }
   };
 
+  // Auto-hide controls
+  useEffect(() => {
+    const handleMouseMove = () => {
+      setShowControls(true);
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+      controlsTimeoutRef.current = setTimeout(() => {
+        setShowControls(false);
+      }, 3000);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, []);
+
   if (!slides.length) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="fixed inset-0 bg-background text-foreground flex flex-col">
-      {/* Header */}
-      <div className="p-4 flex justify-between items-center border-b border-border">
-        <Button
-          variant="ghost"
+    <div className="fixed inset-0 bg-background text-foreground flex flex-col cursor-none">
+      {/* Header - minimal and auto-hiding */}
+      <div 
+        className={`absolute top-0 left-0 right-0 z-20 p-6 flex justify-between items-center transition-opacity duration-300 ${
+          showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <button
           onClick={() => window.location.href = "/slides"}
-          className="text-sm"
+          className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
         >
-          Exit
-        </Button>
-        <div className="text-sm text-muted-foreground">
+          ← Exit
+        </button>
+        <div className="text-xs font-mono text-muted-foreground/60">
           {currentSlide + 1} / {slides.length}
         </div>
       </div>
 
-      {/* Main content */}
+      {/* Main content - full screen */}
       <div
         ref={containerRef}
-        className="flex-1 overflow-hidden relative bg-background flex items-center justify-center px-16"
+        className="flex-1 overflow-hidden relative bg-background flex items-center justify-center"
+        onClick={(e) => {
+          // Click on left half goes back, right half goes forward
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const width = rect.width;
+          
+          if (x < width / 2) {
+            previousSlide();
+          } else {
+            nextSlide();
+          }
+        }}
       >
         <div
           ref={slideRef}
           style={{
             transform: `scale(${scale})`,
             transformOrigin: "center",
-            width: "100%", // Full width
-            height: "700px", // Fixed height
+            width: "100%",
+            height: "700px",
           }}
-          className="relative flex items-center justify-center"
+          className="relative flex items-center justify-center px-20"
         >
           <div className="w-full overflow-hidden">
             <div
-              className="markdown-content w-full"
+              className="markdown-content presentation-mode w-full"
               dangerouslySetInnerHTML={{ __html: slides[currentSlide] }}
             />
           </div>
         </div>
+        
+        {/* Subtle click zones indicator */}
+        <div className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
+          showControls ? 'opacity-100' : 'opacity-0'
+        }`}>
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 p-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-muted-foreground/30">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 p-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-muted-foreground/30">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
       </div>
 
-      {/* Navigation controls */}
-      <div className="p-4 flex justify-between items-center border-t border-border">
-        <Button
-          variant="secondary"
-          onClick={previousSlide}
-          disabled={currentSlide === 0}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={nextSlide}
-          disabled={currentSlide === slides.length - 1}
-        >
-          Next
-        </Button>
+      {/* Bottom navigation - minimal and auto-hiding */}
+      <div 
+        className={`absolute bottom-0 left-0 right-0 z-20 p-6 transition-opacity duration-300 ${
+          showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="max-w-2xl mx-auto flex items-center justify-center gap-2">
+          {/* Progress dots */}
+          <div className="flex gap-1.5">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                  index === currentSlide 
+                    ? 'w-8 bg-primary' 
+                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
+      
+      {/* Custom cursor that shows on mouse move */}
+      <div 
+        className={`fixed w-6 h-6 rounded-full bg-primary/20 pointer-events-none z-50 transition-opacity duration-150 ${
+          showControls ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{
+          transform: 'translate(-50%, -50%)',
+          left: '50%',
+          top: '50%'
+        }}
+        ref={(el) => {
+          if (el) {
+            const handleMouseMove = (e: MouseEvent) => {
+              el.style.left = `${e.clientX}px`;
+              el.style.top = `${e.clientY}px`;
+            };
+            window.addEventListener('mousemove', handleMouseMove);
+            return () => window.removeEventListener('mousemove', handleMouseMove);
+          }
+        }}
+      />
     </div>
   );
 }

@@ -33,6 +33,7 @@ export async function getBlogPosts() {
     slug: post.slug,
     ...post.data,
     wordCount: post.body.split(/\s+/).length,
+    preview: post.body.slice(0, 200).replace(/[#*`\[\]]/g, '').trim() + '...',
   }));
 }
 

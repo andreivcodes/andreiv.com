@@ -37,7 +37,10 @@ const professional = await getProfessional();
                 <div class="text-start text-lg">{experience.role}</div>
               </div>
             </div>
-            <div class="text-sm prose prose-sm max-w-none p-2 md:p-6 pt-0">
+            <div class="text-sm max-w-none p-2 md:p-6 pt-0
+              [&>p]:mb-4 [&>p]:leading-relaxed
+              [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6
+              [&>li]:mb-2">
               <Fragment set:html={experience.content} />
             </div>
           </div>

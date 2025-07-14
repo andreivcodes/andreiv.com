@@ -3,7 +3,7 @@ companyName: "Freelancing"
 companyAbout:
 startDate: "Apr 2024"
 index: 1
-aboutTopPadding: 0
+role: "Freelancer"
 ---
 
 Embracing the entrepreneurial path.

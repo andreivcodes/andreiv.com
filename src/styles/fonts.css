@@ -1,0 +1,17 @@
+/* Import Geist Sans Variable Font */
+@font-face {
+  font-family: "Geist Sans";
+  src: url("/fonts/GeistVF.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Import Geist Mono Variable Font */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMonoVF.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

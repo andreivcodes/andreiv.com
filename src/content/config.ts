@@ -16,6 +16,7 @@ const projects = defineCollection({
     name: z.string(),
     shortDescription: z.string(),
     date: z.string(),
+    featuredImage: z.string().optional(),
     stackPrimary: z.array(z.string()).optional(),
     stackSecondary: z.array(z.string()).optional(),
     url: z.string().url().optional(),
@@ -54,6 +55,7 @@ const slides = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.string(),
+    description: z.string().optional(),
   }),
 });
 

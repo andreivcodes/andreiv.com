@@ -1,3 +1,4 @@
+@import "./fonts.css";
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
@@ -422,6 +423,54 @@
 /* Edge label backgrounds */
 .mermaid .edgeLabel > .label {
     @apply bg-background px-1 rounded;
+}
+
+/* Presentation mode styles */
+.markdown-content.presentation-mode {
+  font-size: 1.5rem;
+  line-height: 1.8;
+}
+
+.markdown-content.presentation-mode h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.markdown-content.presentation-mode h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content.presentation-mode h3 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+}
+
+.markdown-content.presentation-mode p {
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content.presentation-mode ul,
+.markdown-content.presentation-mode ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+.markdown-content.presentation-mode li {
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content.presentation-mode pre {
+  font-size: 1.1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content.presentation-mode code {
+  font-size: 0.9em;
 }
 
 :root {

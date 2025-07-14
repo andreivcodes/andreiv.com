@@ -1,6 +1,7 @@
 ---
 title: "DA Application"
 date: "2025-1-20"
+description: "Application for Arbitrum DAO Domain Allocator Offerings Grant Program"
 ---
 
 # I'm Andrei

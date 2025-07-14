@@ -3,10 +3,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import { getPresentations } from '@/lib/content';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Calendar, Presentation, ArrowRight } from 'lucide-react';
 
-const title = "Presentations - Andrei Voinea";
-const description = "Slides and presentations by Andrei Voinea on various technical topics.";
+const title = "Slides - Andrei Voinea";
+const description = "Technical presentations and workshops on software engineering topics.";
 
 const presentations = await getPresentations();
 const sortedPresentations = presentations.sort((a, b) => 
@@ -17,27 +18,61 @@ const sortedPresentations = presentations.sort((a, b) =>
 <BaseLayout title={title} description={description}>
   <div class="min-h-screen flex flex-col">
     <Header />
-    <main class="flex-1 flex justify-center">
-      <div class="flex w-full max-w-3xl h-full flex-col p-4 md:p-8 gap-8">
-        <h1 class="text-3xl font-bold mb-8">Presentations</h1>
+    <main class="flex-1 bg-background">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        {/* Header Section */}
+        <div class="text-center mb-16">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">Slides</h1>
+          <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Technical presentations and workshops on software engineering, blockchain, and modern development practices.
+          </p>
+        </div>
         
-        <div class="flex flex-col gap-6">
-          {sortedPresentations.map((presentation) => (
-            <a href={`/slides/${presentation.slug}`}>
-              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardHeader>
-                  <CardTitle className="text-xl">{presentation.title}</CardTitle>
-                  <p class="text-sm text-muted-foreground">
-                    {new Date(presentation.date).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
-                  </p>
-                </CardHeader>
-              </Card>
-            </a>
-          ))}
+        {/* Presentations Grid */}
+        <div class="max-w-4xl mx-auto">
+          <div class="grid gap-6 md:gap-8">
+            {sortedPresentations.map((presentation) => (
+              <a 
+                href={`/slides/${presentation.slug}`}
+                class="group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg block"
+              >
+                <Card className="hover:shadow-lg hover:border-primary/50 transition-all duration-300 cursor-pointer overflow-hidden h-full">
+                  <CardHeader className="pb-4">
+                    <div class="flex items-start justify-between gap-4">
+                      <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3">
+                          <div class="p-2 bg-primary/10 rounded-lg">
+                            <Presentation className="h-5 w-5 text-primary" />
+                          </div>
+                          <CardTitle className="text-2xl group-hover:text-primary transition-colors">
+                            {presentation.title}
+                          </CardTitle>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Calendar className="h-4 w-4" />
+                          <time datetime={presentation.date}>
+                            {new Date(presentation.date).toLocaleDateString('en-US', { 
+                              year: 'numeric', 
+                              month: 'long', 
+                              day: 'numeric' 
+                            })}
+                          </time>
+                        </div>
+                      </div>
+                      <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 mt-2" />
+                    </div>
+                  </CardHeader>
+                  {presentation.description && (
+                    <CardContent>
+                      <p class="text-muted-foreground leading-relaxed">
+                        {presentation.description}
+                      </p>
+                    </CardContent>
+                  )}
+                </Card>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </main>
