@@ -1,0 +1,46 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { getPresentations } from '@/lib/content';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+
+const title = "Presentations - Andrei Voinea";
+const description = "Slides and presentations by Andrei Voinea on various technical topics.";
+
+const presentations = await getPresentations();
+const sortedPresentations = presentations.sort((a, b) => 
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1 flex justify-center">
+      <div class="flex w-full max-w-3xl h-full flex-col p-4 md:p-8 gap-8">
+        <h1 class="text-3xl font-bold mb-8">Presentations</h1>
+        
+        <div class="flex flex-col gap-6">
+          {sortedPresentations.map((presentation) => (
+            <a href={`/slides/${presentation.slug}`}>
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                <CardHeader>
+                  <CardTitle className="text-xl">{presentation.title}</CardTitle>
+                  <p class="text-sm text-muted-foreground">
+                    {new Date(presentation.date).toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </p>
+                </CardHeader>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

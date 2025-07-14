@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { Presentation } from '@/components/presentation';
+
+export async function getStaticPaths() {
+  const presentations = await getCollection('slides');
+  return presentations.map((presentation) => ({
+    params: { slug: presentation.slug },
+    props: { presentation },
+  }));
+}
+
+const { presentation } = Astro.props;
+
+const title = `${presentation.data.title} - Andrei Voinea`;
+const description = `Presentation: ${presentation.data.title}`;
+
+// Prepare the presentation data in the format expected by the component
+const presentationData = {
+  slug: presentation.slug,
+  title: presentation.data.title,
+  date: presentation.data.date,
+  content: presentation.body,
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Presentation presentation={presentationData} client:only="react" />
+</BaseLayout>

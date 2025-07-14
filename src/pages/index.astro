@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { AboutShort } from '@/components/about-short';
+
+const title = "Andrei Voinea - Software Engineer";
+const description = "Personal website of Andrei Voinea, a software engineer from Romania.";
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1 flex w-full h-full flex-col items-center justify-evenly py-8 gap-4">
+      <div class="flex flex-col gap-2">
+        <AboutShort client:load />
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

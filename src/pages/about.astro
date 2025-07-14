@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import AboutLong from '@/components/about/AboutLong.astro';
+import Skills from '@/components/about/Skills.astro';
+import Professional from '@/components/about/Professional.astro';
+import Education from '@/components/about/Education.astro';
+const title = "About - Andrei Voinea";
+const description = "Learn more about Andrei Voinea, a software engineer passionate about building in the open.";
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1 flex justify-center">
+      <div class="flex w-full max-w-7xl h-full flex-col p-2 md:p-8 gap-12 md:gap-24">
+        <div class="flex flex-col md:flex-row">
+          <AboutLong />
+          <Skills />
+        </div>
+
+        <!-- Mobile view -->
+        <div class="md:hidden flex flex-col gap-12">
+          <Professional withTitle={true} />
+          <Education withTitle={true} />
+        </div>
+        
+        <!-- Desktop view with timeline -->
+        <div class="hidden md:grid grid-flow-col auto-cols-auto gap-8">
+          <Professional withTitle={true} />
+          <div class="inset-y-0 bg-current w-px"></div>
+          <Education withTitle={true} />
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

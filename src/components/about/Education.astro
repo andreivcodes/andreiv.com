@@ -1,0 +1,52 @@
+---
+import { getEducation } from '@/lib/content';
+
+interface Props {
+  withTitle: boolean;
+}
+
+const { withTitle } = Astro.props;
+const education = await getEducation();
+
+// Sort education chronologically with latest on top
+const sortedEducation = education.sort((a, b) => {
+  // Parse years from startDate for chronological sorting
+  const getYear = (date: string) => {
+    const match = date.match(/\d{4}/);
+    return match ? parseInt(match[0]) : 0;
+  };
+  return getYear(b.startDate) - getYear(a.startDate);
+});
+---
+
+<div class="flex flex-col gap-8">
+  {withTitle && (
+    <div class="text-2xl font-bold mb-4 text-center md:text-left">
+      Education
+    </div>
+  )}
+  <div>
+    {sortedEducation.map((edu) => (
+      <div class="w-full flex flex-col items-start gap-2 mb-8">
+        <div class="text-sm">
+          {edu.startDate === edu.endDate ? edu.startDate : `${edu.startDate} - ${edu.endDate || "Present"}`}
+        </div>
+        <div class="-ml-2 md:-ml-8 w-32 h-[1px] bg-current" />
+        <div class="w-full shadow-none md:shadow-sm border-0 md:border rounded-lg bg-card text-card-foreground">
+          <div class="w-full p-2 md:p-6">
+            <div class="w-full flex flex-col gap-2">
+              <div class="font-semibold">{edu.institution}</div>
+              <div class="text-start text-lg">{edu.degree} in {edu.field}</div>
+              {edu.description && (
+                <div class="text-sm opacity-80 mt-2">{edu.description}</div>
+              )}
+            </div>
+          </div>
+          <div class="text-sm prose prose-sm max-w-none p-2 md:p-6 pt-0">
+            <Fragment set:html={edu.content} />
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

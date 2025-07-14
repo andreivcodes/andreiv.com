@@ -1,0 +1,47 @@
+---
+import { getProfessional } from '@/lib/content';
+
+interface Props {
+  withTitle: boolean;
+}
+
+const { withTitle } = Astro.props;
+const professional = await getProfessional();
+---
+
+<div class="flex flex-col gap-8">
+  {withTitle && (
+    <div class="text-2xl font-bold mb-4 text-center md:text-left">
+      Professional Experience
+    </div>
+  )}
+  <div>
+    {professional
+      .sort((a, b) => a.index - b.index)
+      .map((experience) => (
+        <div class="w-full flex flex-col items-end gap-2 mb-8">
+          <div class="text-sm">
+            {experience.startDate} -{" "}
+            {experience.endDate ? experience.endDate : "now"}
+          </div>
+          <div class="-mr-2 md:-mr-8 w-32 h-[1px] bg-current" />
+          <div class="w-full shadow-none md:shadow-sm border-0 md:border rounded-lg bg-card text-card-foreground">
+            <div class="w-full p-2 md:p-6">
+              <div class="w-full flex flex-col gap-2">
+                <div class="w-full flex flex-row justify-between gap-2 align-bottom">
+                  <div class="font-semibold">{experience.companyName}</div>
+                  <div class="hidden md:block text-xs font-mono font-extralight">
+                    {experience.companyAbout}
+                  </div>
+                </div>
+                <div class="text-start text-lg">{experience.role}</div>
+              </div>
+            </div>
+            <div class="text-sm prose prose-sm max-w-none p-2 md:p-6 pt-0">
+              <Fragment set:html={experience.content} />
+            </div>
+          </div>
+        </div>
+      ))}
+  </div>
+</div>

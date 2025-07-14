@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { getProjects } from '@/lib/content';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ExternalLink } from 'lucide-react';
+import { GithubIcon } from '@/components/icons/GithubIcon';
+
+const title = "Projects - Andrei Voinea";
+const description = "Open source projects and side projects built by Andrei Voinea.";
+
+const projects = await getProjects();
+const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 999));
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1 flex justify-center">
+      <div class="flex w-full max-w-5xl h-full flex-col p-4 md:p-8 gap-8">
+        <h1 class="text-3xl font-bold mb-8">Projects</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {sortedProjects.map((project) => (
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div class="flex justify-between items-start">
+                  <CardTitle className="text-xl">{project.name}</CardTitle>
+                  <span class="text-sm text-muted-foreground">{project.date}</span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p class="text-muted-foreground mb-4">{project.shortDescription}</p>
+                
+                <div class="flex flex-wrap gap-1">
+                  {project.stackPrimary?.map((tech) => (
+                    <Badge variant="default" className="text-xs">
+                      {tech}
+                    </Badge>
+                  ))}
+                  {project.stackSecondary?.map((tech) => (
+                    <Badge variant="secondary" className="text-xs">
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="flex gap-4">
+                {project.url && (
+                  <a 
+                    href={project.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-2 text-sm hover:underline"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Live Demo
+                  </a>
+                )}
+                {project.repository && (
+                  <a 
+                    href={project.repository} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-2 text-sm hover:underline"
+                  >
+                    <GithubIcon className="h-4 w-4" />
+                    Source Code
+                  </a>
+                )}
+                <a 
+                  href={`/projects/${project.slug}`}
+                  class="flex items-center gap-2 text-sm hover:underline ml-auto"
+                >
+                  View Details →
+                </a>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
