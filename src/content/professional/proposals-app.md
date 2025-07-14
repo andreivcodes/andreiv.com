@@ -1,7 +1,7 @@
 ---
 companyName: "Proposals.app"
 companyAbout: "Governance platform for DAOs"
-role: "Software Engineer"
+role: "Technical Cofounder"
 startDate: "Apr 2024"
 index: 2
 ---

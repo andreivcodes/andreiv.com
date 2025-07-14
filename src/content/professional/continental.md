@@ -1,9 +1,9 @@
 ---
-companyName: Continental AG
-companyAbout: Top tier 1 automotive supplier
-role: Senior Engineer
-startDate: Nov 2018
-endDate: Apr 2024
+companyName: "Continental AG"
+companyAbout: "Top tier 1 automotive supplier"
+role: "Senior Engineer"
+startDate: "Nov 2018"
+endDate: "Apr 2024"
 index: 3
 ---
 

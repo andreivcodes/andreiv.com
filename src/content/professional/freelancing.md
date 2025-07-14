@@ -1,8 +1,7 @@
 ---
-companyName: Freelancing
+companyName: "Freelancing"
 companyAbout:
-role: Full Stack Engineer
-startDate: Apr 2024
+startDate: "Apr 2024"
 index: 1
 aboutTopPadding: 0
 ---

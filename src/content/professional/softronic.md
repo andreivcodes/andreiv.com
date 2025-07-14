@@ -1,9 +1,9 @@
 ---
-companyName: Softronic
-companyAbout: Railway OEM
-role: Junior Developer
-startDate: Mar 2016
-endDate: Nov 2018
+companyName: "Softronic"
+companyAbout: "Railway OEM"
+role: "Junior Developer"
+startDate: "Mar 2016"
+endDate: "Nov 2018"
 index: 5
 ---
 

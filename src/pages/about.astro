@@ -6,6 +6,7 @@ import AboutLong from '@/components/about/AboutLong.astro';
 import Skills from '@/components/about/Skills.astro';
 import Professional from '@/components/about/Professional.astro';
 import Education from '@/components/about/Education.astro';
+import MobileTimelineTabs from '@/components/about/MobileTimelineTabs.astro';
 const title = "About - Andrei Voinea";
 const description = "Learn more about Andrei Voinea, a software engineer passionate about building in the open.";
 ---
@@ -20,10 +21,9 @@ const description = "Learn more about Andrei Voinea, a software engineer passion
           <Skills />
         </div>
 
-        <!-- Mobile view -->
-        <div class="md:hidden flex flex-col gap-12">
-          <Professional withTitle={true} />
-          <Education withTitle={true} />
+        <!-- Mobile view with tabs -->
+        <div class="md:hidden">
+          <MobileTimelineTabs />
         </div>
         
         <!-- Desktop view with timeline -->

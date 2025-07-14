@@ -1,9 +1,9 @@
 ---
-companyName: Senate
-companyAbout: Web3 Startup
-role: Cofounder
-startDate: Feb 2022
-endDate: Aug 2023
+companyName: "Senate"
+companyAbout: "Web3 Startup"
+role: "Technical Cofounder"
+startDate: "Feb 2022"
+endDate: "Aug 2023"
 index: 4
 ---
 

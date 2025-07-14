@@ -8,4 +8,4 @@ description: "Faculty of Automation, Computers and Electronics"
 index: 1
 ---
 
-Completed undergraduate studies in Automation and Applied Informatics with focus on embedded systems, control theory, and software engineering.
+Specialized in embedded systems, control theory, and software engineering.

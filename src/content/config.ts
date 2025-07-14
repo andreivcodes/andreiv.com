@@ -29,7 +29,7 @@ const professional = defineCollection({
   schema: z.object({
     companyName: z.string(),
     companyAbout: z.string().optional().nullable(),
-    role: z.string(),
+    role: z.string().optional(),
     startDate: z.string(),
     endDate: z.string().optional(),
     index: z.number(),
