@@ -2,7 +2,6 @@
 title: Proxmox Debian Cloud-Init Template
 short: Create a Debian cloud-init template for easy VM deployment in Proxmox
 date: 2024-09-25
-type: BlogPost
 ---
 
 This guide will walk you through the process of creating a Debian Bookworm cloud-init template in Proxmox, allowing for quick and easy deployment of customized Debian VMs.

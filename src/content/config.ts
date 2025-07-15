@@ -6,7 +6,6 @@ const blog = defineCollection({
     title: z.string(),
     short: z.string(),
     date: z.coerce.date(),
-    type: z.literal("BlogPost"),
   }),
 });
 

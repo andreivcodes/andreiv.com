@@ -2,7 +2,6 @@
 title: NVIDIA GPU Support with Docker on Debian
 short: Complete guide for setting up NVIDIA-enabled containers on Debian
 date: 2024-09-24
-type: BlogPost
 ---
 
 This guide walks you through the process of setting up NVIDIA GPU support for Docker containers on a Debian system.
