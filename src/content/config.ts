@@ -28,7 +28,7 @@ const projects = defineCollection({
 const professional = defineCollection({
   type: "content",
   schema: z.object({
-    companyName: z.string(),
+    companyName: z.string().optional(),
     companyAbout: z.string().optional().nullable(),
     role: z.string().optional(),
     startDate: z.string(),
