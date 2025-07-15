@@ -18,4 +18,4 @@ Designed and operate a high-availability infrastructure across three geographica
 
 <br></br>
 
-Open-sourced the entire codebase and infrastructure playbooks, embodying the philosophy that governance infrastructure should be as decentralized as the DAOs it serves. This enables any DAO to self-host their own instance while maintaining compatibility with the broader ecosystem.
+Open-sourced the entire codebase and infrastructure playbooks, embodying the philosophy that governance infrastructure should be as decentralized as the DAOs it serves. This enables any DAO to self-host their own instance and truly own their governance.

@@ -11,7 +11,7 @@ Transitioned from AUTOSAR software integration to becoming the local debugging e
 
 <br></br>
 
-Led multiple task force teams to analyze and troubleshoot intricate software challenges across the entire ADAS stack, from sensor interfaces to control algorithms. My systematic debugging approach resulted in significant improvements in system reliability and performance, directly impacting vehicle safety.
+Led multiple task force teams to analyze and troubleshoot intricate software challenges across the entire ADAS stack, from detection algorithms to the communication stack. My systematic debugging approach resulted in significant improvements in system reliability and performance, directly impacting vehicle safety.
 
 <br></br>
 

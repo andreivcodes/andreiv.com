@@ -7,7 +7,7 @@ endDate: "Aug 2023"
 index: 4
 ---
 
-As the technical co-founder of Senate, I led the development and management of the entire tech stack powering our product.
+As the technical co-founder of Senate, I led the development and maintenance of the entire tech stack powering our product.
 
 <br></br>
 
