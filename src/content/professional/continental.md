@@ -7,15 +7,15 @@ endDate: "Apr 2024"
 index: 3
 ---
 
-Transitioned from AUTOSAR software integration to local debugging expert in ADAS, specializing in resolving complex issues causing functional safety resets and software hangs.
+Transitioned from AUTOSAR software integration to becoming the local debugging expert for ADAS systems, specializing in resolving complex issues causing functional safety resets and software hangs in automotive embedded systems.
 
 <br></br>
 
-Led task forces to analyze and troubleshoot intricate software challenges, resulting in significant improvements in system reliability and performance.
+Led multiple task force teams to analyze and troubleshoot intricate software challenges across the entire ADAS stack, from sensor interfaces to control algorithms. My systematic debugging approach resulted in significant improvements in system reliability and performance, directly impacting vehicle safety.
 
 <br></br>
 
-Collaborated with cross-functional teams to implement preventive measures, reducing the occurrence of critical software issues and ensuring safe product operation.
+Collaborated with cross-functional teams including hardware engineers, system architects, and safety managers to implement preventive measures and establish debugging best practices. This proactive approach reduced the occurrence of critical software issues and ensured safe product operation in production vehicles.
 
 <br></br>
 
