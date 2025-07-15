@@ -24,11 +24,11 @@ We built proposals.app as a monorepo with five specialized services:
 
 **discourse** (Rust) - Syncs with Discourse forums to track proposal discussions, edits, and community sentiment. Runs full refreshes every 6 hours and catches updates every minute.
 
-**mapper** (Rust) - The brain that groups related content. Uses LLM embeddings to link forum discussions with their corresponding on-chain proposals and Snapshot polls. Also calculates karma scores based on participation.
+**mapper** (Rust) - The brain that groups related content. Uses LLM embeddings to link forum discussions with their corresponding on-chain proposals and Snapshot polls. Also responsible of mapping voter wallets to Discourse users using KarmaHQ API.
 
 **web** (Next.js 15) - The frontend that brings it all together. Subdomain routing gives each DAO their own space (arbitrum.proposals.app, uniswap.proposals.app). Built with React 19, Tailwind v4, and wallet integration via RainbowKit.
 
-**email-service** (Node.js) - Sends notifications for new proposals and ending votes. Respects user preferences per DAO with a 24-hour cooldown to prevent spam.
+**email-service** (Node.js) - Sends notifications for new discussions, new proposals and ending votes. Respects user preferences per DAO with a 24-hour cooldown to prevent spam.
 
 ## Self-Hosted Infrastructure
 
@@ -38,6 +38,7 @@ We run everything on bare metal across three datacenters - two in Romania and on
 - **Consul** for service discovery with WAN federation
 - **Nomad** for container orchestration across all three sites
 - **Tailscale** VPN connecting everything securely
+- **Cloudflared** Zero Trust tunnel for anything that needs to be exposed publicly, like the frontend.
 
 The database layer uses PostgreSQL 17 with Patroni for automatic failover. If the primary database in Romania fails, Germany takes over in about 30 seconds. Each datacenter has its own read replica for local-first performance.
 
@@ -53,12 +54,11 @@ Redis with Sentinel handles our caching layer. pgpool-II does the smart routing 
 
 ## The Impact
 
-Since launching, we've indexed millions of votes and thousands of proposals. DAOs use us for:
+Since launching, we've indexed millions of votes and thousands of proposals. Delegates use us for:
 
 - **Unified proposal tracking** - See forum discussion, Snapshot poll, and on-chain vote in one place
 - **Email notifications** - Never miss important proposals
 - **Delegate insights** - Track voting power and participation
-- **Multi-DAO support** - Switch between DAOs with subdomain routing
 
 We're also building Discourse plugins to bring governance data directly into forums - showing live votes, delegate voting power, and notification signups right where discussions happen.
 
