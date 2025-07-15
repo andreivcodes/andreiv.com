@@ -83,7 +83,3 @@ Site metadata and personal information can be updated in:
 ## License
 
 This project is a personal portfolio website. Feel free to use it as inspiration for your own portfolio.
-
----
-
-Built with ❤️ by [Andrei Voinea](https://andreiv.com)
