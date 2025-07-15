@@ -6,7 +6,7 @@ featuredImage: "/projects/phototailors.com/featured.png"
 stackPrimary: ["nextjs", "typescript", "postgres"]
 stackSecondary: ["satori", "tailwind", "radix ui", "kysely"]
 url: https://phototailors.andreiv.com
-index: 93
+index: 20
 ---
 
 The client came to me with pixel-perfect designs and a clear vision: a photo album configurator with really, REALLY complex configurations. Not just picking a size and color, but configuring essentially everything you can imagine about a photo album - from the grain direction of the linen to the type of adhesive for mounting photos.

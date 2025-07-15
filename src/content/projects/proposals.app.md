@@ -7,7 +7,7 @@ stackPrimary: ["nextjs", "rust", "postgres"]
 stackSecondary: ["consul", "nomad", "patroni", "redis", "typescript", "alloy", "tailwind"]
 url: https://proposals.app
 repository: https://github.com/proposals-app/proposalsapp
-index: 1
+index: 10
 ---
 
 "DAO delegates want to understand proposals efficiently, but proposal information is scattered all over the place." That's how we pitched proposals.app at GovHack Brussels - and won. Together with Paulo Fonseca, we built something that would solve our own frustrations with DAO governance.

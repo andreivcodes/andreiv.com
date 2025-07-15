@@ -7,7 +7,7 @@ stackPrimary: ["nextjs", "typescript", "postgres"]
 stackSecondary: ["puppeteer", "browserless", "docker", "shadcn/ui", "tailwind", "nextauth"]
 url: https://git.show
 repository: https://github.com/andreivcodes/gitshow
-index: 96
+index: 50
 ---
 
 ## The Problem

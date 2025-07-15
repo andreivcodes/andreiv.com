@@ -4,5 +4,5 @@ shortDescription: Native temperature monitoring solution for M1 MacBooks built w
 date: Jun 2021
 stackPrimary: ["react native"]
 repository: https://github.com/andreivcodes/coolm1
-index: 99
+index: 90
 ---

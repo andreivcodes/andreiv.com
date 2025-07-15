@@ -6,5 +6,5 @@ featuredImage: "/projects/developerdao/featured.png"
 stackPrimary: ["react"]
 url: https://code-claim-site-developdao.vercel.app
 repository: https://github.com/Developer-DAO/code-claim-site
-index: 98
+index: 80
 ---

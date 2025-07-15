@@ -7,7 +7,7 @@ stackPrimary: ["astro", "react", "typescript"]
 stackSecondary: ["tailwind v4", "shadcn/ui", "framer-motion", "mermaid", "katex", "proxmox", "dokploy"]
 url: https://andreiv.com
 repository: https://github.com/andreivcodes/andreiv.com
-index: 95
+index: 40
 ---
 
 Every developer eventually builds their own website. It starts simple - just a place to put your name and maybe list some projects. But then it grows into something more personal, something that actually represents how you work and think.

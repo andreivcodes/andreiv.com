@@ -6,7 +6,7 @@ featuredImage: "/projects/ikigon.com/featured.png"
 stackPrimary: ["nextjs", "typescript", "stripe"]
 stackSecondary: ["tailwind", "canvas", "vercel blob", "postmark"]
 url: https://ikigon.andreiv.com
-index: 94
+index: 30
 ---
 
 A client approached me with an unusual idea: what if you could turn a photo into a piece of interactive art? Not just a print, but something physical that people could engage with. The concept was a spiral pattern that could be peeled away to reveal a hidden photograph underneath.

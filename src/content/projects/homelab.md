@@ -1,9 +1,9 @@
 ---
 name: homelab
 shortDescription: Personal infrastructure playground.
-date: Mar 2024
+date: Jun 2022
 featuredImage: "/projects/homelab/featured.png"
 stackPrimary: ["proxmox", "docker"]
 stackSecondary: ["coolify", "zfs"]
-index: 97
+index: 70
 ---
