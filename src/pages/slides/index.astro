@@ -10,7 +10,9 @@ const title = "Slides - Andrei Voinea";
 const description = "Technical presentations and workshops on software engineering topics.";
 
 const presentations = await getPresentations();
-const sortedPresentations = presentations.sort((a, b) => 
+// Filter out presentations without valid dates
+const validPresentations = presentations.filter(p => p.date && p.date.trim() !== '');
+const sortedPresentations = validPresentations.sort((a, b) => 
   new Date(b.date).getTime() - new Date(a.date).getTime()
 );
 ---

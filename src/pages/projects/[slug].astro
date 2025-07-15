@@ -56,6 +56,34 @@ const description = project.data.shortDescription;
             <div class="flex items-center gap-2 text-sm text-muted-foreground mb-6">
               <Calendar className="h-4 w-4" />
               <span>{project.data.date}</span>
+              {project.data.repository && (
+                <>
+                  <span class="mx-2">•</span>
+                  <a 
+                    href={project.data.repository} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                  >
+                    <GitHubLogoIcon className="h-3.5 w-3.5" />
+                    <span>Code</span>
+                  </a>
+                </>
+              )}
+              {project.data.url && (
+                <>
+                  <span class="mx-2">•</span>
+                  <a 
+                    href={project.data.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 text-primary hover:text-primary/80 transition-colors font-medium"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    <span>Demo</span>
+                  </a>
+                </>
+              )}
             </div>
             
             {/* Description */}
@@ -64,7 +92,7 @@ const description = project.data.shortDescription;
             </p>
             
             {/* Tech Stack */}
-            <div class="mb-8">
+            <div>
               <h3 class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">Tech Stack</h3>
               <div class="flex flex-wrap gap-2">
                 {project.data.stackPrimary?.map((tech) => (
@@ -78,34 +106,6 @@ const description = project.data.shortDescription;
                   </Badge>
                 ))}
               </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div class="flex flex-wrap gap-4">
-              {project.data.url && (
-                <a 
-                  href={project.data.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <Button size="default" className="gap-2">
-                    <ExternalLink className="h-4 w-4" />
-                    View Live Demo
-                  </Button>
-                </a>
-              )}
-              {project.data.repository && (
-                <a 
-                  href={project.data.repository} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="outline" size="default" className="gap-2">
-                    <GitHubLogoIcon className="h-4 w-4" />
-                    View Source Code
-                  </Button>
-                </a>
-              )}
             </div>
           </header>
 
