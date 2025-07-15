@@ -2,7 +2,7 @@
 
 A modern, performant personal portfolio and blog built with Astro, showcasing projects, professional experience, and technical writing.
 
-## ✨ Features
+## Features
 
 ### Content Management
 - **Blog System** - Markdown-based technical blog with reading progress, table of contents, and estimated reading time
@@ -17,7 +17,7 @@ A modern, performant personal portfolio and blog built with Astro, showcasing pr
 - **Responsive Design** - Mobile-first approach with tailored layouts
 - **Type Safety** - TypeScript with content collection schemas
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: [Astro](https://astro.build) 5.11.1
 - **UI**: React 19.1.0
@@ -26,7 +26,7 @@ A modern, performant personal portfolio and blog built with Astro, showcasing pr
 - **Fonts**: Geist Sans & Mono
 - **Language**: TypeScript
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
@@ -42,7 +42,7 @@ yarn build
 yarn preview
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -56,7 +56,7 @@ src/
 └── styles/         # Global styles
 ```
 
-## 🎯 Key Commands
+## Key Commands
 
 | Command | Description |
 |---------|-------------|
@@ -65,7 +65,7 @@ src/
 | `yarn preview` | Preview production build |
 | `yarn check` | Run type checking |
 
-## 📝 Content Management
+## Content Management
 
 Add content by creating markdown files in the appropriate directories:
 
@@ -75,12 +75,12 @@ Add content by creating markdown files in the appropriate directories:
 
 Each content type has a defined schema in `src/content/config.ts`.
 
-## 🔧 Configuration
+## Configuration
 
 Site metadata and personal information can be updated in:
 - `src/lib/personalInfo.ts` - Personal details and skills
 
-## 📄 License
+## License
 
 This project is a personal portfolio website. Feel free to use it as inspiration for your own portfolio.
 
