@@ -17,9 +17,9 @@ They had everything figured out - the physical product, the manufacturing proces
 
 The technical requirements were interesting:
 - Generate artistic spiral patterns from any uploaded photo
+- Make it interactive, giving the user a glimpse of how the final product will look
 - Make it look good enough that people would pay €130 for it
 - Handle the entire e-commerce flow from customization to payment
-- Keep the production details abstract (the client handled manufacturing)
 
 The hardest part was actually processing the Archimedean spiral with smooth animations. It worked beautifully on my high-end desktop, but the moment I opened it on a mobile phone, I knew we were in trouble. The canvas operations were too heavy - phones would freeze trying to render thousands of spiral points in real-time.
 

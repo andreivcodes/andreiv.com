@@ -28,7 +28,7 @@ Every choice affects what's available next. Pick Instax Mini? You get different 
 
 ## Technical Implementation
 
-The most challenging part was the real-time cover rendering. Using Next.js's ImageResponse API (built on Satori), I created a server-side rendering engine that generates album covers on the fly. Each text effect - metallic foil, UV printing, laser engraving - is rendered differently based on the selected material.
+The most challenging part was the real-time cover rendering. First, it was too heavy to run on the client side. Second, the website rendering was supposed to be used for the actual album cover print as well, preferably in vector format. Using Next.js's ImageResponse API (built on Satori), I created a server-side rendering engine that generates album covers on the fly. Each text effect - metallic foil, UV printing, laser engraving - is rendered differently based on the selected material.
 
 State management was another challenge. With hundreds of possible combinations, I used URL-based state with nuqs, turning the entire configuration into a shareable link. The multi-step wizard guides users through the complexity without overwhelming them.
 

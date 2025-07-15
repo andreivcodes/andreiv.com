@@ -12,11 +12,11 @@ index: 95
 
 Every developer eventually builds their own website. It starts simple - just a place to put your name and maybe list some projects. But then it grows into something more personal, something that actually represents how you work and think.
 
-Mine started the same way. I needed somewhere to point people when they asked about my work. A living CV that I could update without sending new PDFs around. But as I kept building, I realized I was creating something more useful - a personal infrastructure.
+Mine started the same way. I needed somewhere to point people when they asked about my work. A living resume that I could update without sending new PDFs around.
 
 ## The Evolution
 
-First, it was just static pages. Then I started writing things down - technical notes, things I learned, stuff I knew I'd forget. Not really blog posts, more like a public notebook for future me to reference.
+First, it was contact static pages. Then I started writing things down - technical notes, things I learned, stuff I knew I'd forget. Not really blog posts, more like a public notebook for future me to reference.
 
 When I started getting invited to give talks, I faced the eternal presenter's dilemma: PowerPoint on a USB stick? Google Slides and pray for wifi? Instead, I built a presentation system right into the site. Now I write my slides in markdown, with full support for code blocks, diagrams, and math. I can present from any browser, and the slides live at URLs I can share afterwards.
 
@@ -31,5 +31,3 @@ The content lives in markdown files with frontmatter. No CMS, no database for co
 ## Never Finished
 
 This website is never done. There's always something to tweak, some new experiment to try, some component to rewrite.
-
-That's the real beauty of a personal website - it's not a product with a spec. It's a playground, a workshop, a reflection of how you think about building things. Mine just happens to live under my desk.

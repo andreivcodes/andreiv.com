@@ -12,7 +12,7 @@ index: 96
 
 ## The Problem
 
-Developers spend a lot of time building their GitHub contribution graphs, but these green squares stay hidden on GitHub. Meanwhile, we're all trying to build our personal brand on Twitter/X.
+As most developers, I am very proud of my Github contributions graph. So proud in fact, that I wanted to have it more visible, as a public statement of my passion for programming.
 
 I found [github-contributions.vercel.app](https://github-contributions.vercel.app), which generates nice contribution graph images. Thanks to them open sourcing it, I got inspired to take it further - what if your Twitter banner could update automatically with your latest contributions?
 
@@ -22,13 +22,11 @@ git.show automatically updates your Twitter banner with your GitHub contribution
 
 ### Getting GitHub Contribution Data
 
-GitHub doesn't have an API for contribution graphs, so I had to scrape them. Using Puppeteer:
+GitHub doesn't have an API for contribution graphs, so I had to scrape them. Using Puppeteer and Browserless:
 
 - Navigate to GitHub profiles
 - Extract data from the SVG elements
 - Parse contribution counts and dates
-
-The scraper needs to be resilient since GitHub can change their UI anytime.
 
 ### Linking GitHub and Twitter Accounts
 
