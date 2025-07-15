@@ -49,16 +49,20 @@ const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 99
                 <div class="relative flex flex-col xl:grid xl:grid-cols-2 bg-card rounded-lg border overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/50">
                     {/* Image Section - On top for mobile, right for desktop */}
                     <div class="relative overflow-hidden xl:order-2">
-                      <div class="aspect-[16/9] w-full bg-muted/20">
+                      <div class="aspect-[16/9] w-full bg-muted/20 relative">
                       {project.featuredImage ? (
-                        <img
-                          src={project.featuredImage}
-                          alt={`${project.name} preview`}
-                          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          loading="eager"
-                          width="800"
-                          height="450"
-                        />
+                        <>
+                          <img
+                            src={project.featuredImage}
+                            alt={`${project.name} preview`}
+                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            loading="eager"
+                            width="800"
+                            height="450"
+                          />
+                          {/* Black gradient overlay on hover */}
+                          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </>
                       ) : (
                         <div class="w-full h-full bg-gradient-to-br from-muted via-muted/80 to-background flex items-center justify-center">
                           <div class="text-7xl font-bold text-muted-foreground/10">
