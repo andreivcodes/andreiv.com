@@ -7,7 +7,7 @@ endDate: "Jan 2025"
 index: 1
 ---
 
-Joined the marketing team as a developer focused on improving developer experience for the Spacemesh protocol. Worked on various frontend projects and internal tools to enhance the ecosystem's usability.
+Joined the marketing team as a part time developer focused on improving developer experience for the Spacemesh protocol. Worked on various frontend projects and internal tools to enhance the ecosystem's usability.
 
 <br></br>
 
