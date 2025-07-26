@@ -12,7 +12,7 @@ index: 50
 
 ## The Problem
 
-As most developers, I am very proud of my Github contributions graph. So proud in fact, that I wanted to have it more visible, as a public statement of my passion for programming.
+Like many developers, I’ve always appreciated the visual feedback of GitHub’s contributions graph. It’s a simple but effective way to reflect consistent effort and engagement with coding.
 
 I found [github-contributions.vercel.app](https://github-contributions.vercel.app), which generates nice contribution graph images. Thanks to them open sourcing it, I got inspired to take it further - what if your Twitter banner could update automatically with your latest contributions?
 
@@ -49,4 +49,4 @@ Built as a monorepo:
 
 ## Results
 
-Now developers can showcase their GitHub activity on Twitter without thinking about it. Pick a theme, set your update frequency, and your banner updates automatically. We all know you're proud of your contributions chart, so why not embrace it?
+Now you can showcase your GitHub activity on Twitter without thinking about it. Pick a theme, set your update frequency, and your banner updates automatically. We all know you're proud of your contributions chart, so why not embrace it?

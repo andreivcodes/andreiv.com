@@ -18,16 +18,16 @@ They had everything figured out - the physical product, the manufacturing proces
 The technical requirements were interesting:
 - Generate artistic spiral patterns from any uploaded photo
 - Make it interactive, giving the user a glimpse of how the final product will look
-- Make it look good enough that people would pay €130 for it
+- Make it look good enough such that it can also be used for the real print
 - Handle the entire e-commerce flow from customization to payment
 
-The hardest part was actually processing the Archimedean spiral with smooth animations. It worked beautifully on my high-end desktop, but the moment I opened it on a mobile phone, I knew we were in trouble. The canvas operations were too heavy - phones would freeze trying to render thousands of spiral points in real-time.
+The hardest part was actually processing the Archimedean spiral with smooth animations. It worked beautifully on a high-end desktop, but the moment I opened it on a mobile phone, I knew we were in trouble. The canvas operations were too heavy - phones would freeze trying to render thousands of spiral points in real-time.
 
 The solution was moving the heavy computation to background workers, letting the main thread handle just the UI updates. This kept the interface responsive while the math churned away in the background.
 
 ## Technical Implementation
 
-Built with Next.js and TypeScript, the app centers around a custom canvas-based spiral generator. The algorithm:
+Built with Next.js, the app centers around a custom canvas-based spiral generator. The algorithm:
 - Converts uploaded images to grayscale
 - Maps pixel brightness to spiral line thickness
 - Renders smooth Bezier curves along the spiral path

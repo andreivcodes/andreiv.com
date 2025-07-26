@@ -14,25 +14,25 @@ index: 10
 
 ## The Problem We Solved
 
-Following governance proposals across Discord, Twitter, Discourse forums, Snapshot, and on-chain voting platforms is exhausting. Delegates were missing important votes or showing up unprepared because they couldn't track everything. We needed a single place to see the entire lifecycle of a proposal - from initial discussion to final on-chain execution.
+Following governance proposals across Discord, Twitter, Discourse forums, Snapshot, and onchain voting platforms is exhausting. Delegates were missing important votes or showing up unprepared because they couldn't track everything. We needed a single place to see the entire lifecycle of a proposal - from initial discussion to final onchain execution.
 
 ## The Architecture
 
 We built proposals.app as a monorepo with five specialized services:
 
-**rindexer** (Rust) - Our blockchain indexer that watches governance contracts across Arbitrum, Ethereum, Optimism, and others. It captures every ProposalCreated, VoteCast, and DelegateVotesChanged event in real-time.
+**rindexer** (Rust) - Our blockchain indexer that watches governance contracts across Arbitrum, Ethereum, Optimism, and others. It captures onchain and offchain events in real-time.
 
 **discourse** (Rust) - Syncs with Discourse forums to track proposal discussions, edits, and community sentiment. Runs full refreshes every 6 hours and catches updates every minute.
 
-**mapper** (Rust) - The brain that groups related content. Uses LLM embeddings to link forum discussions with their corresponding on-chain proposals and Snapshot polls. Also responsible of mapping voter wallets to Discourse users using KarmaHQ API.
+**mapper** (Rust) - The brain that groups related content. Uses LLM embeddings to link forum discussions with their corresponding onchain proposals and Snapshot polls. Also responsible of mapping voter wallets to Discourse users using KarmaHQ API.
 
-**web** (Next.js 15) - The frontend that brings it all together. Subdomain routing gives each DAO their own space (arbitrum.proposals.app, uniswap.proposals.app). Built with React 19, Tailwind v4, and wallet integration via RainbowKit.
+**web** (NextJS) - The frontend that brings it all together. Subdomain routing gives each DAO their own space (arbitrum.proposals.app, uniswap.proposals.app). Built with NextJS, Tailwind v4, and wallet integration via RainbowKit.
 
-**email-service** (Node.js) - Sends notifications for new discussions, new proposals and ending votes. Respects user preferences per DAO with a 24-hour cooldown to prevent spam.
+**email-service** (Node) - Sends notifications for new discussions, new proposals and ending votes. Respects user preferences per DAO with a 24-hour cooldown to prevent spam.
 
 ## Self-Hosted Infrastructure
 
-We run everything on bare metal across three datacenters - two in Romania and one in Germany. No cloud providers, just three physical servers we control:
+We run everything on bare metal across three servers - two in Romania and one in Germany. No cloud providers, just three physical servers we control:
 
 - **Proxmox** virtualization with LXC containers
 - **Consul** for service discovery with WAN federation
@@ -40,7 +40,7 @@ We run everything on bare metal across three datacenters - two in Romania and on
 - **Tailscale** VPN connecting everything securely
 - **Cloudflared** Zero Trust tunnel for anything that needs to be exposed publicly, like the frontend.
 
-The database layer uses PostgreSQL 17 with Patroni for automatic failover. If the primary database in Romania fails, Germany takes over in about 30 seconds. Each datacenter has its own read replica for local-first performance.
+The database layer uses PostgreSQL with Patroni for automatic failover. If the primary database fails, another one takes over in about 30 seconds. Each datacenter has its own read replica for local-first performance.
 
 Redis with Sentinel handles our caching layer. pgpool-II does the smart routing - reads go to your local datacenter, writes go to the primary. Everything stays fast even with datacenters 1000km apart.
 
@@ -56,7 +56,7 @@ Redis with Sentinel handles our caching layer. pgpool-II does the smart routing 
 
 Since launching, we've indexed millions of votes and thousands of proposals. Delegates use us for:
 
-- **Unified proposal tracking** - See forum discussion, Snapshot poll, and on-chain vote in one place
+- **Unified proposal tracking** - See forum discussion, Snapshot poll, and onchain vote in one place
 - **Email notifications** - Never miss important proposals
 - **Delegate insights** - Track voting power and participation
 

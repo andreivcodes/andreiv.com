@@ -10,7 +10,7 @@ Co-founded and won GovHack Brussels with a governance platform that consolidates
 
 <br></br>
 
-Led the technical architecture of a modular platform built with Rust and Next.js, implementing specialized services for blockchain indexing, forum synchronization, and intelligent proposal mapping using AI. The system automatically links related content across Discourse forums, Snapshot polls, and on-chain votes, solving the critical problem of governance information fragmentation.
+Led the technical architecture of a modular platform built with Rust and Next.js, implementing specialized services for blockchain indexing, forum synchronization, and intelligent proposal mapping using AI. The system automatically links related content across Discourse forums, Snapshot polls, and onchain votes, solving the critical problem of governance information fragmentation.
 
 <br></br>
 

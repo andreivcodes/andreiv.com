@@ -18,8 +18,6 @@ nicepfp.art uses Google's SketchRNN model through ML5.js to generate hand-drawn 
 
 ## How It Works
 
-The magic happens in real-time in your browser:
-
 1. **AI Generation** - The SketchRNN model generates face sketches stroke by stroke, mimicking human drawing patterns
 2. **Interactive Canvas** - Users can regenerate endlessly until they find their perfect profile picture
 3. **IPFS Storage** - Selected images are uploaded to IPFS for permanent, decentralized storage
@@ -27,17 +25,17 @@ The magic happens in real-time in your browser:
 
 ## The Tech Stack
 
-Built with Next.js and TypeScript, the app uses ML5.js to run Google's SketchRNN model directly in the browser. P5.js handles the drawing canvas where AI-generated sketches come to life stroke by stroke.
+Built with Next.js, the app uses ML5.js to run Google's SketchRNN model directly in the browser. P5.js handles the drawing canvas where AI-generated sketches come to life stroke by stroke.
 
 For Web3 integration, Wagmi connects wallets while smart contracts on Polygon handle the minting. Each generated image is stored on IPFS, ensuring permanent decentralized storage. The backend validates and signs each mint request to maintain integrity.
 
 ## The Architecture
 
-The project is organized as a monorepo with three main services: the Next.js web app, an image processing service for IPFS uploads, and a minting service that interacts with the blockchain. All AI generation happens client-side in the browser, keeping the backend focused on Web3 operations.
+The project is organized as a monorepo with three main services: the Next.js web app, an image processing service for IPFS uploads, and a minting service that interacts with the blockchain.
 
 ## Security & Trust
 
-Every mint requires a cryptographic signature from the backend, ensuring only images generated through the platform can be minted. The smart contract validates these signatures, creating a trustless minting process where users don't need to trust the frontend - the blockchain enforces the rules.
+Every mint requires a cryptographic signature from the backend, ensuring only images generated through the platform can be minted. The smart contract validates these signatures, creating minting process where the frontend doesn't need to be trusted.
 
 ## The User Experience
 
@@ -47,6 +45,6 @@ When you find one you love, connect your wallet and mint it. The entire process 
 
 ## The Collection
 
-The project has generated hundreds of unique AI-drawn faces, each minted as an individual NFT on Polygon. The collection showcases the diverse range of styles and expressions that emerge from the SketchRNN model - from minimalist line drawings to more detailed portraits. You can browse the full collection on OpenSea to see the variety of algorithmic art that's been created.
+The project has generated hundreds of unique AI-drawn faces, each minted as an individual NFT on Polygon. The collection showcases the diverse range of styles and expressions that emerge from the SketchRNN model. You can browse the full collection to see the variety of algorithmic art that's been created.
 
 Simple. Free. Unlimited. Forever. Sometimes the best projects start with the simplest needs.
