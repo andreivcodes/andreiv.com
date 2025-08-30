@@ -5,11 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ### Development
-- `yarn dev` - Start development server with hot reload
-- `yarn build` - Build static site for production
-- `yarn preview` - Preview production build locally
-- `yarn start` - Preview build with network access (0.0.0.0)
-- `yarn check` or `yarn lint` - Run Astro's type checker
+- `pnpm dev` - Start development server with hot reload
+- `pnpm build` - Build static site for production
+- `pnpm preview` - Preview production build locally
+- `pnpm start` - Preview build with network access (0.0.0.0)
+- `pnpm check` or `pnpm lint` - Run Astro's type checker
 
 ### Common Tasks
 - Add new blog post: Create markdown file in `src/content/blog/` following the schema in `src/content/config.ts`

@@ -1,8 +1,8 @@
 [phases.setup]
-nixPkgs = ["nodejs_20", "yarn-1_x"]
+nixPkgs = ["nodejs_20", "pnpm"]
 
 [phases.install]
-cmds = ["npm install -g corepack@0.24.1 && corepack enable", "yarn install --frozen-lockfile"]
+cmds = ["pnpm install --frozen-lockfile"]
 
 [start]
-cmd = "yarn run start"
+cmd = "pnpm run start"

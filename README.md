@@ -30,16 +30,16 @@ A modern, performant personal portfolio and blog built with Astro, showcasing pr
 
 ```bash
 # Install dependencies
-yarn install
+pnpm install
 
 # Start development server
-yarn dev
+pnpm dev
 
 # Build for production
-yarn build
+pnpm build
 
 # Preview production build
-yarn preview
+pnpm preview
 ```
 
 ## Project Structure
@@ -60,10 +60,10 @@ src/
 
 | Command | Description |
 |---------|-------------|
-| `yarn dev` | Start development server |
-| `yarn build` | Build for production |
-| `yarn preview` | Preview production build |
-| `yarn check` | Run type checking |
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm preview` | Preview production build |
+| `pnpm check` | Run type checking |
 
 ## Content Management
 
