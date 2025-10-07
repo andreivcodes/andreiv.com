@@ -33,6 +33,7 @@ GitHub doesn't have an API for contribution graphs, so I had to scrape them. Usi
 This was the tricky part. Most OAuth setups create separate accounts for each provider, but I needed both GitHub and Twitter linked to one user.
 
 The solution:
+
 - Modified NextAuth.js to link accounts instead of creating new ones
 - Database schema that supports multiple providers per user
 - Encrypted token storage for API credentials

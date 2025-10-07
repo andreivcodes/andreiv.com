@@ -1,43 +1,51 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import tailwindcss from '@tailwindcss/vite';
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
-import rehypePrismPlus from 'rehype-prism-plus';
-import rehypeKatex from 'rehype-katex';
-import rehypeMermaid from 'rehype-mermaid';
+import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypePrismPlus from "rehype-prism-plus";
+import rehypeKatex from "rehype-katex";
+import rehypeMermaid from "rehype-mermaid";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
-  
+  site: "https://andreiv.com",
+  integrations: [react(), sitemap()],
+
   markdown: {
     remarkPlugins: [remarkGfm, remarkMath],
     rehypePlugins: [
-      [rehypePrismPlus, { 
-        theme: 'github-dark',
-        ignoreMissing: true 
-      }],
+      [
+        rehypePrismPlus,
+        {
+          theme: "github-dark",
+          ignoreMissing: true,
+        },
+      ],
       rehypeKatex,
-      [rehypeMermaid, {
-        strategy: 'pre-mermaid'
-      }]
+      [
+        rehypeMermaid,
+        {
+          strategy: "pre-mermaid",
+        },
+      ],
     ],
     shikiConfig: {
-      theme: 'github-dark',
-      wrap: true
-    }
+      theme: "github-dark",
+      wrap: true,
+    },
   },
 
   vite: {
     plugins: [tailwindcss()],
     resolve: {
       alias: {
-        '@': '/src'
-      }
-    }
+        "@": "/src",
+      },
+    },
   },
-  
-  output: 'static'
+
+  output: "static",
 });

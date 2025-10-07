@@ -3,7 +3,8 @@ export const PERSONAL_INFO = {
   name: "Andrei Voinea",
   title: "Full-Stack Engineer | Web3 Pioneer | Embedded Systems Expert",
   location: "Sibiu, Romania, GMT+2",
-  summary: "Ex-senior engineer at a leading tier 1 automotive supplier and failed startup cofounder, now exploring web technologies, web3, DAOs and building new things. Always curious about what's next.",
+  summary:
+    "Ex-senior engineer at a leading tier 1 automotive supplier and failed startup cofounder, now exploring web technologies, web3, DAOs and building new things. Always curious about what's next.",
   profileImage: "/profile.jpeg",
 } as const;
 

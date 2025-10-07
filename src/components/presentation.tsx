@@ -64,9 +64,7 @@ export function Presentation({ presentation }: PresentationProps) {
   // Process slides
   useEffect(() => {
     const processSlides = async () => {
-      const slideContent = presentation.content
-        .split(/\n---\n/)
-        .map((slide) => slide.trim());
+      const slideContent = presentation.content.split(/\n---\n/).map((slide) => slide.trim());
 
       const processedSlides = await Promise.all(
         slideContent.map(async (slide) => {
@@ -93,11 +91,11 @@ export function Presentation({ presentation }: PresentationProps) {
             /%%%MERMAID_PLACEHOLDER_(\d+)%%%/g,
             (_, index) => {
               return `<div class="mermaid">${mermaidBlocks[parseInt(index)]}</div>`;
-            },
+            }
           );
 
           return processedSlide;
-        }),
+        })
       );
 
       setSlides(processedSlides);
@@ -194,20 +192,20 @@ export function Presentation({ presentation }: PresentationProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-background text-foreground flex flex-col cursor-none">
+    <div className="bg-background text-foreground fixed inset-0 flex cursor-none flex-col">
       {/* Header - minimal and auto-hiding */}
-      <div 
-        className={`absolute top-0 left-0 right-0 z-20 p-6 flex justify-between items-center transition-opacity duration-300 ${
-          showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      <div
+        className={`absolute top-0 right-0 left-0 z-20 flex items-center justify-between p-6 transition-opacity duration-300 ${
+          showControls ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
         <button
-          onClick={() => window.location.href = "/slides"}
-          className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+          onClick={() => (window.location.href = "/slides")}
+          className="text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md px-3 py-1.5 text-xs font-medium transition-colors"
         >
           ← Exit
         </button>
-        <div className="text-xs font-mono text-muted-foreground/60">
+        <div className="text-muted-foreground/60 font-mono text-xs">
           {currentSlide + 1} / {slides.length}
         </div>
       </div>
@@ -215,13 +213,13 @@ export function Presentation({ presentation }: PresentationProps) {
       {/* Main content - full screen */}
       <div
         ref={containerRef}
-        className="flex-1 overflow-hidden relative bg-background flex items-center justify-center"
+        className="bg-background relative flex flex-1 items-center justify-center overflow-hidden"
         onClick={(e) => {
           // Click on left half goes back, right half goes forward
           const rect = e.currentTarget.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const width = rect.width;
-          
+
           if (x < width / 2) {
             previousSlide();
           } else {
@@ -246,41 +244,67 @@ export function Presentation({ presentation }: PresentationProps) {
             />
           </div>
         </div>
-        
+
         {/* Subtle click zones indicator */}
-        <div className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
-          showControls ? 'opacity-100' : 'opacity-0'
-        }`}>
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 p-4">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-muted-foreground/30">
-              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <div
+          className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ${
+            showControls ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 p-4">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-muted-foreground/30"
+            >
+              <path
+                d="M15 18L9 12L15 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </div>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 p-4">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-muted-foreground/30">
-              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <div className="absolute top-1/2 right-0 -translate-y-1/2 p-4">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-muted-foreground/30"
+            >
+              <path
+                d="M9 18L15 12L9 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </div>
         </div>
       </div>
 
       {/* Bottom navigation - minimal and auto-hiding */}
-      <div 
-        className={`absolute bottom-0 left-0 right-0 z-20 p-6 transition-opacity duration-300 ${
-          showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      <div
+        className={`absolute right-0 bottom-0 left-0 z-20 p-6 transition-opacity duration-300 ${
+          showControls ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        <div className="max-w-2xl mx-auto flex items-center justify-center gap-2">
+        <div className="mx-auto flex max-w-2xl items-center justify-center gap-2">
           {/* Progress dots */}
           <div className="flex gap-1.5">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                  index === currentSlide 
-                    ? 'w-8 bg-primary' 
-                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? "bg-primary w-8"
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -288,16 +312,16 @@ export function Presentation({ presentation }: PresentationProps) {
           </div>
         </div>
       </div>
-      
+
       {/* Custom cursor that shows on mouse move */}
-      <div 
-        className={`fixed w-6 h-6 rounded-full bg-primary/20 pointer-events-none z-50 transition-opacity duration-150 ${
-          showControls ? 'opacity-100' : 'opacity-0'
+      <div
+        className={`bg-primary/20 pointer-events-none fixed z-50 h-6 w-6 rounded-full transition-opacity duration-150 ${
+          showControls ? "opacity-100" : "opacity-0"
         }`}
         style={{
-          transform: 'translate(-50%, -50%)',
-          left: '50%',
-          top: '50%'
+          transform: "translate(-50%, -50%)",
+          left: "50%",
+          top: "50%",
         }}
         ref={(el) => {
           if (el) {
@@ -305,8 +329,8 @@ export function Presentation({ presentation }: PresentationProps) {
               el.style.left = `${e.clientX}px`;
               el.style.top = `${e.clientY}px`;
             };
-            window.addEventListener('mousemove', handleMouseMove);
-            return () => window.removeEventListener('mousemove', handleMouseMove);
+            window.addEventListener("mousemove", handleMouseMove);
+            return () => window.removeEventListener("mousemove", handleMouseMove);
           }
         }}
       />

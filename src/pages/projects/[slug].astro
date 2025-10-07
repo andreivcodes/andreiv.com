@@ -1,15 +1,15 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/Header.astro';
-import Footer from '@/components/Footer.astro';
-import { getCollection } from 'astro:content';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, ExternalLink, Calendar } from 'lucide-react';
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getCollection } from "astro:content";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, ExternalLink, Calendar } from "lucide-react";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const projects = await getCollection("projects");
   return projects.map((project) => ({
     params: { slug: project.slug },
     props: { project },
@@ -24,122 +24,149 @@ const description = project.data.shortDescription;
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="min-h-screen flex flex-col">
+  <div class="flex min-h-screen flex-col">
     <Header />
     <main class="flex-1">
-      <div class="max-w-4xl mx-auto px-4 md:px-8">
+      <div class="mx-auto max-w-4xl px-4 md:px-8">
         {/* Breadcrumb navigation */}
         <nav class="py-8">
-          <a href="/projects" class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+          <a
+            href="/projects"
+            class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             <span>Back to all projects</span>
           </a>
         </nav>
 
         <article>
           {/* Hero Section with Featured Image */}
-          {project.data.featuredImage && (
-            <div class="aspect-video rounded-lg overflow-hidden mb-12 bg-muted">
-              <img 
-                src={project.data.featuredImage} 
-                alt={`${project.data.name} preview`}
-                class="w-full h-full object-cover"
-              />
-            </div>
-          )}
+          {
+            project.data.featuredImage && (
+              <div class="bg-muted mb-12 aspect-video overflow-hidden rounded-lg">
+                <img
+                  src={project.data.featuredImage}
+                  alt={`${project.data.name} preview`}
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            )
+          }
 
           {/* Project Header */}
-          <header class="mb-12 pb-8 border-b">
-            <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">{project.data.name}</h1>
-            
+          <header class="mb-12 border-b pb-8">
+            <h1 class="mb-6 text-3xl leading-tight font-bold md:text-5xl">{project.data.name}</h1>
+
             {/* Meta Information */}
-            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+            <div class="text-muted-foreground mb-6 flex items-center gap-2 text-sm">
               <Calendar className="h-4 w-4" />
               <span>{project.data.date}</span>
-              {project.data.repository && (
-                <>
-                  <span class="mx-2">•</span>
-                  <a 
-                    href={project.data.repository} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1 hover:text-foreground transition-colors"
-                  >
-                    <GitHubLogoIcon className="h-3.5 w-3.5" />
-                    <span>Code</span>
-                  </a>
-                </>
-              )}
-              {project.data.url && (
-                <>
-                  <span class="mx-2">•</span>
-                  <a 
-                    href={project.data.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1 text-primary hover:text-primary/80 transition-colors font-medium"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" />
-                    <span>Demo</span>
-                  </a>
-                </>
-              )}
+              {
+                project.data.repository && (
+                  <>
+                    <span class="mx-2">•</span>
+                    <a
+                      href={project.data.repository}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:text-foreground inline-flex items-center gap-1 transition-colors"
+                    >
+                      <GitHubLogoIcon className="h-3.5 w-3.5" />
+                      <span>Code</span>
+                    </a>
+                  </>
+                )
+              }
+              {
+                project.data.url && (
+                  <>
+                    <span class="mx-2">•</span>
+                    <a
+                      href={project.data.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary hover:text-primary/80 inline-flex items-center gap-1 font-medium transition-colors"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      <span>Demo</span>
+                    </a>
+                  </>
+                )
+              }
             </div>
-            
+
             {/* Description */}
-            <p class="text-lg text-muted-foreground leading-relaxed mb-8">
+            <p class="text-muted-foreground mb-8 text-lg leading-relaxed">
               {project.data.shortDescription}
             </p>
-            
+
             {/* Tech Stack */}
             <div>
-              <h3 class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">Tech Stack</h3>
+              <h3 class="text-muted-foreground mb-3 text-sm font-semibold tracking-wider uppercase">
+                Tech Stack
+              </h3>
               <div class="flex flex-wrap gap-2">
-                {project.data.stackPrimary?.map((tech) => (
-                  <Badge variant="default" className="text-sm py-1 px-3 rounded-full pointer-events-none">
-                    {tech}
-                  </Badge>
-                ))}
-                {project.data.stackSecondary?.map((tech) => (
-                  <Badge variant="secondary" className="text-sm py-1 px-3 rounded-full pointer-events-none">
-                    {tech}
-                  </Badge>
-                ))}
+                {
+                  project.data.stackPrimary?.map((tech) => (
+                    <Badge
+                      variant="default"
+                      className="text-sm py-1 px-3 rounded-full pointer-events-none"
+                    >
+                      {tech}
+                    </Badge>
+                  ))
+                }
+                {
+                  project.data.stackSecondary?.map((tech) => (
+                    <Badge
+                      variant="secondary"
+                      className="text-sm py-1 px-3 rounded-full pointer-events-none"
+                    >
+                      {tech}
+                    </Badge>
+                  ))
+                }
               </div>
             </div>
           </header>
 
           {/* Project Content */}
-          <div class="max-w-none mb-16 
-            [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mb-4 [&>h2]:mt-8
-            [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:mb-3 [&>h3]:mt-6
-            [&>p]:mb-4 [&>p]:leading-relaxed
-            [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6
-            [&>li]:mb-2
-            [&>pre]:bg-muted [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-4
-            [&>code]:bg-muted [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>code]:font-mono
-            [&>pre>code]:bg-transparent [&>pre>code]:p-0
-            [&>img]:rounded-lg [&>img]:my-6
-            [&>a]:text-primary [&>a]:underline [&>a]:underline-offset-2 [&>a:hover]:opacity-80">
+          <div
+            class="[&>pre]:bg-muted [&>code]:bg-muted [&>a]:text-primary mb-16 max-w-none [&>a]:underline [&>a]:underline-offset-2 [&>a:hover]:opacity-80 [&>code]:rounded [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:font-mono [&>code]:text-sm [&>h2]:mt-8 [&>h2]:mb-4 [&>h2]:text-2xl [&>h2]:font-semibold [&>h3]:mt-6 [&>h3]:mb-3 [&>h3]:text-xl [&>h3]:font-semibold [&>img]:my-6 [&>img]:rounded-lg [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>pre]:mb-4 [&>pre]:overflow-x-auto [&>pre]:rounded-lg [&>pre]:p-4 [&>pre>code]:bg-transparent [&>pre>code]:p-0 [&>ul]:mb-4 [&>ul]:pl-6"
+          >
             <Content />
           </div>
-          
+
           {/* Project Footer */}
-          <footer class="mt-12 mb-16 pt-8 border-t">
-            <div class="flex justify-between items-center">
-              <a href="/projects" class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+          <footer class="mt-12 mb-16 border-t pt-8">
+            <div class="flex items-center justify-between">
+              <a
+                href="/projects"
+                class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
                 <span>Back to all projects</span>
               </a>
-              
-              <button 
+
+              <button
                 onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-                class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+                class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
               >
                 <span>Back to top</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-y-1 transition-transform">
-                  <line x1="12" x2="12" y1="19" y2="5"/>
-                  <polyline points="5 12 12 5 19 12"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="transition-transform group-hover:-translate-y-1"
+                >
+                  <line x1="12" x2="12" y1="19" y2="5"></line>
+                  <polyline points="5 12 12 5 19 12"></polyline>
                 </svg>
               </button>
             </div>

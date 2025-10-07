@@ -1,5 +1,5 @@
 ---
-import { getEducation } from '@/lib/content';
+import { getEducation } from "@/lib/content";
 
 interface Props {
   withTitle: boolean;
@@ -20,36 +20,33 @@ const sortedEducation = education.sort((a, b) => {
 ---
 
 <div class="flex flex-col gap-8">
-  {withTitle && (
-    <div class="text-2xl font-bold mb-4 text-center md:text-right">
-      Education
-    </div>
-  )}
+  {withTitle && <div class="mb-4 text-center text-2xl font-bold md:text-right">Education</div>}
   <div>
-    {sortedEducation.map((edu) => (
-      <div class="w-full flex flex-col items-start gap-2 mb-8">
-        <div class="text-sm">
-          {edu.startDate === edu.endDate ? edu.startDate : `${edu.startDate} - ${edu.endDate || "Present"}`}
-        </div>
-        <div class="-ml-2 md:-ml-8 w-32 h-[1px] bg-current" />
-        <div class="w-full shadow-none md:shadow-sm border-0 md:border rounded-lg bg-card text-card-foreground">
-          <div class="w-full p-2 md:p-6">
-            <div class="w-full flex flex-col gap-2">
-              <div class="font-semibold">{edu.institution}</div>
-              <div class="text-start text-lg">{edu.degree} in {edu.field}</div>
-              {edu.description && (
-                <div class="text-sm opacity-80 mt-2">{edu.description}</div>
-              )}
+    {
+      sortedEducation.map((edu) => (
+        <div class="mb-8 flex w-full flex-col items-start gap-2">
+          <div class="text-sm">
+            {edu.startDate === edu.endDate
+              ? edu.startDate
+              : `${edu.startDate} - ${edu.endDate || "Present"}`}
+          </div>
+          <div class="-ml-2 h-[1px] w-32 bg-current md:-ml-8" />
+          <div class="bg-card text-card-foreground w-full rounded-lg border-0 shadow-none md:border md:shadow-sm">
+            <div class="w-full p-2 md:p-6">
+              <div class="flex w-full flex-col gap-2">
+                <div class="font-semibold">{edu.institution}</div>
+                <div class="text-start text-lg">
+                  {edu.degree} in {edu.field}
+                </div>
+                {edu.description && <div class="mt-2 text-sm opacity-80">{edu.description}</div>}
+              </div>
+            </div>
+            <div class="max-w-none p-2 pt-0 text-sm md:p-6 [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>ul]:mb-4 [&>ul]:pl-6">
+              <Fragment set:html={edu.content} />
             </div>
           </div>
-          <div class="text-sm max-w-none p-2 md:p-6 pt-0
-            [&>p]:mb-4 [&>p]:leading-relaxed
-            [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6
-            [&>li]:mb-2">
-            <Fragment set:html={edu.content} />
-          </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 </div>

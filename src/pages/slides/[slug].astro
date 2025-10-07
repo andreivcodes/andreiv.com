@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-import { Presentation } from '@/components/presentation';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { Presentation } from "@/components/presentation";
 
 export async function getStaticPaths() {
-  const presentations = await getCollection('slides');
+  const presentations = await getCollection("slides");
   return presentations.map((presentation) => ({
     params: { slug: presentation.slug },
     props: { presentation },
@@ -28,12 +28,12 @@ const presentationData = {
 <BaseLayout title={title} description={description}>
   <div class="min-h-screen">
     <noscript>
-      <div class="flex items-center justify-center h-screen">
+      <div class="flex h-screen items-center justify-center">
         <p class="text-xl">JavaScript is required to view this presentation.</p>
       </div>
     </noscript>
     <Presentation presentation={presentationData} client:load>
-      <div class="flex items-center justify-center h-screen">
+      <div class="flex h-screen items-center justify-center">
         <p class="text-xl">Loading presentation...</p>
       </div>
     </Presentation>

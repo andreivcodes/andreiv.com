@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+    <style>
+        .bg { fill: #0a0a0a; }
+        .text { fill: #fafaf9; font-family: monospace; font-weight: 700; }
+    </style>
+
+    <!-- Background -->
+    <rect class="bg" width="1200" height="630"/>
+
+    <!-- Main logo <av/> centered -->
+    <text class="text" x="600" y="355" font-size="180" text-anchor="middle">&lt;av/&gt;</text>
+</svg>

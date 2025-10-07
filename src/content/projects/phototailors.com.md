@@ -16,6 +16,7 @@ They're a designer who knew exactly what they wanted and understood that no exis
 ## The Complexity
 
 The configurator handles:
+
 - 6 album sizes with custom page counts
 - 9 different instant photo formats (Polaroid, Instax, Kodak)
 - 100+ material and color combinations

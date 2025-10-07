@@ -56,10 +56,5 @@ export function MermaidDiagram({ chart }: MermaidProps) {
     renderChart();
   }, [chart]);
 
-  return (
-    <div
-      ref={elementRef}
-      className="mermaid-wrapper flex justify-center my-4"
-    />
-  );
+  return <div ref={elementRef} className="mermaid-wrapper my-4 flex justify-center" />;
 }

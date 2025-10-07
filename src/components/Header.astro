@@ -1,32 +1,55 @@
 ---
+
 ---
 
-<div class="w-full flex flex-row justify-between md:justify-around items-center py-4 font-mono px-4 bg-muted/30 border-b backdrop-blur-sm">
-  <div class="w-1/4 hidden md:flex flex-row justify-start">
-    <a href="/" class="text-foreground hover:text-primary transition-colors">
-      andreiv's website
-    </a>
+<div
+  class="bg-muted/30 flex w-full flex-row items-center justify-between border-b px-4 py-4 font-mono backdrop-blur-sm md:justify-around"
+>
+  <div class="hidden w-1/4 flex-row justify-start md:flex">
+    <a href="/" class="text-foreground hover:text-primary transition-colors"> andreiv's website </a>
   </div>
 
-  <div class="flex md:hidden items-center justify-center">
+  <div class="flex items-center justify-center md:hidden">
     <a href="/">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-foreground">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="text-foreground h-6 w-6"
+      >
         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
         <polyline points="9 22 9 12 15 12 15 22"></polyline>
       </svg>
     </a>
   </div>
 
-  <div class="h-8 flex flex-row items-center justify-center gap-4 md:gap-8">
-    <a href="/about" class="text-foreground hover:text-primary hover:border-b-2 hover:border-primary transition-all duration-300">about</a>
-    <div class="shrink-0 bg-border w-[1px] h-full"></div>
-    <a href="/blog" class="text-foreground hover:text-primary hover:border-b-2 hover:border-primary transition-all duration-300">blog</a>
-    <div class="shrink-0 bg-border w-[1px] h-full"></div>
-    <a href="/projects" class="text-foreground hover:text-primary hover:border-b-2 hover:border-primary transition-all duration-300">projects</a>
+  <div class="flex h-8 flex-row items-center justify-center gap-4 md:gap-8">
+    <a
+      href="/about"
+      class="text-foreground hover:text-primary hover:border-primary transition-all duration-300 hover:border-b-2"
+      >about</a
+    >
+    <div class="bg-border h-full w-[1px] shrink-0"></div>
+    <a
+      href="/blog"
+      class="text-foreground hover:text-primary hover:border-primary transition-all duration-300 hover:border-b-2"
+      >blog</a
+    >
+    <div class="bg-border h-full w-[1px] shrink-0"></div>
+    <a
+      href="/projects"
+      class="text-foreground hover:text-primary hover:border-primary transition-all duration-300 hover:border-b-2"
+      >projects</a
+    >
     <!-- <div class="shrink-0 bg-border w-[1px] h-full"></div> -->
     <!-- <a href="/slides" class="text-foreground hover:text-primary hover:border-b-2 hover:border-primary transition-all duration-300">talks</a> -->
   </div>
 
-  <div class="w-1/4 hidden md:flex flex-row justify-end">
-  </div>
+  <div class="hidden w-1/4 flex-row justify-end md:flex"></div>
 </div>

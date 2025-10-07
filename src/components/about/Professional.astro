@@ -1,5 +1,5 @@
 ---
-import { getProfessional } from '@/lib/content';
+import { getProfessional } from "@/lib/content";
 
 interface Props {
   withTitle: boolean;
@@ -10,41 +10,39 @@ const professional = await getProfessional();
 ---
 
 <div class="flex flex-col gap-8">
-  {withTitle && (
-    <div class="text-2xl font-bold mb-4 text-center md:text-left">
-      Professional Experience
-    </div>
-  )}
+  {
+    withTitle && (
+      <div class="mb-4 text-center text-2xl font-bold md:text-left">Professional Experience</div>
+    )
+  }
   <div>
-    {professional
-      .sort((a, b) => a.index - b.index)
-      .map((experience) => (
-        <div class="w-full flex flex-col items-end gap-2 mb-8">
-          <div class="text-sm">
-            {experience.startDate} -{" "}
-            {experience.endDate ? experience.endDate : "now"}
-          </div>
-          <div class="-mr-2 md:-mr-8 w-32 h-[1px] bg-current" />
-          <div class="w-full shadow-none md:shadow-sm border-0 md:border rounded-lg bg-card text-card-foreground">
-            <div class="w-full p-2 md:p-6">
-              <div class="w-full flex flex-col gap-2">
-                <div class="w-full flex flex-row justify-between gap-2 align-bottom">
-                  <div class="font-semibold">{experience.companyName}</div>
-                  <div class="hidden md:block text-xs font-mono font-extralight">
-                    {experience.companyAbout}
+    {
+      professional
+        .sort((a, b) => a.index - b.index)
+        .map((experience) => (
+          <div class="mb-8 flex w-full flex-col items-end gap-2">
+            <div class="text-sm">
+              {experience.startDate} - {experience.endDate ? experience.endDate : "now"}
+            </div>
+            <div class="-mr-2 h-[1px] w-32 bg-current md:-mr-8" />
+            <div class="bg-card text-card-foreground w-full rounded-lg border-0 shadow-none md:border md:shadow-sm">
+              <div class="w-full p-2 md:p-6">
+                <div class="flex w-full flex-col gap-2">
+                  <div class="flex w-full flex-row justify-between gap-2 align-bottom">
+                    <div class="font-semibold">{experience.companyName}</div>
+                    <div class="hidden font-mono text-xs font-extralight md:block">
+                      {experience.companyAbout}
+                    </div>
                   </div>
+                  <div class="text-start text-lg">{experience.role}</div>
                 </div>
-                <div class="text-start text-lg">{experience.role}</div>
+              </div>
+              <div class="max-w-none p-2 pt-0 text-sm md:p-6 [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>ul]:mb-4 [&>ul]:pl-6">
+                <Fragment set:html={experience.content} />
               </div>
             </div>
-            <div class="text-sm max-w-none p-2 md:p-6 pt-0
-              [&>p]:mb-4 [&>p]:leading-relaxed
-              [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6
-              [&>li]:mb-2">
-              <Fragment set:html={experience.content} />
-            </div>
           </div>
-        </div>
-      ))}
+        ))
+    }
   </div>
 </div>

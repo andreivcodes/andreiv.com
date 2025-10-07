@@ -106,7 +106,6 @@ int main() {
 }
 ```
 
-
 ---
 
 # C
@@ -239,7 +238,6 @@ graph LR
 
 ---
 
-
 ```mermaid
 graph LR
     %% Source and Hosts
@@ -299,7 +297,6 @@ graph LR
 ## write once, run everywhere
 
 ---
-
 
 ```mermaid
 graph LR
@@ -365,16 +362,12 @@ graph LR
 # Two paradigms
 
 ### Cross compilation
-### Virtual environment
 
+### Virtual environment
 
 ---
 
-
 ## Decoupling compilation from execution
-
-
-
 
 #### keep that in mind for a sec...
 
@@ -383,7 +376,6 @@ graph LR
 ## but anyway,
 
 ## back to blockchain
-
 
 ```binary
 00000000  60 80 60 40 52 60 40 51 80 60 40 01 60 40 52 80  |`.`@R`@Q.`@.`@R.|
@@ -582,11 +574,9 @@ graph LR
 0226 PUSH2 0x0090 -
 ```
 
-
 ---
 
 # You can probably guess where this is going
-
 
 ---
 
@@ -612,7 +602,6 @@ contract HelloWorld {
 ## Solidity era &asymp; Java era
 
 ---
-
 
 ![](/slides/eth_hub_romania_arbitrum_stylus/llvm.png)
 
@@ -698,28 +687,23 @@ graph LR
 
 ## The LLVM-Powered Cambrian Explosion 🧬
 
-
 ---
 
-
-| System Languages        | Web & Functional        | Emerging & Experimental    |
-|------------------------|-------------------------|---------------------------|
-| 🦀 Rust (2015)         | 💜 Gleam (2019)         | ⚡ Vale (2020)             |
-| 🔷 Swift (2014)        | 💧 Elixir (2012)        | 💠 Mojo (2023)             |
-| 🎯 Zig (2016)         | 💎 Crystal (2014)       | 🎨 Dora (2022)             |
-| 🌱 Carbon (2022)       | ⚛️ Reason (2016)        | 🔮 Verona (2019)           |
-| 🛠️ C++ (Clang)        | 🎭 OCaml (LLVM)         | 🌀 Koka (2014)             |
-| 🎲 Julia (2012)        | 🌟 Grain (2020)         | 🎪 Odin (2016)             |
-| 🔨 Ada (LLVM GNAT)     | 🎪 Unison (2018)        | 🎯 V (2019)                |
-
-
+| System Languages   | Web & Functional  | Emerging & Experimental |
+| ------------------ | ----------------- | ----------------------- |
+| 🦀 Rust (2015)     | 💜 Gleam (2019)   | ⚡ Vale (2020)          |
+| 🔷 Swift (2014)    | 💧 Elixir (2012)  | 💠 Mojo (2023)          |
+| 🎯 Zig (2016)      | 💎 Crystal (2014) | 🎨 Dora (2022)          |
+| 🌱 Carbon (2022)   | ⚛️ Reason (2016)  | 🔮 Verona (2019)        |
+| 🛠️ C++ (Clang)     | 🎭 OCaml (LLVM)   | 🌀 Koka (2014)          |
+| 🎲 Julia (2012)    | 🌟 Grain (2020)   | 🎪 Odin (2016)          |
+| 🔨 Ada (LLVM GNAT) | 🎪 Unison (2018)  | 🎯 V (2019)             |
 
 ---
 
 ![](/slides/eth_hub_romania_arbitrum_stylus/stylus-multivm.jpg)
 
 ---
-
 
 ```mermaid
 graph LR
@@ -775,7 +759,6 @@ graph LR
     class evm,activate,wasmer vm
     class execute chain
 ```
-
 
 ---
 
@@ -849,9 +832,7 @@ graph LR
     class execute chain
 ```
 
-
 ---
-
 
 ```mermaid
  graph LR
@@ -930,9 +911,7 @@ graph LR
 
 ---
 
-
 ### What is this WASM thing?
-
 
 ---
 
@@ -1000,25 +979,29 @@ graph LR
     class x86_wasmer,arm_wasmer,other_wasmer runtime
 ```
 
-
 ---
 
 ### Best of both worlds
 
 #### ✅ Any LLVM frontend language
-<small> _* in theory, currently only Rust and maybe C_ </small>
+
+<small> _\* in theory, currently only Rust and maybe C_ </small>
+
 #### ✅ Write once, run everywhere
-<small> _* in theory, the node software is probably only x86_64 and arm64_ </small>
+
+<small> _\* in theory, the node software is probably only x86_64 and arm64_ </small>
+
 #### ✅ LLVM intermediate representation
+
 #### ✅ Single WASM Binary
+
 #### ✅ Architecture specific Wasmer Runtime
-<small> _* again, in theory_ </small>
+
+<small> _\* again, in theory_ </small>
 
 ---
 
 ### Putting it all together
-
-
 
 ```mermaid
 graph LR
@@ -1087,7 +1070,6 @@ graph LR
     class bin,evm_code,chain deploy
     class x86,arm,other_arch,wasmer,evm execute
 ```
-
 
 ---
 

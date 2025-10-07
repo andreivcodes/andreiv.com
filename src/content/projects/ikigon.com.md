@@ -16,6 +16,7 @@ They had everything figured out - the physical product, the manufacturing proces
 ## The Challenge
 
 The technical requirements were interesting:
+
 - Generate artistic spiral patterns from any uploaded photo
 - Make it interactive, giving the user a glimpse of how the final product will look
 - Make it look good enough such that it can also be used for the real print
@@ -28,6 +29,7 @@ The solution was moving the heavy computation to background workers, letting the
 ## Technical Implementation
 
 Built with Next.js, the app centers around a custom canvas-based spiral generator. The algorithm:
+
 - Converts uploaded images to grayscale
 - Maps pixel brightness to spiral line thickness
 - Renders smooth Bezier curves along the spiral path

@@ -2,37 +2,24 @@
 import { Badge } from "../ui/badge";
 
 const primarySkills = ["typescript", "react", "rust", "c"];
-const secondarySkills = [
-    "web3",
-    "devops",
-    "system design",
-    "autosar",
-    "embedded software",
-];
+const secondarySkills = ["web3", "devops", "system design", "autosar", "embedded software"];
 ---
 
-<div
-    class="w-full m-auto max-w-sm flex flex-row flex-wrap gap-2 h-fit items-center justify-center"
->
-    {
-        primarySkills.map((skill) => (
-            <div>
-                <Badge className="pointer-events-none rounded-full">
-                    {skill}
-                </Badge>
-            </div>
-        ))
-    }
-    {
-        secondarySkills.map((skill) => (
-            <div>
-                <Badge
-                    className="pointer-events-none rounded-full"
-                    variant="secondary"
-                >
-                    {skill}
-                </Badge>
-            </div>
-        ))
-    }
+<div class="m-auto flex h-fit w-full max-w-sm flex-row flex-wrap items-center justify-center gap-2">
+  {
+    primarySkills.map((skill) => (
+      <div>
+        <Badge className="pointer-events-none rounded-full">{skill}</Badge>
+      </div>
+    ))
+  }
+  {
+    secondarySkills.map((skill) => (
+      <div>
+        <Badge className="pointer-events-none rounded-full" variant="secondary">
+          {skill}
+        </Badge>
+      </div>
+    ))
+  }
 </div>

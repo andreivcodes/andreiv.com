@@ -30,7 +30,6 @@ For more details about my background, check out my application:
 
 [Domain Allocator Application](https://forum.arbitrum.foundation/t/election-application-thread-arbitrum-d-a-o-domain-allocator-offerings-grant-program/27909/21?u=andreiv)
 
-
 ---
 
 # why I'm applying

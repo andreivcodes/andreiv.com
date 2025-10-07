@@ -28,9 +28,7 @@ interface DownloadPDFButtonProps {
   resumeData: string;
 }
 
-export default function DownloadPDFButton({
-  resumeData,
-}: DownloadPDFButtonProps) {
+export default function DownloadPDFButton({ resumeData }: DownloadPDFButtonProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(false);
 
@@ -186,14 +184,7 @@ export default function DownloadPDFButton({
 
       try {
         const profileImageData = await loadImage(PERSONAL_INFO.profileImage);
-        pdf.addImage(
-          profileImageData,
-          "PNG",
-          imageX,
-          yPosition,
-          imageSize,
-          imageSize,
-        );
+        pdf.addImage(profileImageData, "PNG", imageX, yPosition, imageSize, imageSize);
       } catch (error) {
         console.error("Failed to load profile image:", error);
       }
@@ -225,8 +216,7 @@ export default function DownloadPDFButton({
 
       const contactInfo: string[] = [];
       if (CONTACT_INFO.email) contactInfo.push(CONTACT_INFO.email);
-      if (CONTACT_INFO.website)
-        contactInfo.push(CONTACT_INFO.website.replace("https://", ""));
+      if (CONTACT_INFO.website) contactInfo.push(CONTACT_INFO.website.replace("https://", ""));
       if (CONTACT_INFO.linkedin) {
         const linkedinUsername = CONTACT_INFO.linkedin.split("/").pop() || "";
         contactInfo.push(`linkedin/${linkedinUsername}`);
@@ -259,10 +249,7 @@ export default function DownloadPDFButton({
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(10);
         pdf.setTextColor(...darkGray);
-        const summaryLines = pdf.splitTextToSize(
-          PERSONAL_INFO.summary,
-          contentWidth,
-        );
+        const summaryLines = pdf.splitTextToSize(PERSONAL_INFO.summary, contentWidth);
         pdf.text(summaryLines, margin, yPosition);
         yPosition += summaryLines.length * 5 + 8;
       }
@@ -295,10 +282,7 @@ export default function DownloadPDFButton({
           const secondaryText = SKILLS.secondary
             .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
             .join(" • ");
-          const secondaryLines = pdf.splitTextToSize(
-            secondaryText,
-            contentWidth,
-          );
+          const secondaryLines = pdf.splitTextToSize(secondaryText, contentWidth);
           pdf.text(secondaryLines, margin, yPosition);
           yPosition += secondaryLines.length * 5 + 3;
         }
@@ -316,7 +300,7 @@ export default function DownloadPDFButton({
 
       // Sort professional experience by index (same as about page)
       const sortedProfessional = [...professional].sort(
-        (a, b) => (a as any).index - (b as any).index,
+        (a, b) => (a as any).index - (b as any).index
       );
 
       sortedProfessional.forEach((exp, index) => {
@@ -395,10 +379,7 @@ export default function DownloadPDFButton({
           const match = date.match(/\d{4}/);
           return match ? parseInt(match[0]) : 0;
         };
-        return (
-          getYear((b as EducationData).startDate) -
-          getYear((a as EducationData).startDate)
-        );
+        return getYear((b as EducationData).startDate) - getYear((a as EducationData).startDate);
       });
 
       sortedEducation.forEach((edu, index) => {
@@ -417,9 +398,7 @@ export default function DownloadPDFButton({
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(11);
         pdf.setTextColor(...black);
-        const degreeText = data.field
-          ? `${data.degree} ${data.field}`
-          : data.degree;
+        const degreeText = data.field ? `${data.degree} ${data.field}` : data.degree;
         const degreeLines = pdf.splitTextToSize(degreeText, contentWidth - 40);
         pdf.text(degreeLines, margin, yPosition);
         yPosition += degreeLines.length * 5 + 1;
@@ -473,7 +452,7 @@ export default function DownloadPDFButton({
         `Generated from ${CONTACT_INFO.website} on ${currentDate}`,
         pageWidth / 2,
         pageHeight - 10,
-        { align: "center" },
+        { align: "center" }
       );
 
       // Add metadata
@@ -487,9 +466,7 @@ export default function DownloadPDFButton({
 
       // Save the PDF
       const date = new Date().toISOString().split("T")[0];
-      pdf.save(
-        `${PERSONAL_INFO.name.toLowerCase().replace(" ", "-")}-resume-${date}.pdf`,
-      );
+      pdf.save(`${PERSONAL_INFO.name.toLowerCase().replace(" ", "-")}-resume-${date}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
     } finally {
@@ -499,18 +476,14 @@ export default function DownloadPDFButton({
 
   return (
     <div
-      className={`fixed right-8 z-50 transition-all duration-300 ease-in-out
-                  ${isNearBottom ? "bottom-16 md:bottom-20" : "bottom-8"}
-                  sm:right-6 md:right-8`}
+      className={`fixed right-8 z-50 transition-all duration-300 ease-in-out ${isNearBottom ? "bottom-16 md:bottom-20" : "bottom-8"} sm:right-6 md:right-8`}
       data-pdf-exclude
     >
       <Button
         onClick={generatePDF}
         disabled={isGenerating}
         size="lg"
-        className="shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2
-                   bg-primary hover:bg-primary/90 text-primary-foreground
-                   hover:scale-105 transform"
+        className="bg-primary hover:bg-primary/90 text-primary-foreground flex transform items-center gap-2 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
       >
         <Download className="h-4 w-4 sm:h-5 sm:w-5" />
         <span className="hidden sm:inline">

@@ -93,7 +93,6 @@ If you encounter any issues:
 
 You now have a Debian system configured to run Docker containers with NVIDIA GPU support. This setup allows you to leverage your GPU's power in containerized applications, perfect for video encoding, AI, and other GPU-intensive tasks.
 
-
 ## Extra
 
 ```yaml

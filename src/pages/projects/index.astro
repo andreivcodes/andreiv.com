@@ -1,11 +1,11 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/Header.astro';
-import Footer from '@/components/Footer.astro';
-import { getProjects } from '@/lib/content';
-import { Badge } from '@/components/ui/badge';
-import { ExternalLink, ArrowRight, Calendar } from 'lucide-react';
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getProjects } from "@/lib/content";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, ArrowRight, Calendar } from "lucide-react";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 const title = "Projects - Andrei Voinea";
 const description = "Open source projects and side projects built by Andrei Voinea.";
@@ -16,139 +16,138 @@ const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 99
 
 <BaseLayout title={title} description={description}>
   <Fragment slot="head">
-    {sortedProjects.map((project) => 
-      project.featuredImage && (
-        <link 
-          rel="preload" 
-          as="image" 
-          href={project.featuredImage}
-        />
+    {
+      sortedProjects.map(
+        (project) =>
+          project.featuredImage && <link rel="preload" as="image" href={project.featuredImage} />
       )
-    )}
+    }
   </Fragment>
-  <div class="min-h-screen flex flex-col">
+  <div class="flex min-h-screen flex-col">
     <Header />
-    <main class="flex-1 bg-background">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <main class="bg-background flex-1">
+      <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         {/* Header Section */}
-        <div class="text-center mb-16">
-          <h1 class="text-4xl md:text-5xl font-bold mb-4">Projects</h1>
-          <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <div class="mb-16 text-center">
+          <h1 class="mb-4 text-4xl font-bold md:text-5xl">Projects</h1>
+          <p class="text-muted-foreground mx-auto max-w-2xl text-lg">
             A collection of projects and experiments I've been working on.
           </p>
         </div>
 
         {/* Projects List */}
         <div class="space-y-12 lg:space-y-16">
-          {sortedProjects.map((project) => (
-            <a
-              href={`/projects/${project.slug}`}
-              class="block group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
-            >
-              <article class="relative overflow-hidden">
-                <div class="relative flex flex-col xl:grid xl:grid-cols-2 bg-card rounded-lg border overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/50">
+          {
+            sortedProjects.map((project) => (
+              <a
+                href={`/projects/${project.slug}`}
+                class="group focus-visible:ring-primary block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              >
+                <article class="relative overflow-hidden">
+                  <div class="bg-card hover:border-primary/50 relative flex flex-col overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-lg xl:grid xl:grid-cols-2">
                     {/* Image Section - On top for mobile, right for desktop */}
                     <div class="relative overflow-hidden xl:order-2">
-                      <div class="aspect-[16/9] w-full bg-muted/20 relative">
-                      {project.featuredImage ? (
-                        <>
-                          <img
-                            src={project.featuredImage}
-                            alt={`${project.name} preview`}
-                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            loading="eager"
-                            width="800"
-                            height="450"
-                          />
-                          {/* Black gradient overlay on hover */}
-                          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        </>
-                      ) : (
-                        <div class="w-full h-full bg-gradient-to-br from-muted via-muted/80 to-background flex items-center justify-center">
-                          <div class="text-7xl font-bold text-muted-foreground/10">
-                            {project.name.slice(0, 2).toUpperCase()}
+                      <div class="bg-muted/20 relative aspect-[16/9] w-full">
+                        {project.featuredImage ? (
+                          <>
+                            <img
+                              src={project.featuredImage}
+                              alt={`${project.name} preview`}
+                              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              loading="eager"
+                              width="800"
+                              height="450"
+                            />
+                            {/* Black gradient overlay on hover */}
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                          </>
+                        ) : (
+                          <div class="from-muted via-muted/80 to-background flex h-full w-full items-center justify-center bg-gradient-to-br">
+                            <div class="text-muted-foreground/10 text-7xl font-bold">
+                              {project.name.slice(0, 2).toUpperCase()}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
                       </div>
                     </div>
 
                     {/* Content Section - Below image on mobile, left on desktop */}
-                    <div class="relative p-8 pb-20 flex flex-col xl:min-h-[300px] xl:order-1 xl:pb-8">
+                    <div class="relative flex flex-col p-8 pb-20 xl:order-1 xl:min-h-[300px] xl:pb-8">
                       {/* Top section with title and content */}
                       <div>
                         {/* Project Title & Date */}
                         <div class="mb-6">
-                        <h2 class="text-3xl xl:text-4xl font-bold mb-3 transition-colors duration-300 group-hover:text-primary -mt-1">
-                          {project.name}
-                        </h2>
-                        <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Calendar className="h-4 w-4" />
-                          <time datetime={project.date}>{project.date}</time>
+                          <h2 class="group-hover:text-primary -mt-1 mb-3 text-3xl font-bold transition-colors duration-300 xl:text-4xl">
+                            {project.name}
+                          </h2>
+                          <div class="text-muted-foreground flex items-center gap-2 text-sm">
+                            <Calendar className="h-4 w-4" />
+                            <time datetime={project.date}>{project.date}</time>
+                          </div>
+                        </div>
+
+                        {/* Description */}
+                        <p class="text-muted-foreground mb-8 text-lg leading-relaxed">
+                          {project.shortDescription}
+                        </p>
+
+                        {/* Tech Stack */}
+                        <div class="flex flex-wrap gap-2">
+                          {project.stackPrimary?.map((tech) => (
+                            <Badge
+                              variant="default"
+                              className="text-xs px-2 py-1 rounded-full pointer-events-none"
+                            >
+                              {tech}
+                            </Badge>
+                          ))}
+                          {project.stackSecondary?.map((tech) => (
+                            <Badge
+                              variant="secondary"
+                              className="text-xs px-2 py-1 rounded-full pointer-events-none"
+                            >
+                              {tech}
+                            </Badge>
+                          ))}
                         </div>
                       </div>
 
-                      {/* Description */}
-                      <p class="text-muted-foreground text-lg leading-relaxed mb-8">
-                        {project.shortDescription}
-                      </p>
-
-                      {/* Tech Stack */}
-                      <div class="flex flex-wrap gap-2">
-                        {project.stackPrimary?.map((tech) => (
-                          <Badge
-                            variant="default"
-                            className="text-xs px-2 py-1 rounded-full pointer-events-none"
+                      {/* Actions - Positioned absolutely at bottom */}
+                      <div class="absolute bottom-8 left-8 flex items-center gap-4">
+                        {project.url && (
+                          <button
+                            data-href={project.url}
+                            class="text-muted-foreground hover:text-foreground project-link-button inline-flex items-center gap-1.5 text-sm transition-colors"
+                            aria-label={`View ${project.name} live demo`}
                           >
-                            {tech}
-                          </Badge>
-                        ))}
-                        {project.stackSecondary?.map((tech) => (
-                          <Badge
-                            variant="secondary"
-                            className="text-xs px-2 py-1 rounded-full pointer-events-none"
+                            <ExternalLink className="h-4 w-4" />
+                            <span>Demo</span>
+                          </button>
+                        )}
+                        {project.repository && (
+                          <button
+                            data-href={project.repository}
+                            class="text-muted-foreground hover:text-foreground project-link-button inline-flex items-center gap-1.5 text-sm transition-colors"
+                            aria-label={`View ${project.name} source code`}
                           >
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
+                            <GitHubLogoIcon className="h-4 w-4" />
+                            <span>Code</span>
+                          </button>
+                        )}
                       </div>
 
-                    {/* Actions - Positioned absolutely at bottom */}
-                    <div class="absolute bottom-8 left-8 flex items-center gap-4">
-                      {project.url && (
-                        <button
-                          data-href={project.url}
-                          class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors project-link-button"
-                          aria-label={`View ${project.name} live demo`}
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                          <span>Demo</span>
-                        </button>
-                      )}
-                      {project.repository && (
-                        <button
-                          data-href={project.repository}
-                          class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors project-link-button"
-                          aria-label={`View ${project.name} source code`}
-                        >
-                          <GitHubLogoIcon className="h-4 w-4" />
-                          <span>Code</span>
-                        </button>
-                      )}
-                    </div>
-
-                    <div class="absolute bottom-8 right-8">
-                      <span class="inline-flex items-center gap-1.5 text-sm font-medium group-hover:text-primary transition-colors">
-                        <span>View Project</span>
-                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </span>
+                      <div class="absolute right-8 bottom-8">
+                        <span class="group-hover:text-primary inline-flex items-center gap-1.5 text-sm font-medium transition-colors">
+                          <span>View Project</span>
+                          <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </article>
-            </a>
-          ))}
+                </article>
+              </a>
+            ))
+          }
         </div>
       </div>
     </main>
@@ -158,15 +157,15 @@ const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 99
 
 <script>
   // Handle project button clicks
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.project-link-button').forEach(button => {
-      button.addEventListener('click', (event) => {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".project-link-button").forEach((button) => {
+      button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
         const target = event.currentTarget as HTMLButtonElement;
         const href = target.dataset.href;
         if (href) {
-          window.open(href, '_blank');
+          window.open(href, "_blank");
         }
       });
     });

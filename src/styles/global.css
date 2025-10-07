@@ -34,13 +34,21 @@
 }
 
 @keyframes accordion-down {
-  from { height: 0; }
-  to { height: var(--radix-accordion-content-height); }
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
 }
 
 @keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height); }
-  to { height: 0; }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 
 @layer utilities {
@@ -54,223 +62,222 @@
 }
 
 @layer base {
-    :root {
-        --background: 20 14.3% 4.1%;
-        --foreground: 60 9.1% 97.8%;
+  :root {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
 
-        --card: 20 10.2% 8.1%;
-        --card-foreground: 60 9.1% 97.8%;
+    --card: 20 10.2% 8.1%;
+    --card-foreground: 60 9.1% 97.8%;
 
-        --popover: 20 14.3% 4.1%;
-        --popover-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
 
-        --primary: 60 9.1% 97.8%;
-        --primary-foreground: 24 9.8% 10%;
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 24 9.8% 10%;
 
-        --secondary: 12 6.5% 15.1%;
-        --secondary-foreground: 60 9.1% 97.8%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
 
-        --muted: 12 6.5% 15.1%;
-        --muted-foreground: 24 5.4% 63.9%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
 
-        --accent: 12 6.5% 15.1%;
-        --accent-foreground: 60 9.1% 97.8%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
 
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
 
-        --border: 12 6.5% 15.1%;
-        --input: 12 6.5% 15.1%;
-        --ring: 24 5.7% 82.9%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 24 5.7% 82.9%;
 
-        --radius: 0.5rem;
-    }
-
+    --radius: 0.5rem;
+  }
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
+  * {
+    @apply border-border;
+  }
 
-    body {
-        @apply bg-background text-foreground;
-    }
+  body {
+    @apply bg-background text-foreground;
+  }
 
-    h1 {
-        @apply text-2xl font-bold;
-    }
+  h1 {
+    @apply text-2xl font-bold;
+  }
 
-    h2 {
-        @apply text-xl;
-    }
+  h2 {
+    @apply text-xl;
+  }
 
-    h3 {
-        @apply text-lg;
-    }
+  h3 {
+    @apply text-lg;
+  }
 
-    ul,
-    ol {
-        list-style-position: inside;
-    }
+  ul,
+  ol {
+    list-style-position: inside;
+  }
 
-    ul {
-        list-style-type: disc;
-    }
+  ul {
+    list-style-type: disc;
+  }
 
-    ol {
-        list-style-type: decimal;
-    }
+  ol {
+    list-style-type: decimal;
+  }
 
-    /* Optionally, add some spacing between list items */
-    li {
-        margin-bottom: 0.5rem;
-    }
+  /* Optionally, add some spacing between list items */
+  li {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .markdown-content {
-    @apply text-foreground px-8 max-w-6xl mx-auto text-center; /* Center all text */
+  @apply text-foreground mx-auto max-w-6xl px-8 text-center; /* Center all text */
 }
 
 /* Headings */
 .markdown-content h1 {
-    @apply text-5xl font-bold mb-8 leading-tight;
+  @apply mb-8 text-5xl leading-tight font-bold;
 }
 
 .markdown-content h2 {
-    @apply text-4xl font-semibold mb-6 leading-tight;
+  @apply mb-6 text-4xl leading-tight font-semibold;
 }
 
 .markdown-content h3 {
-    @apply text-3xl font-semibold mb-4 leading-tight;
+  @apply mb-4 text-3xl leading-tight font-semibold;
 }
 
 .markdown-content h4 {
-    @apply text-2xl font-semibold mb-4 leading-tight;
+  @apply mb-4 text-2xl leading-tight font-semibold;
 }
 
 /* Paragraphs */
 .markdown-content p {
-    @apply text-xl mb-6 leading-relaxed;
+  @apply mb-6 text-xl leading-relaxed;
 }
 
 /* Code blocks and inline code */
 .markdown-content pre {
-    @apply text-left p-6 rounded-lg bg-muted overflow-x-auto mb-6 text-sm max-h-[50vh] overflow-y-auto;
+  @apply bg-muted mb-6 max-h-[50vh] overflow-x-auto overflow-y-auto rounded-lg p-6 text-left text-sm;
 }
 
 .markdown-content code {
-    @apply font-mono text-sm bg-muted px-2 py-1 rounded;
+  @apply bg-muted rounded px-2 py-1 font-mono text-sm;
 }
 
 .markdown-content pre code {
-    @apply bg-transparent p-0;
+  @apply bg-transparent p-0;
 }
 
 /* Images */
 .markdown-content img {
-    @apply max-h-[500px] mx-auto mb-6 rounded-lg shadow-lg;
+  @apply mx-auto mb-6 max-h-[500px] rounded-lg shadow-lg;
 }
 
 /* Tables */
 .markdown-content table {
-    @apply w-full border-collapse mb-6;
+  @apply mb-6 w-full border-collapse;
 }
 
 .markdown-content th,
 .markdown-content td {
-    @apply border border-border p-3 text-center; /* Center table text */
+  @apply border-border border p-3 text-center; /* Center table text */
 }
 
 .markdown-content th {
-    @apply bg-muted font-semibold;
+  @apply bg-muted font-semibold;
 }
 
 /* Blockquotes */
 .markdown-content blockquote {
-    @apply border-l-4 border-primary pl-6 italic mb-6 bg-muted p-4 rounded-lg;
+  @apply border-primary bg-muted mb-6 rounded-lg border-l-4 p-4 pl-6 italic;
 }
 
 /* Lists */
 .markdown-content ul,
 .markdown-content ol {
-    @apply text-center list-disc list-outside mb-6 text-xl pl-6; /* Center list text */
+  @apply mb-6 list-outside list-disc pl-6 text-center text-xl; /* Center list text */
 }
 
 .markdown-content ol {
-    @apply list-decimal;
+  @apply list-decimal;
 }
 
 .markdown-content li {
-    @apply mb-3 leading-relaxed;
+  @apply mb-3 leading-relaxed;
 }
 
 /* Small text */
 .markdown-content small {
-    @apply text-sm text-muted-foreground block mt-2;
+  @apply text-muted-foreground mt-2 block text-sm;
 }
 
 /* Notes and callouts */
 .markdown-content .note {
-    @apply text-sm text-muted-foreground italic mt-2 p-3 bg-muted rounded-lg;
+  @apply text-muted-foreground bg-muted mt-2 rounded-lg p-3 text-sm italic;
 }
 
 /* Horizontal rules */
 .markdown-content hr {
-    @apply border-t border-border my-8;
+  @apply border-border my-8 border-t;
 }
 
 /* Links */
 .markdown-content a {
-    @apply text-primary hover:text-primary/80 underline;
+  @apply text-primary hover:text-primary/80 underline;
 }
 
 /* Keyboard keys */
 .markdown-content kbd {
-    @apply bg-muted border border-border px-2 py-1 rounded text-sm font-mono;
+  @apply bg-muted border-border rounded border px-2 py-1 font-mono text-sm;
 }
 
 /* Task lists */
 .markdown-content .task-list-item {
-    @apply list-none pl-0;
+  @apply list-none pl-0;
 }
 
 .markdown-content .task-list-item-checkbox {
-    @apply mr-2;
+  @apply mr-2;
 }
 
 /* Additional spacing for better readability */
 .markdown-content > * + * {
-    @apply mt-6;
+  @apply mt-6;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .markdown-content {
-        @apply px-4;
-    }
+  .markdown-content {
+    @apply px-4;
+  }
 
-    .markdown-content h1 {
-        @apply text-4xl;
-    }
+  .markdown-content h1 {
+    @apply text-4xl;
+  }
 
-    .markdown-content h2 {
-        @apply text-3xl;
-    }
+  .markdown-content h2 {
+    @apply text-3xl;
+  }
 
-    .markdown-content h3 {
-        @apply text-2xl;
-    }
+  .markdown-content h3 {
+    @apply text-2xl;
+  }
 
-    .markdown-content p,
-    .markdown-content li {
-        @apply text-lg;
-    }
+  .markdown-content p,
+  .markdown-content li {
+    @apply text-lg;
+  }
 }
 
 /* Mermaid diagrams */
 .markdown-content .mermaid {
-    @apply flex justify-center my-8 bg-transparent;
+  @apply my-8 flex justify-center bg-transparent;
 }
 
 /* Mermaid text size */
@@ -286,12 +293,12 @@
 .mermaid .taskText,
 .mermaid .taskTextOutsideRight,
 .mermaid .grid .tick text {
-    @apply text-base; /* Increase Mermaid text size */
+  @apply text-base; /* Increase Mermaid text size */
 }
 
 /* SVG container */
 .mermaid svg {
-    @apply max-w-full h-auto;
+  @apply h-auto max-w-full;
 }
 
 /* Node styles */
@@ -300,129 +307,129 @@
 .mermaid .node ellipse,
 .mermaid .node polygon,
 .mermaid .node path {
-    @apply fill-background stroke-border stroke-2;
+  @apply fill-background stroke-border stroke-2;
 }
 
 /* Node labels */
 .mermaid .node .label {
-    @apply text-foreground fill-foreground;
+  @apply text-foreground fill-foreground;
 }
 
 /* Cluster styles */
 .mermaid .cluster rect,
 .mermaid .cluster polygon {
-    @apply fill-muted stroke-muted-foreground;
+  @apply fill-muted stroke-muted-foreground;
 }
 
 /* Edge styles */
 .mermaid .edgePath .path {
-    @apply stroke-border stroke-2;
+  @apply stroke-border stroke-2;
 }
 
 .mermaid .edgePath marker {
-    @apply fill-border stroke-border;
+  @apply fill-border stroke-border;
 }
 
 .mermaid .edgeLabel {
-    @apply bg-transparent;
+  @apply bg-transparent;
 }
 
 .mermaid .edgeLabel rect {
-    @apply fill-background/70;
+  @apply fill-background/70;
 }
 
 /* State diagram specific */
 .mermaid .stateGroup rect {
-    @apply fill-background stroke-border;
+  @apply fill-background stroke-border;
 }
 
 .mermaid .stateGroup .compositeState {
-    @apply fill-muted;
+  @apply fill-muted;
 }
 
 /* Sequence diagram specific */
 .mermaid .actor {
-    @apply fill-background stroke-border stroke-2;
+  @apply fill-background stroke-border stroke-2;
 }
 
 .mermaid .messageLine0,
 .mermaid .messageLine1 {
-    @apply stroke-border stroke-2;
+  @apply stroke-border stroke-2;
 }
 
 /* Class diagram specific */
 .mermaid .classGroup rect {
-    @apply fill-background stroke-border;
+  @apply fill-background stroke-border;
 }
 
 /* Gantt diagram specific */
 .mermaid .taskRect {
-    @apply fill-muted stroke-border;
+  @apply fill-muted stroke-border;
 }
 
 /* Grid and axis */
 .mermaid .grid path {
-    @apply stroke-muted-foreground opacity-50;
+  @apply stroke-muted-foreground opacity-50;
 }
 
 /* Flow diagram specific */
 .mermaid .flowchart-link {
-    @apply stroke-border stroke-2;
+  @apply stroke-border stroke-2;
 }
 
 /* Composite shapes */
 .mermaid .composite {
-    @apply fill-muted stroke-border;
+  @apply fill-muted stroke-border;
 }
 
 /* State transitions */
 .mermaid .transition {
-    @apply stroke-border stroke-2;
+  @apply stroke-border stroke-2;
 }
 
 /* Special states */
 .mermaid .start-state {
-    @apply fill-green-900 stroke-border;
+  @apply stroke-border fill-green-900;
 }
 
 .mermaid .end-state {
-    @apply fill-red-900 stroke-border;
+  @apply stroke-border fill-red-900;
 }
 
 /* Markers and arrows */
 .mermaid marker {
-    @apply fill-border stroke-border;
+  @apply fill-border stroke-border;
 }
 
 /* Active states and highlights */
 .mermaid .active0,
 .mermaid .active1 {
-    @apply fill-muted stroke-border;
+  @apply fill-muted stroke-border;
 }
 
 /* Timeline specific */
 .mermaid .section0,
 .mermaid .section2 {
-    @apply fill-muted opacity-50;
+  @apply fill-muted opacity-50;
 }
 
 .mermaid .section1,
 .mermaid .section3 {
-    @apply fill-background opacity-50;
+  @apply fill-background opacity-50;
 }
 
 /* Ensure visibility of nested content */
 .mermaid foreignObject {
-    @apply overflow-visible;
+  @apply overflow-visible;
 }
 
 .mermaid foreignObject div {
-    @apply text-foreground font-mono text-base; /* Increase text size */
+  @apply text-foreground font-mono text-base; /* Increase text size */
 }
 
 /* Edge label backgrounds */
 .mermaid .edgeLabel > .label {
-    @apply bg-background px-1 rounded;
+  @apply bg-background rounded px-1;
 }
 
 /* Presentation mode styles */

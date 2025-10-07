@@ -48,16 +48,18 @@ export function TableOfContents() {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block fixed right-8 top-40 w-56">
-      <h4 className="text-xs uppercase tracking-wider font-semibold mb-4 text-muted-foreground">On this page</h4>
+    <nav className="fixed top-40 right-8 hidden w-56 xl:block">
+      <h4 className="text-muted-foreground mb-4 text-xs font-semibold tracking-wider uppercase">
+        On this page
+      </h4>
       <div className="space-y-1 text-sm">
         {headings.map((heading) => (
           <a
             key={heading.id}
             href={`#${heading.id}`}
             className={cn(
-              "block py-1.5 text-muted-foreground hover:text-foreground transition-colors duration-200 border-l-2 border-transparent hover:border-muted-foreground/50",
-              activeId === heading.id && "text-foreground font-medium border-primary",
+              "text-muted-foreground hover:text-foreground hover:border-muted-foreground/50 block border-l-2 border-transparent py-1.5 transition-colors duration-200",
+              activeId === heading.id && "text-foreground border-primary font-medium",
               heading.level === 2 ? "pl-4" : "pl-8"
             )}
             onClick={(e) => {
@@ -65,7 +67,7 @@ export function TableOfContents() {
               document.getElementById(heading.id)?.scrollIntoView({
                 behavior: "smooth",
                 block: "start",
-                inline: "nearest"
+                inline: "nearest",
               });
             }}
           >

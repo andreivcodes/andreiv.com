@@ -4,7 +4,8 @@ shortDescription: A never ending project.
 date: Mar 2024
 featuredImage: "/projects/personal-website/featured.png"
 stackPrimary: ["astro", "react", "typescript"]
-stackSecondary: ["tailwind v4", "shadcn/ui", "framer-motion", "mermaid", "katex", "proxmox", "dokploy"]
+stackSecondary:
+  ["tailwind v4", "shadcn/ui", "framer-motion", "mermaid", "katex", "proxmox", "dokploy"]
 url: https://andreiv.com
 repository: https://github.com/andreivcodes/andreiv.com
 index: 40

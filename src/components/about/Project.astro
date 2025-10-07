@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { Badge } from "../ui/badge";
 
 interface Props {
-    withTitle: boolean;
+  withTitle: boolean;
 }
 
 const { withTitle } = Astro.props;
@@ -12,69 +12,52 @@ const projects = await getProjects();
 ---
 
 <div class="flex flex-col gap-8">
+  {withTitle && <div class="mb-4 text-center text-2xl font-bold md:text-left">Projects</div>}
+  <div>
     {
-        withTitle && (
-            <div class="text-2xl font-bold mb-4 text-center md:text-left">
-                Projects
+      projects
+        .sort((a, b) => a.index - b.index)
+        .map((project) => (
+          <div class="flex w-full flex-col items-end gap-2 pt-8">
+            <div class="text-sm">{project.date}</div>
+            <div class="-mr-2 h-[1px] w-32 bg-current md:-mr-8" />
+            <div class="bg-card text-card-foreground w-full rounded-lg border-0 shadow-none md:border md:shadow-sm">
+              <div class="w-full p-2 md:p-6">
+                <h3 class="leading-none font-semibold tracking-tight">
+                  <a href={`/projects/${project.slug}`}>{project.name}</a>
+                </h3>
+              </div>
+
+              <div class="p-2 pt-0 text-sm md:p-6">{project.shortDescription}</div>
+
+              <div class="flex w-full flex-col justify-between p-2 md:flex-row md:p-6">
+                <div class="flex flex-wrap gap-2">
+                  {project.stackPrimary &&
+                    project.stackPrimary.map((stack) => (
+                      <Badge className="pointer-events-none rounded-full">{stack}</Badge>
+                    ))}
+                  {project.stackSecondary &&
+                    project.stackSecondary.map((stack) => (
+                      <Badge className="pointer-events-none rounded-full" variant="secondary">
+                        {stack}
+                      </Badge>
+                    ))}
+                </div>
+                {project.url ? (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    class="flex flex-row items-center gap-2 fill-stone-400 text-stone-400"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <div />
+                )}
+              </div>
             </div>
-        )
+          </div>
+        ))
     }
-    <div>
-        {
-            projects
-                .sort((a, b) => a.index - b.index)
-                .map((project) => (
-                    <div
-                        class="w-full flex flex-col items-end gap-2 pt-8"
-                    >
-                        <div class="text-sm">{project.date}</div>
-                        <div class="-mr-2 md:-mr-8 w-32 h-[1px] bg-current" />
-                        <div class="w-full shadow-none md:shadow-sm border-0 md:border rounded-lg bg-card text-card-foreground">
-                            <div class="w-full p-2 md:p-6">
-                                <h3 class="font-semibold leading-none tracking-tight">
-                                    <a href={`/projects/${project.slug}`}>
-                                        {project.name}
-                                    </a>
-                                </h3>
-                            </div>
-
-                            <div class="text-sm p-2 md:p-6 pt-0">
-                                {project.shortDescription}
-                            </div>
-
-                            <div class="w-full flex flex-col md:flex-row justify-between p-2 md:p-6">
-                                <div class="flex flex-wrap gap-2">
-                                    {project.stackPrimary &&
-                                        project.stackPrimary.map((stack) => (
-                                            <Badge className="pointer-events-none rounded-full">
-                                                {stack}
-                                            </Badge>
-                                        ))}
-                                    {project.stackSecondary &&
-                                        project.stackSecondary.map((stack) => (
-                                            <Badge
-                                                className="pointer-events-none rounded-full"
-                                                variant="secondary"
-                                            >
-                                                {stack}
-                                            </Badge>
-                                        ))}
-                                </div>
-                                {project.url ? (
-                                    <a
-                                        href={project.url}
-                                        target="_blank"
-                                        class="flex flex-row gap-2 items-center fill-stone-400 text-stone-400"
-                                    >
-                                        <ExternalLink className="w-4 h-4" />
-                                    </a>
-                                ) : (
-                                    <div />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                ))
-        }
-    </div>
+  </div>
 </div>

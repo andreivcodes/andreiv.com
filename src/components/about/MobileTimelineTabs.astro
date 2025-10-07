@@ -1,20 +1,20 @@
 ---
-import Professional from './Professional.astro';
-import Education from './Education.astro';
+import Professional from "./Professional.astro";
+import Education from "./Education.astro";
 ---
 
 <div class="mobile-timeline-tabs w-full">
   <!-- Tab buttons -->
-  <div class="flex w-full rounded-lg bg-muted p-1 mb-6">
-    <button 
-      class="tab-button flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
+  <div class="bg-muted mb-6 flex w-full rounded-lg p-1">
+    <button
+      class="tab-button focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm"
       data-tab="professional"
       data-state="active"
     >
       Professional Experience
     </button>
-    <button 
-      class="tab-button flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
+    <button
+      class="tab-button focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm"
       data-tab="education"
       data-state="inactive"
     >
@@ -39,24 +39,27 @@ import Education from './Education.astro';
 
 <script>
   // Handle tab switching
-  const tabButtons = document.querySelectorAll('.tab-button');
-  const tabContents = document.querySelectorAll('.tab-content');
+  const tabButtons = document.querySelectorAll(".tab-button");
+  const tabContents = document.querySelectorAll(".tab-content");
 
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const targetTab = button.getAttribute('data-tab');
-      
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetTab = button.getAttribute("data-tab");
+
       // Update button states
-      tabButtons.forEach(btn => {
-        btn.setAttribute('data-state', btn.getAttribute('data-tab') === targetTab ? 'active' : 'inactive');
+      tabButtons.forEach((btn) => {
+        btn.setAttribute(
+          "data-state",
+          btn.getAttribute("data-tab") === targetTab ? "active" : "inactive"
+        );
       });
-      
+
       // Show/hide content
-      tabContents.forEach(content => {
-        if (content.getAttribute('data-panel') === targetTab) {
-          content.classList.remove('hidden');
+      tabContents.forEach((content) => {
+        if (content.getAttribute("data-panel") === targetTab) {
+          content.classList.remove("hidden");
         } else {
-          content.classList.add('hidden');
+          content.classList.add("hidden");
         }
       });
     });

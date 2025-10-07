@@ -1,13 +1,12 @@
 "use client";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
 import { useEffect } from "react";
 
 export const TypewriterEffect = ({
   words,
   className,
-
 }: {
   words: {
     text: string;
@@ -51,10 +50,7 @@ export const TypewriterEffect = ({
                 <motion.span
                   initial={{}}
                   key={`char-${index}`}
-                  className={cn(
-                    `opacity-0 hidden`,
-                    word.className
-                  )}
+                  className={cn(`hidden opacity-0`, word.className)}
                 >
                   {char}
                 </motion.span>
@@ -66,11 +62,5 @@ export const TypewriterEffect = ({
       </motion.div>
     );
   };
-  return (
-    <div
-      className={className}
-    >
-      {renderWords()}
-    </div>
-  );
+  return <div className={className}>{renderWords()}</div>;
 };

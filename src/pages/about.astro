@@ -1,46 +1,47 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/Header.astro';
-import Footer from '@/components/Footer.astro';
-import AboutCombined from '@/components/about/AboutCombined.astro';
-import Professional from '@/components/about/Professional.astro';
-import Education from '@/components/about/Education.astro';
-import MobileTimelineTabs from '@/components/about/MobileTimelineTabs.astro';
-import DownloadPDFButton from '@/components/about/DownloadPDFButton';
-import { getProfessional, getEducation } from '@/lib/content';
-import { marked } from 'marked';
-import superjson from 'superjson';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import AboutCombined from "@/components/about/AboutCombined.astro";
+import Professional from "@/components/about/Professional.astro";
+import Education from "@/components/about/Education.astro";
+import MobileTimelineTabs from "@/components/about/MobileTimelineTabs.astro";
+import DownloadPDFButton from "@/components/about/DownloadPDFButton";
+import { getProfessional, getEducation } from "@/lib/content";
+import { marked } from "marked";
+import superjson from "superjson";
 
 const title = "About - Andrei Voinea";
-const description = "Learn more about Andrei Voinea, a software engineer passionate about building in the open.";
+const description =
+  "Learn more about Andrei Voinea, a software engineer passionate about building in the open.";
 
 // Fetch data server-side
 const professional = await getProfessional();
 const education = await getEducation();
 
 // Convert markdown content to HTML
-const professionalWithHtml = professional.map(exp => ({
+const professionalWithHtml = professional.map((exp) => ({
   ...exp,
-  content: marked(exp.content || ''),
+  content: marked(exp.content || ""),
 }));
 
-const educationWithHtml = education.map(edu => ({
+const educationWithHtml = education.map((edu) => ({
   ...edu,
-  content: marked(edu.content || ''),
+  content: marked(edu.content || ""),
 }));
 
 // Serialize the data for client-side consumption
-const resumeData = superjson.stringify({ 
-  professional: professionalWithHtml, 
-  education: educationWithHtml 
+const resumeData = superjson.stringify({
+  professional: professionalWithHtml,
+  education: educationWithHtml,
 });
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="min-h-screen flex flex-col">
+  <div class="flex min-h-screen flex-col">
     <Header />
-    <main class="flex-1 flex justify-center">
-      <div class="flex w-full max-w-7xl h-full flex-col p-2 md:p-8 gap-12 md:gap-24">
+    <main class="flex flex-1 justify-center">
+      <div class="flex h-full w-full max-w-7xl flex-col gap-12 p-2 md:gap-24 md:p-8">
         <!-- Combined About and Skills card spanning full width -->
         <div class="w-full">
           <AboutCombined />
@@ -50,11 +51,11 @@ const resumeData = superjson.stringify({
         <div class="md:hidden">
           <MobileTimelineTabs />
         </div>
-        
+
         <!-- Desktop view with timeline -->
-        <div class="hidden md:grid grid-flow-col auto-cols-auto gap-8">
+        <div class="hidden auto-cols-auto grid-flow-col gap-8 md:grid">
           <Professional withTitle={true} />
-          <div class="inset-y-0 bg-current w-px"></div>
+          <div class="inset-y-0 w-px bg-current"></div>
           <Education withTitle={true} />
         </div>
       </div>

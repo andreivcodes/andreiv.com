@@ -83,7 +83,6 @@ qm set 9000 --ipconfig0 ip=dhcp
 qm template 9000
 ```
 
-
 ## Using the Template
 
 To create a new VM from this template:
