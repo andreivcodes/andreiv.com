@@ -128,11 +128,11 @@ This changes the task boundary. Basic chat is often enough for rewriting, retrie
 
 From the outside, this still looks like chat. Under the hood, it is not just immediate response generation anymore. The system is spending extra inference-time compute to reason before it speaks.
 
-That difference will matter later on.
+Once that deliberation loop exists, it does not only improve the final answer. It starts to shape what the system decides to do before the answer arrives, including whether it should reach for a tool at all.
 
 ## Thinking with Tools
 
-Once tool use arrived, the interface still looked like a chatbot, but the operating model changed again.
+Once tool use arrived, the interface still looked like a chatbot, but the operating model changed again. The model was no longer only deciding what to say. It was often deciding what to do next.
 
 A tool-using model is no longer limited to what already fits in context. It can ask for a web search, retrieve documents, run code, transform data, or interact with another system. Anthropic's tool-use docs are explicit here: when you provide tools, the API constructs a tool-use system prompt, the model emits tool requests, the surrounding system executes them, returns results, and the loop continues. OpenAI's hosted tools move similar capabilities into the platform through things like web search, file search, and code interpreter.
 
@@ -266,6 +266,8 @@ At that point, calling it just a chatbot starts to miss the mechanics that actua
 The next shift was not simply better chat products. It was relocation.
 
 Instead of moving work into a browser tab, the model started moving into the environment where the work already lives. In tools like Claude Code, Codex CLI, and OpenCode, the model can see the repository, edit files, run commands, inspect failures, and stay inside the loop until the task is actually resolved.
+
+That same decision pattern carries over here too. The question is no longer just whether to call `web_search` or `code_interpreter`, but which file to inspect, which command to run, what result matters, and what should happen next.
 
 Programming is unusually well suited to this shift because the medium is already tool-native. The shell, git, linters, test runners, package managers, browsers, logs, CI, and editors are all explicit interfaces. A coding tool does not need a brand new environment to be useful. It can plug into one that already exists.
 
