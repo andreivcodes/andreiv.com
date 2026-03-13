@@ -21,8 +21,8 @@ A modern, performant personal portfolio and blog built with Astro, showcasing pr
 
 ## Tech Stack
 
-- **Framework**: [Astro](https://astro.build) 5.11.1
-- **UI**: React 19.1.0
+- **Framework**: [Astro](https://astro.build) 6
+- **UI**: React 19
 - **Styling**: Tailwind CSS v4
 - **Components**: Radix UI primitives
 - **Fonts**: Geist Sans & Mono
@@ -75,7 +75,7 @@ Add content by creating markdown files in the appropriate directories:
 - **Projects**: `src/content/projects/[slug].md`
 - **Slides**: `src/content/slides/[slug].md`
 
-Each content type has a defined schema in `src/content/config.ts`.
+Each content type has a defined schema in `src/content.config.ts`.
 
 ## Configuration
 

@@ -6,7 +6,7 @@ import { Presentation } from "@/components/presentation";
 export async function getStaticPaths() {
   const presentations = await getCollection("slides");
   return presentations.map((presentation) => ({
-    params: { slug: presentation.slug },
+    params: { slug: presentation.id },
     props: { presentation },
   }));
 }
@@ -18,7 +18,7 @@ const description = presentation.data.description || `Presentation: ${presentati
 
 // Prepare the presentation data in the format expected by the component
 const presentationData = {
-  slug: presentation.slug,
+  slug: presentation.id,
   title: presentation.data.title,
   date: presentation.data.date,
   content: presentation.body,

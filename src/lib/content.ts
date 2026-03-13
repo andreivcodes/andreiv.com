@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 export async function getProjects() {
   const projects = await getCollection("projects");
   return projects.map((project) => ({
-    slug: project.slug,
+    slug: project.id,
     ...project.data,
     content: project.body,
   }));
@@ -12,7 +12,7 @@ export async function getProjects() {
 export async function getProfessional() {
   const professional = await getCollection("professional");
   return professional.map((exp) => ({
-    slug: exp.slug,
+    slug: exp.id,
     ...exp.data,
     content: exp.body,
   }));
@@ -21,7 +21,7 @@ export async function getProfessional() {
 export async function getEducation() {
   const education = await getCollection("education");
   return education.map((edu) => ({
-    slug: edu.slug,
+    slug: edu.id,
     ...edu.data,
     content: edu.body,
   }));
@@ -30,7 +30,7 @@ export async function getEducation() {
 export async function getBlogPosts() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
-    slug: post.slug,
+    slug: post.id,
     ...post.data,
     wordCount: post.body.split(/\s+/).length,
     preview:
@@ -44,7 +44,7 @@ export async function getBlogPosts() {
 export async function getPresentations() {
   const presentations = await getCollection("slides");
   return presentations.map((pres) => ({
-    slug: pres.slug,
+    slug: pres.id,
     ...pres.data,
   }));
 }

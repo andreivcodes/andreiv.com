@@ -2,22 +2,21 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, Calendar } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
   return projects.map((project) => ({
-    params: { slug: project.slug },
+    params: { slug: project.id },
     props: { project },
   }));
 }
 
 const { project } = Astro.props;
-const { Content } = await project.render();
+const { Content } = await render(project);
 
 const title = `${project.data.name} - Andrei Voinea`;
 const description = project.data.shortDescription;
@@ -107,7 +106,7 @@ const description = project.data.shortDescription;
               </h3>
               <div class="flex flex-wrap gap-2">
                 {
-                  project.data.stackPrimary?.map((tech) => (
+                  project.data.stackPrimary?.map((tech: string) => (
                     <Badge
                       variant="default"
                       className="text-sm py-1 px-3 rounded-full pointer-events-none"
@@ -117,7 +116,7 @@ const description = project.data.shortDescription;
                   ))
                 }
                 {
-                  project.data.stackSecondary?.map((tech) => (
+                  project.data.stackSecondary?.map((tech: string) => (
                     <Badge
                       variant="secondary"
                       className="text-sm py-1 px-3 rounded-full pointer-events-none"

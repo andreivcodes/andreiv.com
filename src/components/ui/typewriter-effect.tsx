@@ -14,16 +14,14 @@ export const TypewriterEffect = ({
   }[];
   className?: string;
 }) => {
-  // split text inside of words into array of characters
-  const wordsArray = words.map((word) => {
-    return {
-      ...word,
-      text: word.text.split(""),
-    };
-  });
+  const wordsArray = words.map((word) => ({
+    ...word,
+    text: word.text.split(""),
+  }));
 
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
+
   useEffect(() => {
     if (isInView) {
       animate(
@@ -38,29 +36,26 @@ export const TypewriterEffect = ({
         }
       );
     }
-  }, [isInView]);
+  }, [animate, isInView]);
 
-  const renderWords = () => {
-    return (
+  return (
+    <div className={className}>
       <motion.div ref={scope} className="inline">
-        {wordsArray.map((word, idx) => {
-          return (
-            <div key={`word-${idx}`} className="inline-block">
-              {word.text.map((char, index) => (
-                <motion.span
-                  initial={{}}
-                  key={`char-${index}`}
-                  className={cn(`hidden opacity-0`, word.className)}
-                >
-                  {char}
-                </motion.span>
-              ))}
-              &nbsp;
-            </div>
-          );
-        })}
+        {wordsArray.map((word, idx) => (
+          <div key={`word-${idx}`} className="inline-block">
+            {word.text.map((char, index) => (
+              <motion.span
+                initial={{}}
+                key={`char-${index}`}
+                className={cn("hidden opacity-0", word.className)}
+              >
+                {char}
+              </motion.span>
+            ))}
+            &nbsp;
+          </div>
+        ))}
       </motion.div>
-    );
-  };
-  return <div className={className}>{renderWords()}</div>;
+    </div>
+  );
 };

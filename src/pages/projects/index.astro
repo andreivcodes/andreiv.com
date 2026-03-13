@@ -93,7 +93,7 @@ const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 99
 
                         {/* Tech Stack */}
                         <div class="flex flex-wrap gap-2">
-                          {project.stackPrimary?.map((tech) => (
+                          {project.stackPrimary?.map((tech: string) => (
                             <Badge
                               variant="default"
                               className="text-xs px-2 py-1 rounded-full pointer-events-none"
@@ -101,7 +101,7 @@ const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 99
                               {tech}
                             </Badge>
                           ))}
-                          {project.stackSecondary?.map((tech) => (
+                          {project.stackSecondary?.map((tech: string) => (
                             <Badge
                               variant="secondary"
                               className="text-xs px-2 py-1 rounded-full pointer-events-none"

@@ -1,7 +1,9 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const blog = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/blog", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     short: z.string(),
@@ -10,7 +12,7 @@ const blog = defineCollection({
 });
 
 const projects = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     name: z.string(),
     shortDescription: z.string(),
@@ -18,14 +20,14 @@ const projects = defineCollection({
     featuredImage: z.string().optional(),
     stackPrimary: z.array(z.string()).optional(),
     stackSecondary: z.array(z.string()).optional(),
-    url: z.string().url().optional(),
-    repository: z.string().url().optional(),
+    url: z.url().optional(),
+    repository: z.url().optional(),
     index: z.number().optional(),
   }),
 });
 
 const professional = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/professional", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     companyName: z.string().optional(),
     companyAbout: z.string().optional().nullable(),
@@ -37,7 +39,7 @@ const professional = defineCollection({
 });
 
 const education = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/education", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     institution: z.string(),
     degree: z.string(),
@@ -50,7 +52,7 @@ const education = defineCollection({
 });
 
 const slides = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/slides", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     date: z.string(),

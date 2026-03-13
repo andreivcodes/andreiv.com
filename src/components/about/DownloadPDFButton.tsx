@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Download } from "lucide-react";
-import jsPDF from "jspdf";
+import { jsPDF } from "jspdf";
 import { Button } from "../ui/button";
 import { PERSONAL_INFO, SKILLS, CONTACT_INFO } from "@/lib/personalInfo";
 import superjson from "superjson";
@@ -349,7 +349,7 @@ export default function DownloadPDFButton({ resumeData }: DownloadPDFButtonProps
 
           addNewPageIfNeeded(lines.length * 5);
 
-          lines.forEach((line, i) => {
+          lines.forEach((line: string, i: number) => {
             pdf.text(i === 0 ? line : "  " + line, margin, yPosition);
             yPosition += 5;
           });
@@ -427,7 +427,7 @@ export default function DownloadPDFButton({ resumeData }: DownloadPDFButtonProps
           pdf.setTextColor(...darkGray);
           contentLines.forEach((detail) => {
             const detailLines = pdf.splitTextToSize(detail, contentWidth);
-            detailLines.forEach((line) => {
+            detailLines.forEach((line: string) => {
               pdf.text(line, margin, yPosition);
               yPosition += 5;
             });
