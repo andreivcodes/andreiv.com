@@ -22,6 +22,9 @@ interface PresentationProps {
   presentation: Presentation;
 }
 
+const PPTX_CANVAS_WIDTH = 1280;
+const PPTX_CANVAS_HEIGHT = 720;
+
 export function Presentation({ presentation }: PresentationProps) {
   const [slides, setSlides] = useState<string[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -30,6 +33,8 @@ export function Presentation({ presentation }: PresentationProps) {
   const slideRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const currentSlideHtml = slides[currentSlide] ?? "";
+  const isCanvasSlide = currentSlideHtml.includes("pptx-slide-canvas");
 
   // Initialize mermaid
   useEffect(() => {
@@ -125,18 +130,31 @@ export function Presentation({ presentation }: PresentationProps) {
   useEffect(() => {
     const handleResize = () => {
       if (slideRef.current && containerRef.current) {
+        const containerWidth = containerRef.current.clientWidth;
         const containerHeight = containerRef.current.clientHeight;
-        const slideHeight = 700; // Fixed slide height
-        const scale = (containerHeight - 100) / slideHeight; // Scale based on height
+        const availableWidth = Math.max(containerWidth - 80, 1);
+        const availableHeight = Math.max(containerHeight - 100, 1);
 
-        setScale(scale);
+        if (isCanvasSlide) {
+          const nextScale = Math.min(
+            availableWidth / PPTX_CANVAS_WIDTH,
+            availableHeight / PPTX_CANVAS_HEIGHT
+          );
+          setScale(nextScale);
+          return;
+        }
+
+        const slideHeight = 700;
+        const nextScale = availableHeight / slideHeight;
+
+        setScale(nextScale);
       }
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isCanvasSlide, currentSlideHtml]);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -232,15 +250,17 @@ export function Presentation({ presentation }: PresentationProps) {
           style={{
             transform: `scale(${scale})`,
             transformOrigin: "center",
-            width: "100%",
-            height: "700px",
+            width: isCanvasSlide ? `${PPTX_CANVAS_WIDTH}px` : "100%",
+            height: isCanvasSlide ? `${PPTX_CANVAS_HEIGHT}px` : "700px",
           }}
-          className="relative flex items-center justify-center px-20"
+          className={`relative flex items-center justify-center ${isCanvasSlide ? "" : "px-20"}`}
         >
-          <div className="w-full overflow-hidden">
+          <div
+            className={isCanvasSlide ? "h-full w-full overflow-hidden" : "w-full overflow-hidden"}
+          >
             <div
-              className="markdown-content presentation-mode w-full"
-              dangerouslySetInnerHTML={{ __html: slides[currentSlide] }}
+              className={`markdown-content presentation-mode ${isCanvasSlide ? "presentation-canvas-mode h-full w-full" : "w-full"}`}
+              dangerouslySetInnerHTML={{ __html: currentSlideHtml }}
             />
           </div>
         </div>

@@ -480,6 +480,90 @@
   font-size: 0.9em;
 }
 
+.markdown-content.presentation-mode img {
+  margin: 0;
+  max-height: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode {
+  max-width: none;
+  padding: 0;
+  text-align: left;
+  line-height: 1;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode > * + * {
+  margin-top: 0;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode h1,
+.markdown-content.presentation-mode.presentation-canvas-mode h2,
+.markdown-content.presentation-mode.presentation-canvas-mode h3,
+.markdown-content.presentation-mode.presentation-canvas-mode h4,
+.markdown-content.presentation-mode.presentation-canvas-mode p,
+.markdown-content.presentation-mode.presentation-canvas-mode ul,
+.markdown-content.presentation-mode.presentation-canvas-mode ol,
+.markdown-content.presentation-mode.presentation-canvas-mode li,
+.markdown-content.presentation-mode.presentation-canvas-mode pre,
+.markdown-content.presentation-mode.presentation-canvas-mode code {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-slide-canvas {
+  position: relative;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-svg-layer,
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-link-overlay,
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-gif-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-svg-layer {
+  z-index: 1;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-element,
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-shape,
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-image,
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-connector {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-link-overlay {
+  display: block;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-gif-overlay {
+  display: block;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode .pptx-text {
+  white-space: pre-wrap;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode img {
+  max-width: none;
+  max-height: none;
+}
+
+.markdown-content.presentation-mode.presentation-canvas-mode a {
+  color: inherit;
+  text-decoration: none;
+}
+
 :root {
   --sidebar: hsl(0 0% 98%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
