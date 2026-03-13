@@ -8,7 +8,12 @@ export function initBlogCodeEnhancements(rootSelector = ".blog-post-content") {
 
   codeBlocks.forEach((block) => {
     const pre = block.parentElement;
-    if (!pre || pre.parentElement?.classList.contains("blog-code-wrapper")) {
+    if (
+      !pre ||
+      pre.parentElement?.classList.contains("blog-code-wrapper") ||
+      pre.hasAttribute("data-no-copy") ||
+      pre.closest("[data-no-copy]")
+    ) {
       return;
     }
 

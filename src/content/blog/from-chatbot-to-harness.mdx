@@ -38,7 +38,7 @@ But the loop was still narrow. The model stayed inside the chat box. The user ca
 
 <ConversationFigure
   title="Chatbot"
-  composer="Ask anything..."
+  composer="Ask for a rewrite..."
   caption="Classic chatbot interface: you type, it replies, you carry the result back into the real workflow."
 >
   <ConversationMessage role="user">
@@ -68,7 +68,7 @@ I noticed this most clearly when I tried running local models. Once you can touc
 
 <ConversationFigure
   title="Chatbot with System Prompt"
-  composer="Reply to customer..."
+  composer="Describe a support issue..."
   caption="Even the early chatbot era had an invisible layer above the chat: the system prompt shaping the whole interaction."
 >
   <ConversationPanel variant="system" emphasis="strong">
@@ -99,7 +99,7 @@ This changes the task boundary. Basic chat is often enough for rewriting, retrie
 
 <ConversationFigure
   title="Thinking Model"
-  composer="Describe the problem..."
+  composer="Ask for a strategy recommendation..."
   caption="Thinking models add an internal deliberation loop before they answer."
 >
   <ConversationMessage role="user" emphasis="muted">
@@ -140,7 +140,7 @@ This is the important distinction: the model does not directly perform the actio
 
 <ConversationFigure
   title="Thinking with Tools"
-  composer="Ask for research..."
+  composer="Request current research..."
   caption="Still a chatbot in the browser, but now the system prompt includes both instructions and explicit tool definitions."
 >
   <ConversationPanel variant="system" emphasis="strong">
@@ -204,7 +204,7 @@ This is the important distinction: the model does not directly perform the actio
   </ConversationPanel>
   <ConversationPanel variant="result" emphasis="strong">
     <p>CSV generated:</p>
-    <pre>
+    <pre data-no-copy>
       <code>{`country,gdp_usd_billions,source
 Romania,380.0,https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=RO
 Poland,811.2,https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=PL
