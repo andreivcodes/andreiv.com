@@ -4,11 +4,11 @@ import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import { Badge } from "@/components/ui/badge";
 import { getProjects } from "@/lib/content";
+import { STATIC_PAGE_METADATA } from "@/lib/pageMetadata";
 import { ArrowRight, Calendar, ExternalLink } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
-const title = "Projects - Andrei Voinea";
-const description = "Open source projects and side projects built by Andrei Voinea.";
+const { title, description } = STATIC_PAGE_METADATA.projects;
 
 const projects = await getProjects();
 const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 999));
@@ -38,22 +38,19 @@ const featuredProject = sortedProjects.find((project) => project.featuredImage);
         <div class="space-y-12 lg:space-y-16">
           {
             sortedProjects.map((project, index) => (
-              <article class="group relative overflow-hidden rounded-lg">
-                <div class="bg-card hover:border-primary/50 relative flex flex-col overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-lg xl:grid xl:grid-cols-2">
+              <article class="relative overflow-hidden rounded-lg">
+                <div class="site-card-shell relative flex flex-col overflow-hidden xl:grid xl:grid-cols-2">
                   <div class="relative overflow-hidden xl:order-2">
                     <div class="bg-muted/20 relative aspect-[16/9] w-full">
                       {project.featuredImage ? (
-                        <>
-                          <img
-                            src={project.featuredImage}
-                            alt={`${project.name} preview`}
-                            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            loading={index === 0 ? "eager" : "lazy"}
-                            width="800"
-                            height="450"
-                          />
-                          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                        </>
+                        <img
+                          src={project.featuredImage}
+                          alt={`${project.name} preview`}
+                          class="h-full w-full object-cover"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          width="800"
+                          height="450"
+                        />
                       ) : (
                         <div class="from-muted via-muted/80 to-background flex h-full w-full items-center justify-center bg-gradient-to-br">
                           <div class="text-muted-foreground/10 text-7xl font-bold">
@@ -67,11 +64,8 @@ const featuredProject = sortedProjects.find((project) => project.featuredImage);
                   <div class="flex flex-col p-8 xl:order-1 xl:min-h-[300px]">
                     <div>
                       <div class="mb-6">
-                        <h2 class="group-hover:text-primary -mt-1 mb-3 text-3xl font-bold transition-colors duration-300 xl:text-4xl">
-                          <a
-                            href={`/projects/${project.slug}`}
-                            class="focus-visible:ring-primary rounded-sm focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
-                          >
+                        <h2 class="-mt-1 mb-3 text-3xl font-bold xl:text-4xl">
+                          <a href={`/projects/${project.slug}`} class="site-emphasis-link">
                             {project.name}
                           </a>
                         </h2>
@@ -112,7 +106,7 @@ const featuredProject = sortedProjects.find((project) => project.featuredImage);
                             href={project.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
+                            class="site-inline-link inline-flex items-center gap-1.5 text-sm"
                             aria-label={`View ${project.name} live demo`}
                           >
                             <ExternalLink className="h-4 w-4" />
@@ -124,7 +118,7 @@ const featuredProject = sortedProjects.find((project) => project.featuredImage);
                             href={project.repository}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
+                            class="site-inline-link inline-flex items-center gap-1.5 text-sm"
                             aria-label={`View ${project.name} source code`}
                           >
                             <GitHubLogoIcon className="h-4 w-4" />
@@ -135,10 +129,10 @@ const featuredProject = sortedProjects.find((project) => project.featuredImage);
 
                       <a
                         href={`/projects/${project.slug}`}
-                        class="group/link hover:text-primary inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
+                        class="site-emphasis-link group/link inline-flex items-center gap-1.5 text-sm font-medium"
                       >
                         <span>View Project</span>
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-1 group-focus-visible/link:translate-x-1" />
                       </a>
                     </div>
                   </div>

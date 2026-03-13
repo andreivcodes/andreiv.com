@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import { getOgImagePath } from "@/lib/og";
 
 export interface Props {
   title: string;
@@ -11,7 +12,7 @@ export interface Props {
 const {
   title,
   description = "Andrei's personal website",
-  ogImage = "/og-image.png",
+  ogImage = getOgImagePath(Astro.url.pathname),
   structuredData,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://andreiv.com");

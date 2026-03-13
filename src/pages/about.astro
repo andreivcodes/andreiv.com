@@ -4,13 +4,12 @@ import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import AboutCombined from "@/components/about/AboutCombined.astro";
 import AboutTimeline from "@/components/about/AboutTimeline.astro";
+import { STATIC_PAGE_METADATA } from "@/lib/pageMetadata";
 import { getResumeEntries } from "@/lib/resume";
 import { getPersonStructuredData } from "@/lib/structuredData";
 import { Download } from "lucide-react";
 
-const title = "About - Andrei Voinea";
-const description =
-  "Learn more about Andrei Voinea, a software engineer passionate about building in the open.";
+const { title, description } = STATIC_PAGE_METADATA.about;
 
 const { professional, education } = await getResumeEntries();
 const structuredData = getPersonStructuredData({
@@ -31,10 +30,7 @@ const structuredData = getPersonStructuredData({
         <AboutTimeline professional={professional} education={education} />
       </div>
     </main>
-    <a
-      href="/resume"
-      class="bg-primary text-primary-foreground hover:bg-primary/90 fixed right-8 bottom-8 z-50 inline-flex items-center gap-2 rounded-md px-4 py-3 text-sm font-medium shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-    >
+    <a href="/resume" class="site-action-chip fixed right-6 bottom-6 z-50 sm:right-8 sm:bottom-8">
       <Download className="h-4 w-4" />
       <span>Download Resume</span>
     </a>

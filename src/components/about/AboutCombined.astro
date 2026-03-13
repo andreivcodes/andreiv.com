@@ -5,7 +5,7 @@ import SocialLinks from "@/components/SocialLinks.astro";
 import { PERSONAL_INFO, SKILLS } from "@/lib/personalInfo";
 ---
 
-<Card className="flex w-full flex-col gap-4 border-0 shadow-none md:border md:shadow-sm">
+<Card className="flex w-full flex-col gap-4">
   <div class="flex flex-col gap-6 p-6 md:flex-row md:p-8">
     <div class="order-2 flex-1 md:order-1">
       <CardHeader className="p-0 pb-4">
@@ -55,12 +55,7 @@ import { PERSONAL_INFO, SKILLS } from "@/lib/personalInfo";
         </div>
 
         <div class="flex flex-wrap items-center gap-4 pt-2">
-          <SocialLinks
-            class="gap-4"
-            iconClass="h-5 w-5"
-            itemClass="text-foreground hover:text-primary transition-colors"
-            labelPrefix="Open"
-          />
+          <SocialLinks class="gap-4" iconClass="h-5 w-5" labelPrefix="Open" />
         </div>
       </CardContent>
     </div>

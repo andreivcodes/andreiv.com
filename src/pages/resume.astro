@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { CONTACT_INFO, PERSONAL_INFO, SKILLS } from "@/lib/personalInfo";
+import { STATIC_PAGE_METADATA } from "@/lib/pageMetadata";
 import { getResumeEntries } from "@/lib/resume";
 import { getPersonStructuredData } from "@/lib/structuredData";
 
-const title = "Resume - Andrei Voinea";
-const description = "Printable resume for Andrei Voinea.";
+const { title, description } = STATIC_PAGE_METADATA.resume;
 
 const { professional, education } = await getResumeEntries();
 const structuredData = getPersonStructuredData({
@@ -18,23 +18,16 @@ const structuredData = getPersonStructuredData({
   <main id="main-content" class="bg-background min-h-screen py-8 print:py-0">
     <div class="mx-auto max-w-4xl px-4 print:max-w-none print:px-0">
       <div class="mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
-        <a
-          href="/about"
-          class="text-muted-foreground hover:text-foreground inline-flex items-center text-sm transition-colors"
-        >
+        <a href="/about" class="site-inline-link inline-flex items-center text-sm">
           Back to About
         </a>
-        <button
-          type="button"
-          onclick="window.print()"
-          class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center rounded-md px-4 py-2 text-sm font-medium transition-colors"
-        >
+        <button type="button" onclick="window.print()" class="site-action-chip py-2">
           Print / Save as PDF
         </button>
       </div>
 
       <article
-        class="bg-card text-card-foreground rounded-xl border p-6 shadow-sm print:rounded-none print:border-0 print:p-0 print:shadow-none"
+        class="site-card-shell p-6 print:rounded-none print:border-0 print:p-0 print:shadow-none"
       >
         <header class="border-b pb-6">
           <div class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
@@ -44,16 +37,16 @@ const structuredData = getPersonStructuredData({
               <p class="text-muted-foreground text-sm">{PERSONAL_INFO.location}</p>
             </div>
             <div class="text-sm leading-relaxed">
-              <a href={`mailto:${CONTACT_INFO.email}`} class="block hover:underline">
+              <a href={`mailto:${CONTACT_INFO.email}`} class="site-underlined-link block w-fit">
                 {CONTACT_INFO.email}
               </a>
-              <a href={CONTACT_INFO.website} class="block hover:underline">
+              <a href={CONTACT_INFO.website} class="site-underlined-link mt-2 block w-fit">
                 {CONTACT_INFO.website.replace("https://", "")}
               </a>
-              <a href={CONTACT_INFO.github} class="block hover:underline">
+              <a href={CONTACT_INFO.github} class="site-underlined-link mt-2 block w-fit">
                 github.com/andreivcodes
               </a>
-              <a href={CONTACT_INFO.linkedin} class="block hover:underline">
+              <a href={CONTACT_INFO.linkedin} class="site-underlined-link mt-2 block w-fit">
                 linkedin.com/in/andreivcodes
               </a>
             </div>

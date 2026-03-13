@@ -6,10 +6,7 @@ function isCurrent(href: string) {
 }
 
 function navLinkClass(href: string) {
-  return [
-    "text-foreground hover:text-primary hover:border-primary transition-all duration-300 hover:border-b-2",
-    isCurrent(href) ? "border-primary text-primary border-b-2" : "",
-  ]
+  return ["site-nav-link", isCurrent(href) ? "site-nav-link-current" : ""]
     .filter(Boolean)
     .join(" ");
 }
@@ -21,13 +18,13 @@ function navLinkClass(href: string) {
     class="flex w-full flex-row items-center justify-between px-4 py-4 md:justify-around"
   >
     <div class="hidden w-1/4 flex-row justify-start md:flex">
-      <a href="/" class="text-foreground hover:text-primary transition-colors">andreiv's website</a>
+      <a href="/" class="site-emphasis-link">andreiv's website</a>
     </div>
 
     <div class="flex items-center justify-center md:hidden">
       <a
         href="/"
-        class="text-foreground hover:text-primary transition-colors"
+        class="site-icon-link border-transparent bg-transparent p-1.5"
         aria-label="Go to homepage"
       >
         <svg

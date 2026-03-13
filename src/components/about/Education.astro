@@ -25,7 +25,7 @@ const { entries, title = "Education", titleAlign = "right" } = Astro.props;
         <article class="mb-8 flex w-full flex-col items-start gap-2">
           <div class="text-sm">{edu.period}</div>
           <div class="-ml-2 h-px w-32 bg-current md:-ml-8" />
-          <div class="bg-card text-card-foreground w-full rounded-lg border-0 shadow-none md:border md:shadow-sm">
+          <div class="site-card-shell w-full">
             <div class="w-full p-4 md:p-6">
               <div class="flex w-full flex-col gap-2">
                 <div class="font-semibold">{edu.institution}</div>

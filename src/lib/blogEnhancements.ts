@@ -26,7 +26,7 @@ export function initBlogCodeEnhancements(rootSelector = ".blog-post-content") {
       </svg>
     `;
     copyButton.className =
-      "absolute top-2 right-2 rounded p-1.5 text-muted-foreground opacity-0 transition-all duration-200 group-hover:opacity-100 hover:bg-muted/50 hover:text-foreground";
+      "text-muted-foreground absolute top-2 right-2 rounded-md border border-border/70 bg-background/80 p-1.5 opacity-100 shadow-sm backdrop-blur-sm transition-[color,border-color,background-color,opacity] duration-200 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 hover:border-primary/35 hover:bg-muted/40 hover:text-foreground focus-visible:border-primary/35 focus-visible:bg-muted/40 focus-visible:text-foreground focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
     copyButton.setAttribute("aria-label", "Copy code");
 
     copyButton.addEventListener("click", async () => {

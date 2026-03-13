@@ -10,7 +10,7 @@ interface Props {
 
 const {
   class: className = "",
-  itemClass = "text-foreground hover:text-primary transition-colors",
+  itemClass = "",
   iconClass = "h-5 w-5",
   labelPrefix = "",
 } = Astro.props;
@@ -51,7 +51,7 @@ function getAriaLabel(label: string) {
           href={link.href}
           target={link.icon === "email" ? undefined : "_blank"}
           rel={link.icon === "email" ? undefined : "noopener noreferrer"}
-          class={itemClass}
+          class:list={["site-icon-link", itemClass]}
           aria-label={getAriaLabel(link.label)}
         >
           <span class="sr-only">{getAriaLabel(link.label)}</span>

@@ -18,10 +18,19 @@ const longestTagline = taglines.reduce((longest, tagline) =>
 export const AboutShort = () => {
   const [currentTaglineIndex, setCurrentTaglineIndex] = useState(0);
   const [visibleCharacters, setVisibleCharacters] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
 
   const currentTagline = taglines[currentTaglineIndex];
 
   useEffect(() => {
+    if (!hasStarted) {
+      const startTimeout = window.setTimeout(() => {
+        setHasStarted(true);
+      }, 1000);
+
+      return () => window.clearTimeout(startTimeout);
+    }
+
     const currentLength = currentTagline.length;
 
     const timeout = window.setTimeout(
@@ -38,7 +47,7 @@ export const AboutShort = () => {
     );
 
     return () => window.clearTimeout(timeout);
-  }, [currentTagline, visibleCharacters]);
+  }, [currentTagline, hasStarted, visibleCharacters]);
 
   return (
     <div className="flex max-w-lg flex-col gap-8 px-4">

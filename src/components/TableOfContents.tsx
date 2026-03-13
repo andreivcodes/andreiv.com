@@ -97,8 +97,8 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
             key={heading.slug}
             href={`#${heading.slug}`}
             className={cn(
-              "text-muted-foreground hover:text-foreground hover:border-muted-foreground/50 block border-l-2 border-transparent py-1.5 transition-colors duration-200",
-              activeId === heading.slug && "text-foreground border-primary font-medium",
+              "text-muted-foreground hover:text-foreground focus-visible:text-foreground focus-visible:ring-primary/20 focus-visible:ring-offset-background block rounded-sm py-1.5 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+              activeId === heading.slug && "text-foreground font-medium",
               heading.depth === 2 ? "pl-4" : "pl-8"
             )}
             onClick={(event) => {

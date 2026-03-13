@@ -29,10 +29,7 @@ const description = project.data.shortDescription;
       <div class="mx-auto max-w-4xl px-4 md:px-8">
         {/* Breadcrumb navigation */}
         <nav class="py-8">
-          <a
-            href="/projects"
-            class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
-          >
+          <a href="/projects" class="site-inline-link group inline-flex items-center gap-2 text-sm">
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             <span>Back to all projects</span>
           </a>
@@ -68,7 +65,7 @@ const description = project.data.shortDescription;
                       href={project.data.repository}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="hover:text-foreground inline-flex items-center gap-1 transition-colors"
+                      class="site-inline-link inline-flex items-center gap-1"
                     >
                       <GitHubLogoIcon className="h-3.5 w-3.5" />
                       <span>Code</span>
@@ -84,7 +81,7 @@ const description = project.data.shortDescription;
                       href={project.data.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="text-primary hover:text-primary/80 inline-flex items-center gap-1 font-medium transition-colors"
+                      class="site-emphasis-link inline-flex items-center gap-1 font-medium"
                     >
                       <ExternalLink className="h-3.5 w-3.5" />
                       <span>Demo</span>
@@ -131,7 +128,7 @@ const description = project.data.shortDescription;
 
           {/* Project Content */}
           <div
-            class="[&>pre]:bg-muted [&>code]:bg-muted [&>a]:text-primary mb-16 max-w-none [&>a]:underline [&>a]:underline-offset-2 [&>a:hover]:opacity-80 [&>code]:rounded [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:font-mono [&>code]:text-sm [&>h2]:mt-8 [&>h2]:mb-4 [&>h2]:text-2xl [&>h2]:font-semibold [&>h3]:mt-6 [&>h3]:mb-3 [&>h3]:text-xl [&>h3]:font-semibold [&>img]:my-6 [&>img]:rounded-lg [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>pre]:mb-4 [&>pre]:overflow-x-auto [&>pre]:rounded-lg [&>pre]:p-4 [&>pre>code]:bg-transparent [&>pre>code]:p-0 [&>ul]:mb-4 [&>ul]:pl-6"
+            class="[&>pre]:bg-muted [&>code]:bg-muted [&>a]:text-primary site-rich-content mb-16 max-w-none [&>a]:underline [&>a]:underline-offset-2 [&>a:hover]:opacity-80 [&>code]:rounded [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:font-mono [&>code]:text-sm [&>h2]:mt-8 [&>h2]:mb-4 [&>h2]:text-2xl [&>h2]:font-semibold [&>h3]:mt-6 [&>h3]:mb-3 [&>h3]:text-xl [&>h3]:font-semibold [&>img]:my-6 [&>img]:rounded-lg [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>pre]:mb-4 [&>pre]:overflow-x-auto [&>pre]:rounded-lg [&>pre]:p-4 [&>pre>code]:bg-transparent [&>pre>code]:p-0 [&>ul]:mb-4 [&>ul]:pl-6"
           >
             <Content />
           </div>
@@ -141,15 +138,16 @@ const description = project.data.shortDescription;
             <div class="flex items-center justify-between">
               <a
                 href="/projects"
-                class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
+                class="site-inline-link group inline-flex items-center gap-2 text-sm"
               >
                 <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
                 <span>Back to all projects</span>
               </a>
 
               <button
+                type="button"
                 onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-                class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
+                class="site-inline-link group inline-flex items-center gap-2 text-sm"
               >
                 <span>Back to top</span>
                 <svg

@@ -39,10 +39,7 @@ const structuredData = getBlogPostStructuredData({
     <main id="main-content" class="relative flex-1">
       <div class="mx-auto max-w-4xl px-4 md:px-8">
         <nav class="py-8">
-          <a
-            href="/blog"
-            class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
-          >
+          <a href="/blog" class="site-inline-link group inline-flex items-center gap-2 text-sm">
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             <span>Back to all posts</span>
           </a>
@@ -122,17 +119,14 @@ const structuredData = getBlogPostStructuredData({
           </header>
 
           <div
-            class="[&>pre]:bg-muted [&>:not(pre)>code]:bg-muted [&>blockquote]:border-primary/50 [&>blockquote]:text-muted-foreground [&>th]:border-border [&>th]:bg-muted [&>td]:border-border [&>a]:text-primary [&>a]:hover:text-primary/80 [&>a]:decoration-primary/30 [&>a]:hover:decoration-primary/60 [&_a]:text-primary [&_a]:hover:text-primary/80 [&_a]:decoration-primary/30 [&_a]:hover:decoration-primary/60 [&>hr]:border-border [&>kbd]:bg-muted [&>kbd]:border-border blog-post-content mb-16 max-w-none text-lg leading-relaxed [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-4 [&_a]:transition-all [&_a]:duration-200 [&>.task-list-item]:list-none [&>.task-list-item>input]:mr-2 [&>:not(pre)>code]:rounded [&>:not(pre)>code]:px-1.5 [&>:not(pre)>code]:py-0.5 [&>:not(pre)>code]:font-mono [&>:not(pre)>code]:text-sm [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-4 [&>a]:transition-all [&>a]:duration-200 [&>blockquote]:mb-4 [&>blockquote]:border-l-4 [&>blockquote]:pl-4 [&>blockquote]:italic [&>em]:italic [&>h1]:mt-12 [&>h1]:mb-6 [&>h1]:text-left [&>h1]:text-3xl [&>h1]:font-bold max-md:[&>h1]:text-2xl [&>h1+p]:mt-0 [&>h2]:mt-10 [&>h2]:mb-4 [&>h2]:border-b [&>h2]:pb-2 [&>h2]:text-left [&>h2]:text-2xl [&>h2]:font-semibold max-md:[&>h2]:text-xl [&>h2+p]:mt-0 [&>h3]:mt-8 [&>h3]:mb-3 [&>h3]:text-left [&>h3]:text-xl [&>h3]:font-semibold max-md:[&>h3]:text-lg [&>h3+p]:mt-0 [&>h4]:mt-6 [&>h4]:mb-2 [&>h4]:text-left [&>h4]:text-lg [&>h4]:font-semibold [&>h4+p]:mt-0 [&>hr]:my-8 [&>hr]:border-t [&>img]:mx-auto [&>img]:my-6 [&>img]:h-auto [&>img]:max-w-full [&>img]:rounded-lg [&>img]:shadow-md [&>kbd]:rounded [&>kbd]:border [&>kbd]:px-1.5 [&>kbd]:py-0.5 [&>kbd]:font-mono [&>kbd]:text-sm [&>li]:leading-relaxed [&>li>ol]:mt-2 [&>li>ol]:ml-6 [&>li>ul]:mt-2 [&>li>ul]:ml-6 [&>ol]:mb-4 [&>ol]:list-inside [&>ol]:list-decimal [&>ol]:space-y-2 [&>ol]:pl-4 [&>ol]:text-left [&>p]:mb-4 [&>p]:text-left [&>p]:leading-relaxed [&>pre]:mb-4 [&>pre]:overflow-x-auto [&>pre]:rounded-lg [&>pre]:p-4 [&>pre]:font-mono [&>pre]:text-sm [&>pre>code]:bg-transparent [&>pre>code]:p-0 [&>strong]:font-semibold [&>table]:mb-4 [&>table]:w-full [&>table]:border-collapse [&>table]:overflow-x-auto [&>td]:border [&>td]:px-4 [&>td]:py-2 [&>td]:text-left [&>th]:border [&>th]:px-4 [&>th]:py-2 [&>th]:text-left [&>th]:font-semibold [&>ul]:mb-4 [&>ul]:list-inside [&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-4 [&>ul]:text-left"
+            class="[&>pre]:bg-muted [&>:not(pre)>code]:bg-muted [&>blockquote]:border-primary/50 [&>blockquote]:text-muted-foreground [&>th]:border-border [&>th]:bg-muted [&>td]:border-border [&>a]:text-primary [&>a]:hover:text-primary/80 [&>a]:decoration-primary/30 [&>a]:hover:decoration-primary/60 [&_a]:text-primary [&_a]:hover:text-primary/80 [&_a]:decoration-primary/30 [&_a]:hover:decoration-primary/60 [&>hr]:border-border [&>kbd]:bg-muted [&>kbd]:border-border site-rich-content blog-post-content mb-16 max-w-none text-lg leading-relaxed [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-4 [&_a]:transition-all [&_a]:duration-200 [&>.task-list-item]:list-none [&>.task-list-item>input]:mr-2 [&>:not(pre)>code]:rounded [&>:not(pre)>code]:px-1.5 [&>:not(pre)>code]:py-0.5 [&>:not(pre)>code]:font-mono [&>:not(pre)>code]:text-sm [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-4 [&>a]:transition-all [&>a]:duration-200 [&>blockquote]:mb-4 [&>blockquote]:border-l-4 [&>blockquote]:pl-4 [&>blockquote]:italic [&>em]:italic [&>h1]:mt-12 [&>h1]:mb-6 [&>h1]:text-left [&>h1]:text-3xl [&>h1]:font-bold max-md:[&>h1]:text-2xl [&>h1+p]:mt-0 [&>h2]:mt-10 [&>h2]:mb-4 [&>h2]:border-b [&>h2]:pb-2 [&>h2]:text-left [&>h2]:text-2xl [&>h2]:font-semibold max-md:[&>h2]:text-xl [&>h2+p]:mt-0 [&>h3]:mt-8 [&>h3]:mb-3 [&>h3]:text-left [&>h3]:text-xl [&>h3]:font-semibold max-md:[&>h3]:text-lg [&>h3+p]:mt-0 [&>h4]:mt-6 [&>h4]:mb-2 [&>h4]:text-left [&>h4]:text-lg [&>h4]:font-semibold [&>h4+p]:mt-0 [&>hr]:my-8 [&>hr]:border-t [&>img]:mx-auto [&>img]:my-6 [&>img]:h-auto [&>img]:max-w-full [&>img]:rounded-lg [&>img]:shadow-md [&>kbd]:rounded [&>kbd]:border [&>kbd]:px-1.5 [&>kbd]:py-0.5 [&>kbd]:font-mono [&>kbd]:text-sm [&>li]:leading-relaxed [&>li>ol]:mt-2 [&>li>ol]:ml-6 [&>li>ul]:mt-2 [&>li>ul]:ml-6 [&>ol]:mb-4 [&>ol]:list-inside [&>ol]:list-decimal [&>ol]:space-y-2 [&>ol]:pl-4 [&>ol]:text-left [&>p]:mb-4 [&>p]:text-left [&>p]:leading-relaxed [&>pre]:mb-4 [&>pre]:overflow-x-auto [&>pre]:rounded-lg [&>pre]:p-4 [&>pre]:font-mono [&>pre]:text-sm [&>pre>code]:bg-transparent [&>pre>code]:p-0 [&>strong]:font-semibold [&>table]:mb-4 [&>table]:w-full [&>table]:border-collapse [&>table]:overflow-x-auto [&>td]:border [&>td]:px-4 [&>td]:py-2 [&>td]:text-left [&>th]:border [&>th]:px-4 [&>th]:py-2 [&>th]:text-left [&>th]:font-semibold [&>ul]:mb-4 [&>ul]:list-inside [&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-4 [&>ul]:text-left"
           >
             <Content />
           </div>
 
           <footer class="mt-12 mb-16 border-t pt-8">
             <div class="flex items-center justify-between">
-              <a
-                href="/blog"
-                class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
-              >
+              <a href="/blog" class="site-inline-link group inline-flex items-center gap-2 text-sm">
                 <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
                 <span>Back to all posts</span>
               </a>
@@ -140,7 +134,7 @@ const structuredData = getBlogPostStructuredData({
               <button
                 type="button"
                 onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-                class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
+                class="site-inline-link group inline-flex items-center gap-2 text-sm"
               >
                 <span>Back to top</span>
                 <svg
