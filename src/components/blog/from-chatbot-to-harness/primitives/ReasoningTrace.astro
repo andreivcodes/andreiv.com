@@ -25,28 +25,27 @@ const { label = "Thinking", emphasis = "normal" } = Astro.props;
     gap: 0.6rem;
     max-width: 88%;
     padding: 0.95rem 1rem;
-    border: 1px dashed rgb(255 255 255 / 0.14);
-    border-radius: 0.75rem;
-    background: #0f1011;
+    border: 1px solid hsl(var(--border));
+    border-left-width: 2px;
+    border-left-color: hsl(var(--muted-foreground) / 0.5);
+    border-radius: var(--radius);
+    background: hsl(var(--muted));
   }
 
   .reasoning-trace--strong {
-    border-style: solid;
-    border-color: rgb(255 255 255 / 0.16);
-    background: #111214;
-    box-shadow:
-      0 0 0 1px rgb(255 255 255 / 0.03),
-      inset 0 1px 0 rgb(255 255 255 / 0.02);
+    border-color: hsl(var(--border));
+    border-left-color: hsl(var(--foreground) / 0.34);
+    background: hsl(var(--card));
   }
 
   .reasoning-trace--muted {
-    opacity: 0.62;
+    opacity: 0.38;
   }
 
   .reasoning-trace__body {
     position: relative;
     padding-left: 1rem;
-    color: rgb(214 214 219);
+    color: hsl(var(--muted-foreground));
     font-size: 0.92rem;
     line-height: 1.52;
   }
@@ -56,17 +55,19 @@ const { label = "Thinking", emphasis = "normal" } = Astro.props;
     position: absolute;
     inset: 0 auto 0 0.15rem;
     width: 1px;
-    background: repeating-linear-gradient(
+    background: linear-gradient(
       to bottom,
-      rgb(161 161 170 / 0.8) 0,
-      rgb(161 161 170 / 0.8) 4px,
-      transparent 4px,
-      transparent 9px
+      hsl(var(--muted-foreground) / 0.55),
+      hsl(var(--muted-foreground) / 0.18)
     );
   }
 
   .reasoning-trace--strong .reasoning-trace__body::before {
-    background: linear-gradient(to bottom, rgb(231 231 235), rgb(112 112 120));
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--foreground) / 0.82),
+      hsl(var(--muted-foreground) / 0.28)
+    );
   }
 
   .reasoning-trace__body :global(ul),
@@ -94,7 +95,7 @@ const { label = "Thinking", emphasis = "normal" } = Astro.props;
     width: 0.32rem;
     height: 0.32rem;
     border-radius: 999px;
-    background: rgb(212 212 216);
+    background: hsl(var(--foreground) / 0.7);
   }
 
   .reasoning-trace__body :global(p) {

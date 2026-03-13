@@ -12,7 +12,7 @@ const { text, tone = "default" } = Astro.props;
 <style>
   .section-label {
     padding: 0 0.2rem;
-    color: rgb(136 136 143);
+    color: hsl(var(--muted-foreground));
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -21,10 +21,10 @@ const { text, tone = "default" } = Astro.props;
   }
 
   .section-label--strong {
-    color: rgb(225 225 229);
+    color: hsl(var(--foreground));
   }
 
   .section-label--muted {
-    color: rgb(108 108 115);
+    color: hsl(var(--muted-foreground) / 0.58);
   }
 </style>

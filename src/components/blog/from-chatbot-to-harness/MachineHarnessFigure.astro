@@ -21,102 +21,97 @@ const {
 
 <figure class="machine-figure">
   <WorkbenchFrame title={title} model={model} path={path} status={status}>
-    <div class="machine-figure__terminal-shell">
-      <div class="machine-figure__request">
-        <span class="terminal-prompt">&gt; </span>
-        find why EU checkout totals round VAT incorrectly. reproduce it, fix it, rerun the affected tests,
-        create a branch, commit, and open a PR.
-      </div>
+    <div class="machine-figure__request">
+      <span class="terminal-prompt">&gt; </span>
+      find why EU checkout totals round VAT incorrectly. reproduce it, fix it, rerun the affected tests,
+      create a branch, commit, and open a PR.
+    </div>
 
-      <TerminalOutput>
-        <div class="terminal-line terminal-line--muted">
-          <span class="terminal-token terminal-token--info">[thinking]</span> reproducing the checkout
-          failure and tracing the VAT rounding path
-        </div>
-        <div class="terminal-line">
-          <span class="terminal-prompt">$ </span>
-          <span class="terminal-command">pnpm test checkout -- --runInBand</span>
-        </div>
-        <div class="terminal-line terminal-line--error">
-          <span class="terminal-token terminal-token--error">FAIL</span>
-          <span class="terminal-token terminal-token--path"> src/lib/tax/rounding.test.ts</span>
-        </div>
-        <div class="terminal-line terminal-line--muted">expected total_tax 19.98</div>
-        <div class="terminal-line terminal-line--muted">received total_tax 19.99</div>
-        <div class="terminal-line">
-          <span class="terminal-prompt">$ </span>
-          <span class="terminal-command">rg "roundVat|total_tax" src/lib src/features/checkout</span
-          >
-        </div>
-        <div class="terminal-line terminal-line--muted">
-          <span class="terminal-token terminal-token--path">src/lib/tax/rounding.ts</span>
-        </div>
-        <div class="terminal-line terminal-line--muted">
-          <span class="terminal-token terminal-token--path">src/lib/tax/rounding.test.ts</span>
-        </div>
-        <div class="terminal-line">
-          <span class="terminal-prompt">$ </span>
-          <span class="terminal-command">sed -n '1,160p' src/lib/tax/rounding.ts</span>
-        </div>
-        <div class="terminal-line terminal-line--muted">
-          roundVat() is rounding each line item before the cart total is summed
-        </div>
-        <div class="terminal-line">
-          <span class="terminal-prompt">$ </span>
-          <span class="terminal-command">apply_patch ...</span>
-        </div>
-        <div class="terminal-line terminal-line--muted">
-          updated <span class="terminal-token terminal-token--path">src/lib/tax/rounding.ts</span>
-        </div>
-        <div class="terminal-line terminal-line--muted">
-          updated <span class="terminal-token terminal-token--path"
-            >src/lib/tax/rounding.test.ts</span
-          >
-        </div>
-        <div class="terminal-line">
-          <span class="terminal-prompt">$ </span>
-          <span class="terminal-command">pnpm test checkout -- --runInBand</span>
-        </div>
-        <div class="terminal-line terminal-line--success">
-          <span class="terminal-token terminal-token--success">PASS</span>
-          <span class="terminal-token terminal-token--path"> src/lib/tax/rounding.test.ts</span>
-        </div>
-        <div class="terminal-line terminal-line--muted">8 passed, 0 failed</div>
-        <div class="terminal-line">
-          <span class="terminal-prompt">$ </span>
-          <span class="terminal-command">git checkout -b fix/eu-vat-rounding</span>
-        </div>
-        <div class="terminal-line terminal-line--muted">
-          Switched to a new branch 'fix/eu-vat-rounding'
-        </div>
-        <div class="terminal-line">
-          <span class="terminal-prompt">$ </span>
-          <span class="terminal-command">git commit -m "Fix EU VAT rounding"</span>
-        </div>
-        <div class="terminal-line terminal-line--muted">
-          [fix/eu-vat-rounding 8f3b2c1] Fix EU VAT rounding
-        </div>
-        <div class="terminal-line">
-          <span class="terminal-prompt">$ </span>
-          <span class="terminal-command"
-            >gh pr create --title "Fix EU VAT rounding" --body-file /tmp/pr.md</span
-          >
-        </div>
-        <div class="terminal-line terminal-line--success">
-          <span class="terminal-token terminal-token--url"
-            >https://github.com/acme/shop/pull/128</span
-          >
-        </div>
-        <div class="terminal-line terminal-line--muted">
-          <span class="terminal-token terminal-token--success">[done]</span>
-          <span class="terminal-token terminal-token--path"> fix/eu-vat-rounding</span> ready for review
-        </div>
-      </TerminalOutput>
-
-      <div class="machine-figure__footer">
-        <span class="terminal-prompt">&gt; </span>
-        <span class="machine-figure__cursor" aria-hidden="true"></span>
+    <TerminalOutput>
+      <div class="terminal-line terminal-line--muted">
+        <span class="terminal-token terminal-token--info">[thinking]</span> reproducing the checkout failure
+        and tracing the VAT rounding path
       </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$ </span>
+        <span class="terminal-command">pnpm test checkout -- --runInBand</span>
+      </div>
+      <div class="terminal-line terminal-line--error">
+        <span class="terminal-token terminal-token--error">FAIL</span>
+        <span class="terminal-token terminal-token--path"> src/lib/tax/rounding.test.ts</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">expected total_tax 19.98</div>
+      <div class="terminal-line terminal-line--muted">received total_tax 19.99</div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$ </span>
+        <span class="terminal-command">rg "roundVat|total_tax" src/lib src/features/checkout</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">
+        <span class="terminal-token terminal-token--path">src/lib/tax/rounding.ts</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">
+        <span class="terminal-token terminal-token--path">src/lib/tax/rounding.test.ts</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$ </span>
+        <span class="terminal-command">sed -n '1,160p' src/lib/tax/rounding.ts</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">
+        roundVat() is rounding each line item before the cart total is summed
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$ </span>
+        <span class="terminal-command">apply_patch ...</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">
+        updated <span class="terminal-token terminal-token--path">src/lib/tax/rounding.ts</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">
+        updated <span class="terminal-token terminal-token--path">src/lib/tax/rounding.test.ts</span
+        >
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$ </span>
+        <span class="terminal-command">pnpm test checkout -- --runInBand</span>
+      </div>
+      <div class="terminal-line terminal-line--success">
+        <span class="terminal-token terminal-token--success">PASS</span>
+        <span class="terminal-token terminal-token--path"> src/lib/tax/rounding.test.ts</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">8 passed, 0 failed</div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$ </span>
+        <span class="terminal-command">git checkout -b fix/eu-vat-rounding</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">
+        Switched to a new branch 'fix/eu-vat-rounding'
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$ </span>
+        <span class="terminal-command">git commit -m "Fix EU VAT rounding"</span>
+      </div>
+      <div class="terminal-line terminal-line--muted">
+        [fix/eu-vat-rounding 8f3b2c1] Fix EU VAT rounding
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">$ </span>
+        <span class="terminal-command"
+          >gh pr create --title "Fix EU VAT rounding" --body-file /tmp/pr.md</span
+        >
+      </div>
+      <div class="terminal-line terminal-line--success">
+        <span class="terminal-token terminal-token--url">https://github.com/acme/shop/pull/128</span
+        >
+      </div>
+      <div class="terminal-line terminal-line--muted">
+        <span class="terminal-token terminal-token--success">[done]</span>
+        <span class="terminal-token terminal-token--path"> fix/eu-vat-rounding</span> ready for review
+      </div>
+    </TerminalOutput>
+
+    <div class="machine-figure__footer">
+      <span class="terminal-prompt">&gt; </span>
+      <span class="machine-figure__cursor" aria-hidden="true"></span>
     </div>
   </WorkbenchFrame>
 
@@ -128,15 +123,6 @@ const {
     margin: 2.75rem 0;
   }
 
-  .machine-figure__terminal-shell {
-    display: grid;
-    gap: 0.9rem;
-    padding: 0.15rem;
-    border: 1px solid rgb(255 255 255 / 0.06);
-    border-radius: 0.5rem;
-    background: rgb(255 255 255 / 0.02);
-  }
-
   .machine-figure__request,
   .machine-figure__footer {
     padding: 0.15rem 0.2rem;
@@ -145,17 +131,17 @@ const {
       monospace;
     font-size: 0.84rem;
     line-height: 1.52;
-    color: rgb(235 235 238);
+    color: hsl(var(--foreground));
   }
 
   .machine-figure__request {
     padding-bottom: 0.7rem;
-    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+    border-bottom: 1px solid hsl(var(--border));
   }
 
   .machine-figure__footer {
     padding-top: 0.7rem;
-    border-top: 1px solid rgb(255 255 255 / 0.08);
+    border-top: 1px solid hsl(var(--border));
   }
 
   .machine-figure__cursor {
@@ -163,7 +149,7 @@ const {
     width: 0.55rem;
     height: 1rem;
     vertical-align: -0.16rem;
-    background: rgb(232 232 236);
+    background: hsl(var(--foreground));
     opacity: 0.9;
   }
 
@@ -179,10 +165,6 @@ const {
   @media (max-width: 768px) {
     .machine-figure {
       margin: 2.25rem 0;
-    }
-
-    .machine-figure__terminal-shell {
-      gap: 0.75rem;
     }
   }
 </style>

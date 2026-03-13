@@ -36,12 +36,9 @@ const { title, path, model = "agent", status } = Astro.props;
 <style>
   .workbench-frame {
     overflow: hidden;
-    border: 1px solid rgb(255 255 255 / 0.08);
-    border-radius: 0.72rem;
-    background: #080809;
-    box-shadow:
-      0 20px 44px rgb(0 0 0 / 0.28),
-      inset 0 1px 0 rgb(255 255 255 / 0.03);
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) + 0.05rem);
+    background: hsl(var(--card));
   }
 
   .workbench-frame__header {
@@ -50,8 +47,8 @@ const { title, path, model = "agent", status } = Astro.props;
     align-items: center;
     gap: 0.9rem;
     padding: 0.74rem 0.9rem;
-    border-bottom: 1px solid rgb(255 255 255 / 0.08);
-    background: #0d0d0e;
+    border-bottom: 1px solid hsl(var(--border));
+    background: hsl(var(--muted));
   }
 
   .workbench-frame__chrome {
@@ -63,7 +60,7 @@ const { title, path, model = "agent", status } = Astro.props;
     width: 0.56rem;
     height: 0.56rem;
     border-radius: 999px;
-    background: rgb(255 255 255 / 0.16);
+    background: hsl(var(--muted-foreground) / 0.42);
   }
 
   .workbench-frame__title-group {
@@ -73,7 +70,7 @@ const { title, path, model = "agent", status } = Astro.props;
   }
 
   .workbench-frame__model {
-    color: rgb(148 148 154);
+    color: hsl(var(--muted-foreground));
     font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -83,7 +80,7 @@ const { title, path, model = "agent", status } = Astro.props;
 
   .workbench-frame__title {
     overflow-wrap: anywhere;
-    color: rgb(245 245 246);
+    color: hsl(var(--foreground));
     font-family:
       ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
       monospace;
@@ -106,23 +103,23 @@ const { title, path, model = "agent", status } = Astro.props;
     font-family:
       ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
       monospace;
-    color: rgb(162 162 169);
+    color: hsl(var(--muted-foreground));
     font-size: 0.72rem;
     line-height: 1.2;
   }
 
   .workbench-frame__status {
-    color: rgb(228 228 232);
+    color: hsl(var(--foreground));
   }
 
   .workbench-frame__body {
     padding: 0.9rem;
-    background: #080809;
+    background: hsl(var(--card));
   }
 
   @media (max-width: 768px) {
     .workbench-frame {
-      border-radius: 0.66rem;
+      border-radius: var(--radius);
     }
 
     .workbench-frame__header {

@@ -29,21 +29,18 @@ const { label = "Tool Call", emphasis = "normal" } = Astro.props;
     display: grid;
     gap: 0.45rem;
     padding: 0.75rem 0.9rem;
-    border: 1px solid rgb(255 255 255 / 0.08);
-    border-radius: 0.7rem;
-    background: #0c0c0d;
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    background: hsl(var(--muted));
   }
 
   .tool-row--strong {
-    border-color: rgb(255 255 255 / 0.14);
-    background: #111214;
-    box-shadow:
-      0 0 0 1px rgb(255 255 255 / 0.03),
-      inset 0 1px 0 rgb(255 255 255 / 0.02);
+    border-color: hsl(var(--foreground) / 0.16);
+    background: hsl(var(--card));
   }
 
   .tool-row--muted {
-    opacity: 0.62;
+    opacity: 0.38;
   }
 
   .tool-row__body {
@@ -57,7 +54,7 @@ const { label = "Tool Call", emphasis = "normal" } = Astro.props;
   }
 
   .tool-row__prompt {
-    color: rgb(161 161 170);
+    color: hsl(var(--muted-foreground));
     font-size: 0.95rem;
     line-height: 1.45;
   }
@@ -65,7 +62,7 @@ const { label = "Tool Call", emphasis = "normal" } = Astro.props;
   .tool-row__content {
     min-width: 0;
     overflow-wrap: anywhere;
-    color: rgb(231 231 234);
+    color: hsl(var(--foreground));
     font-size: 0.9rem;
     line-height: 1.45;
   }

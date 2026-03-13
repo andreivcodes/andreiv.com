@@ -13,16 +13,16 @@ const { role = "assistant", emphasis = "normal" } = Astro.props;
 
 <style>
   .bubble-surface {
-    --bubble-bg: #111214;
-    --bubble-border: rgb(255 255 255 / 0.08);
-    --bubble-text: rgb(237 237 240);
-    --bubble-code-bg: rgb(255 255 255 / 0.05);
-    --bubble-code-text: rgb(245 245 245);
+    --bubble-bg: hsl(var(--muted));
+    --bubble-border: hsl(var(--border));
+    --bubble-text: hsl(var(--foreground));
+    --bubble-code-bg: hsl(var(--background));
+    --bubble-code-text: hsl(var(--foreground));
     --bubble-opacity: 1;
     min-width: 0;
     overflow-wrap: anywhere;
     border: 1px solid var(--bubble-border);
-    border-radius: 0.85rem;
+    border-radius: calc(var(--radius) + 0.05rem);
     padding: 0.9rem 0.95rem;
     background: var(--bubble-bg);
     color: var(--bubble-text);
@@ -33,22 +33,19 @@ const { role = "assistant", emphasis = "normal" } = Astro.props;
   }
 
   .bubble-surface--user {
-    --bubble-bg: rgb(245 245 245);
-    --bubble-border: rgb(255 255 255 / 0.14);
-    --bubble-text: rgb(17 17 19);
-    --bubble-code-bg: rgb(228 228 231);
-    --bubble-code-text: rgb(17 17 19);
+    --bubble-bg: hsl(var(--primary));
+    --bubble-border: hsl(var(--primary));
+    --bubble-text: hsl(var(--primary-foreground));
+    --bubble-code-bg: hsl(var(--primary-foreground) / 0.12);
+    --bubble-code-text: hsl(var(--primary-foreground));
   }
 
   .bubble-surface--strong {
-    --bubble-border: rgb(255 255 255 / 0.18);
-    box-shadow:
-      0 0 0 1px rgb(255 255 255 / 0.03),
-      inset 0 1px 0 rgb(255 255 255 / 0.02);
+    --bubble-border: hsl(var(--foreground) / 0.16);
   }
 
   .bubble-surface--muted {
-    --bubble-opacity: 0.64;
+    --bubble-opacity: 0.38;
   }
 
   .bubble-surface :global(p),
@@ -75,7 +72,7 @@ const { role = "assistant", emphasis = "normal" } = Astro.props;
 
   .bubble-surface :global(a) {
     color: inherit;
-    text-decoration-color: rgb(255 255 255 / 0.28);
+    text-decoration-color: hsl(var(--foreground) / 0.25);
     text-underline-offset: 0.15em;
   }
 
@@ -90,13 +87,13 @@ const { role = "assistant", emphasis = "normal" } = Astro.props;
   .bubble-surface :global(th),
   .bubble-surface :global(td) {
     padding: 0.5rem 0.4rem;
-    border-top: 1px solid rgb(255 255 255 / 0.1);
+    border-top: 1px solid hsl(var(--foreground) / 0.08);
     text-align: left;
     vertical-align: top;
   }
 
   .bubble-surface :global(th) {
-    color: rgb(196 196 201);
+    color: hsl(var(--muted-foreground));
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -105,10 +102,10 @@ const { role = "assistant", emphasis = "normal" } = Astro.props;
 
   .bubble-surface--user :global(th),
   .bubble-surface--user :global(td) {
-    border-top-color: rgb(17 17 19 / 0.12);
+    border-top-color: hsl(var(--primary-foreground) / 0.16);
   }
 
   .bubble-surface--user :global(th) {
-    color: rgb(82 82 91);
+    color: hsl(var(--primary-foreground) / 0.72);
   }
 </style>
