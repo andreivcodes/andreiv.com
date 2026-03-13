@@ -52,7 +52,13 @@ const { label = "System Prompt", emphasis = "normal" } = Astro.props;
   .system-prompt-bar__body :global(ul),
   .system-prompt-bar__body :global(ol) {
     margin: 0;
-    padding-left: 1rem;
+    padding-left: 1.2rem;
+    list-style-position: outside;
+  }
+
+  .system-prompt-bar__body :global(li) {
+    margin: 0;
+    padding-left: 0.1rem;
   }
 
   .system-prompt-bar__body :global(li + li) {
