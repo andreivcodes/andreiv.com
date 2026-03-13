@@ -53,21 +53,19 @@ const { label = "Thinking", emphasis = "normal" } = Astro.props;
   .reasoning-trace__body::before {
     content: "";
     position: absolute;
-    inset: 0 auto 0 0.15rem;
-    width: 1px;
-    background: linear-gradient(
-      to bottom,
-      hsl(var(--muted-foreground) / 0.55),
-      hsl(var(--muted-foreground) / 0.18)
-    );
+    inset: 0 auto 0 0;
+    width: 0.4rem;
+    background: radial-gradient(
+        circle,
+        hsl(var(--muted-foreground) / 0.58) 0 1px,
+        transparent 1.4px
+      )
+      center top / 0.4rem 0.56rem repeat-y;
   }
 
   .reasoning-trace--strong .reasoning-trace__body::before {
-    background: linear-gradient(
-      to bottom,
-      hsl(var(--foreground) / 0.82),
-      hsl(var(--muted-foreground) / 0.28)
-    );
+    background: radial-gradient(circle, hsl(var(--foreground) / 0.82) 0 1px, transparent 1.4px)
+      center top / 0.4rem 0.56rem repeat-y;
   }
 
   .reasoning-trace__body :global(ul),
