@@ -1,0 +1,76 @@
+---
+import SectionLabel from "./SectionLabel.astro";
+
+interface Props {
+  label?: string;
+  emphasis?: "normal" | "strong" | "muted";
+}
+
+const { label = "Tool Call", emphasis = "normal" } = Astro.props;
+---
+
+<div class:list={["tool-row", "tool-row--call", `tool-row--${emphasis}`]}>
+  <div class="tool-row__header">
+    <SectionLabel
+      text={label}
+      tone={emphasis === "strong" ? "strong" : emphasis === "muted" ? "muted" : "default"}
+    />
+  </div>
+  <div class="tool-row__body">
+    <span class="tool-row__prompt" aria-hidden="true">›</span>
+    <div class="tool-row__content">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .tool-row {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid rgb(255 255 255 / 0.08);
+    border-radius: 0.7rem;
+    background: #0c0c0d;
+  }
+
+  .tool-row--strong {
+    border-color: rgb(255 255 255 / 0.14);
+    background: #111214;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.03),
+      inset 0 1px 0 rgb(255 255 255 / 0.02);
+  }
+
+  .tool-row--muted {
+    opacity: 0.62;
+  }
+
+  .tool-row__body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.7rem;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+      monospace;
+  }
+
+  .tool-row__prompt {
+    color: rgb(161 161 170);
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .tool-row__content {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: rgb(231 231 234);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .tool-row__content :global(p) {
+    margin: 0;
+  }
+</style>

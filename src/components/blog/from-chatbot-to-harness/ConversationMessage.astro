@@ -1,0 +1,53 @@
+---
+import BubbleSurface from "./primitives/BubbleSurface.astro";
+import SectionLabel from "./primitives/SectionLabel.astro";
+
+interface Props {
+  role?: "user" | "assistant";
+  label?: string;
+  emphasis?: "normal" | "strong" | "muted";
+}
+
+const {
+  role = "assistant",
+  label = role === "user" ? "You" : "Assistant",
+  emphasis = "normal",
+} = Astro.props;
+---
+
+<div class:list={["chat-message", `chat-message--${role}`, `chat-message--${emphasis}`]}>
+  <SectionLabel
+    text={label}
+    tone={emphasis === "strong" ? "strong" : emphasis === "muted" ? "muted" : "default"}
+  />
+  <BubbleSurface role={role} emphasis={emphasis}>
+    <slot />
+  </BubbleSurface>
+</div>
+
+<style>
+  .chat-message {
+    display: grid;
+    gap: 0.45rem;
+    max-width: min(76%, 46rem);
+    min-width: 0;
+  }
+
+  .chat-message--assistant {
+    justify-self: start;
+  }
+
+  .chat-message--user {
+    justify-self: end;
+  }
+
+  .chat-message--muted {
+    opacity: 0.76;
+  }
+
+  @media (max-width: 768px) {
+    .chat-message {
+      max-width: 100%;
+    }
+  }
+</style>

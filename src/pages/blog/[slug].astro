@@ -6,6 +6,7 @@ import { getCollection, render } from "astro:content";
 import { ArrowLeft } from "lucide-react";
 import { TableOfContents } from "@/components/TableOfContents";
 import { ReadingProgress } from "@/components/ReadingProgress";
+import { getBlogReadingStats } from "@/lib/content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -17,11 +18,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const { wordCount, readingTimeMinutes } = getBlogReadingStats(post.body);
 
 const title = `${post.data.title} - Andrei Voinea`;
 const description = post.data.short;
-const wordCount = post.body.split(/\s+/).length;
-const readingTime = Math.ceil(wordCount / 200);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -90,7 +90,7 @@ const readingTime = Math.ceil(wordCount / 200);
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                <span>{readingTime} min read</span>
+                <span>{readingTimeMinutes} min read</span>
               </div>
 
               <div class="flex items-center gap-2">

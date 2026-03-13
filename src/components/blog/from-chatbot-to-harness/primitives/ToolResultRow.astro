@@ -1,0 +1,90 @@
+---
+import SectionLabel from "./SectionLabel.astro";
+
+interface Props {
+  label?: string;
+  emphasis?: "normal" | "strong" | "muted";
+}
+
+const { label = "Tool Result", emphasis = "normal" } = Astro.props;
+---
+
+<div class:list={["tool-result", `tool-result--${emphasis}`]}>
+  <SectionLabel
+    text={label}
+    tone={emphasis === "strong" ? "strong" : emphasis === "muted" ? "muted" : "default"}
+  />
+  <div class="tool-result__body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .tool-result {
+    display: grid;
+    gap: 0.5rem;
+    margin-left: 1.1rem;
+    padding: 0.8rem 0.9rem;
+    border-left: 2px solid rgb(255 255 255 / 0.14);
+    border-radius: 0 0.6rem 0.6rem 0;
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  .tool-result--strong {
+    border-left-width: 3px;
+    border-left-color: rgb(255 255 255 / 0.28);
+    background: rgb(255 255 255 / 0.05);
+  }
+
+  .tool-result--muted {
+    opacity: 0.62;
+  }
+
+  .tool-result__body {
+    color: rgb(235 235 238);
+    font-size: 0.93rem;
+    line-height: 1.5;
+  }
+
+  .tool-result__body :global(p) {
+    margin: 0 0 0.65rem;
+  }
+
+  .tool-result__body :global(:last-child) {
+    margin-bottom: 0;
+  }
+
+  .tool-result__body :global(code) {
+    padding: 0.08rem 0.32rem;
+    border-radius: 0.3rem;
+    background: rgb(255 255 255 / 0.06);
+    color: rgb(245 245 245);
+    font-size: 0.92em;
+    overflow-wrap: anywhere;
+  }
+
+  .tool-result__body :global(pre) {
+    margin: 0;
+    padding: 0.75rem 0.8rem;
+    border: 1px solid rgb(255 255 255 / 0.08);
+    border-radius: 0.45rem;
+    background: rgb(7 7 8 / 0.8);
+    color: rgb(236 236 239);
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+      monospace;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .tool-result__body :global(pre code) {
+    display: block;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+  }
+</style>

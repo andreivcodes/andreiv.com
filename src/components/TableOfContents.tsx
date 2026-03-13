@@ -9,14 +9,40 @@ interface Heading {
   level: number;
 }
 
+function slugifyHeading(text: string) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
 export function TableOfContents() {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
     const elements = Array.from(
-      document.querySelectorAll(".blog-post-content h2, .blog-post-content h3")
-    ).filter((element) => element.id);
+      document.querySelectorAll<HTMLHeadingElement>(".blog-post-content h2, .blog-post-content h3")
+    );
+
+    if (elements.length === 0) return;
+
+    const usedIds = new Set<string>();
+
+    elements.forEach((element) => {
+      const baseId = element.id || slugifyHeading(element.textContent || "section");
+      let nextId = baseId || "section";
+      let suffix = 2;
+
+      while (usedIds.has(nextId)) {
+        nextId = `${baseId}-${suffix}`;
+        suffix += 1;
+      }
+
+      usedIds.add(nextId);
+      element.id = nextId;
+    });
 
     const headingData: Heading[] = elements.map((element) => ({
       id: element.id,
@@ -25,24 +51,52 @@ export function TableOfContents() {
     }));
 
     setHeadings(headingData);
+    setActiveId(headingData[0]?.id ?? "");
 
-    // Set up intersection observer for active heading
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: "-20% 0% -70% 0%",
+    const updateActiveHeading = () => {
+      const activationOffset = Math.min(window.innerHeight * 0.24, 200);
+      const scrollAnchor = window.scrollY + activationOffset;
+      const isAtPageBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+      if (isAtPageBottom) {
+        const lastHeading = elements[elements.length - 1];
+        setActiveId((previousId) => (previousId === lastHeading.id ? previousId : lastHeading.id));
+        return;
       }
-    );
 
-    elements.forEach((element) => observer.observe(element));
+      const nextHeadingIndex = elements.findIndex((element) => scrollAnchor < element.offsetTop);
+      const activeHeading =
+        nextHeadingIndex === -1
+          ? elements[elements.length - 1]
+          : nextHeadingIndex > 0
+            ? elements[nextHeadingIndex - 1]
+            : elements[0];
 
-    return () => observer.disconnect();
+      setActiveId((previousId) =>
+        previousId === activeHeading.id ? previousId : activeHeading.id
+      );
+    };
+
+    let frameId = 0;
+    const scheduleUpdate = () => {
+      cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(updateActiveHeading);
+    };
+
+    scheduleUpdate();
+
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("load", scheduleUpdate);
+    document.fonts?.ready.then(scheduleUpdate).catch(() => {});
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("load", scheduleUpdate);
+    };
   }, []);
 
   if (headings.length === 0) return null;
@@ -64,6 +118,7 @@ export function TableOfContents() {
             )}
             onClick={(e) => {
               e.preventDefault();
+              setActiveId(heading.id);
               document.getElementById(heading.id)?.scrollIntoView({
                 behavior: "smooth",
                 block: "start",

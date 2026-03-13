@@ -1,0 +1,30 @@
+---
+interface Props {
+  text: string;
+  tone?: "default" | "strong" | "muted";
+}
+
+const { text, tone = "default" } = Astro.props;
+---
+
+<div class:list={["section-label", `section-label--${tone}`]}>{text}</div>
+
+<style>
+  .section-label {
+    padding: 0 0.2rem;
+    color: rgb(136 136 143);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .section-label--strong {
+    color: rgb(225 225 229);
+  }
+
+  .section-label--muted {
+    color: rgb(108 108 115);
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+import ReasoningTrace from "./primitives/ReasoningTrace.astro";
+import SystemPromptBar from "./primitives/SystemPromptBar.astro";
+import ToolCallRow from "./primitives/ToolCallRow.astro";
+import ToolResultRow from "./primitives/ToolResultRow.astro";
+
+interface Props {
+  variant?: "system" | "thinking" | "tool" | "result";
+  label?: string;
+  emphasis?: "normal" | "strong" | "muted";
+}
+
+const { variant = "system", label, emphasis = "normal" } = Astro.props;
+---
+
+{
+  variant === "system" ? (
+    <SystemPromptBar label={label} emphasis={emphasis}>
+      <slot />
+    </SystemPromptBar>
+  ) : variant === "thinking" ? (
+    <ReasoningTrace label={label} emphasis={emphasis}>
+      <slot />
+    </ReasoningTrace>
+  ) : variant === "tool" ? (
+    <ToolCallRow label={label} emphasis={emphasis}>
+      <slot />
+    </ToolCallRow>
+  ) : (
+    <ToolResultRow label={label} emphasis={emphasis}>
+      <slot />
+    </ToolResultRow>
+  )
+}

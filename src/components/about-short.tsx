@@ -16,19 +16,6 @@ const taglines = [
     { text: "for" },
     { text: "problems" },
   ],
-  [
-    { text: "in" },
-    { text: "a" },
-    { text: "world" },
-    { text: "of" },
-    { text: "talkers," },
-    { text: "be" },
-    { text: "a" },
-    { text: "thinker" },
-    { text: "and" },
-    { text: "a" },
-    { text: "doer" },
-  ],
 ];
 
 export const AboutShort = () => {
