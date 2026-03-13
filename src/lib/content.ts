@@ -22,17 +22,10 @@ function getPlainTextFromMarkdown(markdown: string) {
 function countVisuals(markdown: string) {
   const markdownImages = markdown.match(/!\[[^\]]*\]\([^)]+\)/g)?.length ?? 0;
   const htmlImages = markdown.match(/<img\b[^>]*>/gi)?.length ?? 0;
-  const conversationFigures = markdown.match(/<ConversationFigure\b/g)?.length ?? 0;
-  const harnessRuntimeFigures = markdown.match(/<HarnessRuntimeFigure\b/g)?.length ?? 0;
-  const machineHarnessFigures = markdown.match(/<MachineHarnessFigure\b/g)?.length ?? 0;
+  const componentVisuals =
+    markdown.match(/<[A-Z][A-Za-z0-9]*(?:Figure|Diagram|Chart|Preview|Showcase)\b/g)?.length ?? 0;
 
-  return (
-    markdownImages +
-    htmlImages +
-    conversationFigures +
-    harnessRuntimeFigures +
-    machineHarnessFigures
-  );
+  return markdownImages + htmlImages + componentVisuals;
 }
 
 export function getBlogReadingStats(markdown: string) {

@@ -1,57 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface Heading {
-  id: string;
+  depth: number;
+  slug: string;
   text: string;
-  level: number;
 }
 
-function slugifyHeading(text: string) {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-");
+interface TableOfContentsProps {
+  headings: Heading[];
 }
 
-export function TableOfContents() {
-  const [headings, setHeadings] = useState<Heading[]>([]);
-  const [activeId, setActiveId] = useState<string>("");
+export function TableOfContents({ headings }: TableOfContentsProps) {
+  const [activeId, setActiveId] = useState("");
+
+  const relevantHeadings = useMemo(
+    () => headings.filter((heading) => heading.depth === 2 || heading.depth === 3),
+    [headings]
+  );
 
   useEffect(() => {
-    const elements = Array.from(
-      document.querySelectorAll<HTMLHeadingElement>(".blog-post-content h2, .blog-post-content h3")
-    );
+    if (relevantHeadings.length === 0) {
+      return;
+    }
 
-    if (elements.length === 0) return;
+    const elements = relevantHeadings
+      .map((heading) => document.getElementById(heading.slug))
+      .filter((element): element is HTMLElement => Boolean(element));
 
-    const usedIds = new Set<string>();
+    if (elements.length === 0) {
+      return;
+    }
 
-    elements.forEach((element) => {
-      const baseId = element.id || slugifyHeading(element.textContent || "section");
-      let nextId = baseId || "section";
-      let suffix = 2;
-
-      while (usedIds.has(nextId)) {
-        nextId = `${baseId}-${suffix}`;
-        suffix += 1;
-      }
-
-      usedIds.add(nextId);
-      element.id = nextId;
-    });
-
-    const headingData: Heading[] = elements.map((element) => ({
-      id: element.id,
-      text: element.textContent || "",
-      level: parseInt(element.tagName.charAt(1)),
-    }));
-
-    setHeadings(headingData);
-    setActiveId(headingData[0]?.id ?? "");
+    setActiveId(elements[0].id);
 
     const updateActiveHeading = () => {
       const activationOffset = Math.min(window.innerHeight * 0.24, 200);
@@ -97,9 +80,11 @@ export function TableOfContents() {
       window.removeEventListener("resize", scheduleUpdate);
       window.removeEventListener("load", scheduleUpdate);
     };
-  }, []);
+  }, [relevantHeadings]);
 
-  if (headings.length === 0) return null;
+  if (relevantHeadings.length === 0) {
+    return null;
+  }
 
   return (
     <nav className="fixed top-40 right-8 hidden w-56 xl:block">
@@ -107,19 +92,19 @@ export function TableOfContents() {
         On this page
       </h4>
       <div className="space-y-1 text-sm">
-        {headings.map((heading) => (
+        {relevantHeadings.map((heading) => (
           <a
-            key={heading.id}
-            href={`#${heading.id}`}
+            key={heading.slug}
+            href={`#${heading.slug}`}
             className={cn(
               "text-muted-foreground hover:text-foreground hover:border-muted-foreground/50 block border-l-2 border-transparent py-1.5 transition-colors duration-200",
-              activeId === heading.id && "text-foreground border-primary font-medium",
-              heading.level === 2 ? "pl-4" : "pl-8"
+              activeId === heading.slug && "text-foreground border-primary font-medium",
+              heading.depth === 2 ? "pl-4" : "pl-8"
             )}
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveId(heading.id);
-              document.getElementById(heading.id)?.scrollIntoView({
+            onClick={(event) => {
+              event.preventDefault();
+              setActiveId(heading.slug);
+              document.getElementById(heading.slug)?.scrollIntoView({
                 behavior: "smooth",
                 block: "start",
                 inline: "nearest",

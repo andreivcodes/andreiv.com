@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { getProjects } from "@/lib/content";
+import Header from "@/components/Header.astro";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, ArrowRight, Calendar } from "lucide-react";
+import { getProjects } from "@/lib/content";
+import { ArrowRight, Calendar, ExternalLink } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 const title = "Projects - Andrei Voinea";
@@ -12,22 +12,22 @@ const description = "Open source projects and side projects built by Andrei Voin
 
 const projects = await getProjects();
 const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 999));
+const featuredProject = sortedProjects.find((project) => project.featuredImage);
 ---
 
 <BaseLayout title={title} description={description}>
   <Fragment slot="head">
     {
-      sortedProjects.map(
-        (project) =>
-          project.featuredImage && <link rel="preload" as="image" href={project.featuredImage} />
+      featuredProject?.featuredImage && (
+        <link rel="preload" as="image" href={featuredProject.featuredImage} />
       )
     }
   </Fragment>
+
   <div class="flex min-h-screen flex-col">
     <Header />
-    <main class="bg-background flex-1">
+    <main id="main-content" class="bg-background flex-1">
       <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        {/* Header Section */}
         <div class="mb-16 text-center">
           <h1 class="mb-4 text-4xl font-bold md:text-5xl">Projects</h1>
           <p class="text-muted-foreground mx-auto max-w-2xl text-lg">
@@ -35,117 +35,115 @@ const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 99
           </p>
         </div>
 
-        {/* Projects List */}
         <div class="space-y-12 lg:space-y-16">
           {
-            sortedProjects.map((project) => (
-              <a
-                href={`/projects/${project.slug}`}
-                class="group focus-visible:ring-primary block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-              >
-                <article class="relative overflow-hidden">
-                  <div class="bg-card hover:border-primary/50 relative flex flex-col overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-lg xl:grid xl:grid-cols-2">
-                    {/* Image Section - On top for mobile, right for desktop */}
-                    <div class="relative overflow-hidden xl:order-2">
-                      <div class="bg-muted/20 relative aspect-[16/9] w-full">
-                        {project.featuredImage ? (
-                          <>
-                            <img
-                              src={project.featuredImage}
-                              alt={`${project.name} preview`}
-                              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              loading="eager"
-                              width="800"
-                              height="450"
-                            />
-                            {/* Black gradient overlay on hover */}
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                          </>
-                        ) : (
-                          <div class="from-muted via-muted/80 to-background flex h-full w-full items-center justify-center bg-gradient-to-br">
-                            <div class="text-muted-foreground/10 text-7xl font-bold">
-                              {project.name.slice(0, 2).toUpperCase()}
-                            </div>
+            sortedProjects.map((project, index) => (
+              <article class="group relative overflow-hidden rounded-lg">
+                <div class="bg-card hover:border-primary/50 relative flex flex-col overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-lg xl:grid xl:grid-cols-2">
+                  <div class="relative overflow-hidden xl:order-2">
+                    <div class="bg-muted/20 relative aspect-[16/9] w-full">
+                      {project.featuredImage ? (
+                        <>
+                          <img
+                            src={project.featuredImage}
+                            alt={`${project.name} preview`}
+                            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            loading={index === 0 ? "eager" : "lazy"}
+                            width="800"
+                            height="450"
+                          />
+                          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        </>
+                      ) : (
+                        <div class="from-muted via-muted/80 to-background flex h-full w-full items-center justify-center bg-gradient-to-br">
+                          <div class="text-muted-foreground/10 text-7xl font-bold">
+                            {project.name.slice(0, 2).toUpperCase()}
                           </div>
-                        )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col p-8 xl:order-1 xl:min-h-[300px]">
+                    <div>
+                      <div class="mb-6">
+                        <h2 class="group-hover:text-primary -mt-1 mb-3 text-3xl font-bold transition-colors duration-300 xl:text-4xl">
+                          <a
+                            href={`/projects/${project.slug}`}
+                            class="focus-visible:ring-primary rounded-sm focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
+                          >
+                            {project.name}
+                          </a>
+                        </h2>
+                        <div class="text-muted-foreground flex items-center gap-2 text-sm">
+                          <Calendar className="h-4 w-4" />
+                          <time datetime={project.date}>{project.date}</time>
+                        </div>
+                      </div>
+
+                      <p class="text-muted-foreground mb-8 text-lg leading-relaxed">
+                        {project.shortDescription}
+                      </p>
+
+                      <div class="flex flex-wrap gap-2">
+                        {project.stackPrimary?.map((tech: string) => (
+                          <Badge
+                            variant="default"
+                            className="text-xs px-2 py-1 rounded-full pointer-events-none"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                        {project.stackSecondary?.map((tech: string) => (
+                          <Badge
+                            variant="secondary"
+                            className="text-xs px-2 py-1 rounded-full pointer-events-none"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
 
-                    {/* Content Section - Below image on mobile, left on desktop */}
-                    <div class="relative flex flex-col p-8 pb-20 xl:order-1 xl:min-h-[300px] xl:pb-8">
-                      {/* Top section with title and content */}
-                      <div>
-                        {/* Project Title & Date */}
-                        <div class="mb-6">
-                          <h2 class="group-hover:text-primary -mt-1 mb-3 text-3xl font-bold transition-colors duration-300 xl:text-4xl">
-                            {project.name}
-                          </h2>
-                          <div class="text-muted-foreground flex items-center gap-2 text-sm">
-                            <Calendar className="h-4 w-4" />
-                            <time datetime={project.date}>{project.date}</time>
-                          </div>
-                        </div>
-
-                        {/* Description */}
-                        <p class="text-muted-foreground mb-8 text-lg leading-relaxed">
-                          {project.shortDescription}
-                        </p>
-
-                        {/* Tech Stack */}
-                        <div class="flex flex-wrap gap-2">
-                          {project.stackPrimary?.map((tech: string) => (
-                            <Badge
-                              variant="default"
-                              className="text-xs px-2 py-1 rounded-full pointer-events-none"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                          {project.stackSecondary?.map((tech: string) => (
-                            <Badge
-                              variant="secondary"
-                              className="text-xs px-2 py-1 rounded-full pointer-events-none"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Actions - Positioned absolutely at bottom */}
-                      <div class="absolute bottom-8 left-8 flex items-center gap-4">
+                    <div class="mt-auto flex flex-col gap-4 pt-8 sm:flex-row sm:items-center sm:justify-between">
+                      <div class="flex items-center gap-4">
                         {project.url && (
-                          <button
-                            data-href={project.url}
-                            class="text-muted-foreground hover:text-foreground project-link-button inline-flex items-center gap-1.5 text-sm transition-colors"
+                          <a
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
                             aria-label={`View ${project.name} live demo`}
                           >
                             <ExternalLink className="h-4 w-4" />
                             <span>Demo</span>
-                          </button>
+                          </a>
                         )}
                         {project.repository && (
-                          <button
-                            data-href={project.repository}
-                            class="text-muted-foreground hover:text-foreground project-link-button inline-flex items-center gap-1.5 text-sm transition-colors"
+                          <a
+                            href={project.repository}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
                             aria-label={`View ${project.name} source code`}
                           >
                             <GitHubLogoIcon className="h-4 w-4" />
                             <span>Code</span>
-                          </button>
+                          </a>
                         )}
                       </div>
 
-                      <div class="absolute right-8 bottom-8">
-                        <span class="group-hover:text-primary inline-flex items-center gap-1.5 text-sm font-medium transition-colors">
-                          <span>View Project</span>
-                          <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                        </span>
-                      </div>
+                      <a
+                        href={`/projects/${project.slug}`}
+                        class="group/link hover:text-primary inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
+                      >
+                        <span>View Project</span>
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                      </a>
                     </div>
                   </div>
-                </article>
-              </a>
+                </div>
+              </article>
             ))
           }
         </div>
@@ -154,20 +152,3 @@ const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 99
     <Footer />
   </div>
 </BaseLayout>
-
-<script>
-  // Handle project button clicks
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".project-link-button").forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        const target = event.currentTarget as HTMLButtonElement;
-        const href = target.dataset.href;
-        if (href) {
-          window.open(href, "_blank");
-        }
-      });
-    });
-  });
-</script>

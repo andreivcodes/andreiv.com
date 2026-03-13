@@ -1,0 +1,121 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { CONTACT_INFO, PERSONAL_INFO, SKILLS } from "@/lib/personalInfo";
+import { getResumeEntries } from "@/lib/resume";
+import { getPersonStructuredData } from "@/lib/structuredData";
+
+const title = "Resume - Andrei Voinea";
+const description = "Printable resume for Andrei Voinea.";
+
+const { professional, education } = await getResumeEntries();
+const structuredData = getPersonStructuredData({
+  pathname: "/resume",
+  description,
+});
+---
+
+<BaseLayout title={title} description={description} structuredData={structuredData}>
+  <main id="main-content" class="bg-background min-h-screen py-8 print:py-0">
+    <div class="mx-auto max-w-4xl px-4 print:max-w-none print:px-0">
+      <div class="mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
+        <a
+          href="/about"
+          class="text-muted-foreground hover:text-foreground inline-flex items-center text-sm transition-colors"
+        >
+          Back to About
+        </a>
+        <button
+          type="button"
+          onclick="window.print()"
+          class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center rounded-md px-4 py-2 text-sm font-medium transition-colors"
+        >
+          Print / Save as PDF
+        </button>
+      </div>
+
+      <article
+        class="bg-card text-card-foreground rounded-xl border p-6 shadow-sm print:rounded-none print:border-0 print:p-0 print:shadow-none"
+      >
+        <header class="border-b pb-6">
+          <div class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+            <div class="space-y-3">
+              <h1 class="font-mono text-3xl font-bold">{PERSONAL_INFO.name}</h1>
+              <p class="font-mono text-sm">{PERSONAL_INFO.title}</p>
+              <p class="text-muted-foreground text-sm">{PERSONAL_INFO.location}</p>
+            </div>
+            <div class="text-sm leading-relaxed">
+              <a href={`mailto:${CONTACT_INFO.email}`} class="block hover:underline">
+                {CONTACT_INFO.email}
+              </a>
+              <a href={CONTACT_INFO.website} class="block hover:underline">
+                {CONTACT_INFO.website.replace("https://", "")}
+              </a>
+              <a href={CONTACT_INFO.github} class="block hover:underline">
+                github.com/andreivcodes
+              </a>
+              <a href={CONTACT_INFO.linkedin} class="block hover:underline">
+                linkedin.com/in/andreivcodes
+              </a>
+            </div>
+          </div>
+          <p class="mt-6 text-sm leading-relaxed">{PERSONAL_INFO.summary}</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {
+              [...SKILLS.primary, ...SKILLS.secondary].map((skill) => (
+                <span class="bg-muted rounded-full px-3 py-1 text-xs font-medium">{skill}</span>
+              ))
+            }
+          </div>
+        </header>
+
+        <div class="grid gap-10 pt-8 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+          <section class="space-y-6">
+            <h2 class="text-xl font-semibold">Professional Experience</h2>
+            {
+              professional.map((entry) => (
+                <article class="space-y-2 border-b pb-5 last:border-b-0 last:pb-0">
+                  <div class="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
+                    <div>
+                      <div class="font-semibold">{entry.role || entry.companyName}</div>
+                      {entry.companyName && (
+                        <div class="text-muted-foreground text-sm">{entry.companyName}</div>
+                      )}
+                    </div>
+                    <div class="text-muted-foreground text-sm">{entry.period}</div>
+                  </div>
+                  {entry.companyAbout && (
+                    <div class="text-muted-foreground text-sm">{entry.companyAbout}</div>
+                  )}
+                  <div class="max-w-none text-sm leading-relaxed [&>li]:mb-1 [&>ol]:mb-3 [&>ol]:pl-5 [&>p]:mb-3 [&>ul]:mb-3 [&>ul]:pl-5">
+                    <Fragment set:html={entry.html} />
+                  </div>
+                </article>
+              ))
+            }
+          </section>
+
+          <section class="space-y-6">
+            <h2 class="text-xl font-semibold">Education</h2>
+            {
+              education.map((entry) => (
+                <article class="space-y-2 border-b pb-5 last:border-b-0 last:pb-0">
+                  <div class="font-semibold">{entry.institution}</div>
+                  <div class="text-sm">
+                    {entry.degree} in {entry.field}
+                  </div>
+                  <div class="text-muted-foreground text-sm">{entry.period}</div>
+                  {entry.description && (
+                    <div class="text-muted-foreground text-sm">{entry.description}</div>
+                  )}
+                  <div class="max-w-none text-sm leading-relaxed [&>li]:mb-1 [&>ol]:mb-3 [&>ol]:pl-5 [&>p]:mb-3 [&>ul]:mb-3 [&>ul]:pl-5">
+                    <Fragment set:html={entry.html} />
+                  </div>
+                </article>
+              ))
+            }
+          </section>
+        </div>
+      </article>
+    </div>
+  </main>
+</BaseLayout>

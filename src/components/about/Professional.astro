@@ -1,48 +1,49 @@
 ---
-import { getProfessional } from "@/lib/content";
+import type { ResumeProfessionalEntry } from "@/lib/resume";
 
 interface Props {
-  withTitle: boolean;
+  entries: ResumeProfessionalEntry[];
+  title?: string;
+  titleAlign?: "left" | "center";
 }
 
-const { withTitle } = Astro.props;
-const professional = await getProfessional();
+const { entries, title = "Professional Experience", titleAlign = "left" } = Astro.props;
 ---
 
 <div class="flex flex-col gap-8">
-  {
-    withTitle && (
-      <div class="mb-4 text-center text-2xl font-bold md:text-left">Professional Experience</div>
-    )
-  }
+  <h2
+    class:list={["mb-4 text-2xl font-bold", titleAlign === "center" ? "text-center" : "text-left"]}
+  >
+    {title}
+  </h2>
   <div>
     {
-      professional
-        .sort((a, b) => a.index - b.index)
-        .map((experience) => (
-          <div class="mb-8 flex w-full flex-col items-end gap-2">
-            <div class="text-sm">
-              {experience.startDate} - {experience.endDate ? experience.endDate : "now"}
-            </div>
-            <div class="-mr-2 h-[1px] w-32 bg-current md:-mr-8" />
-            <div class="bg-card text-card-foreground w-full rounded-lg border-0 shadow-none md:border md:shadow-sm">
-              <div class="w-full p-2 md:p-6">
-                <div class="flex w-full flex-col gap-2">
-                  <div class="flex w-full flex-row justify-between gap-2 align-bottom">
+      entries.map((experience) => (
+        <article class="mb-8 flex w-full flex-col items-end gap-2">
+          <div class="text-sm">{experience.period}</div>
+          <div class="-mr-2 h-px w-32 bg-current md:-mr-8" />
+          <div class="bg-card text-card-foreground w-full rounded-lg border-0 shadow-none md:border md:shadow-sm">
+            <div class="w-full p-4 md:p-6">
+              <div class="flex w-full flex-col gap-3">
+                {experience.companyName && (
+                  <div class="flex w-full flex-col gap-1 md:flex-row md:items-baseline md:justify-between md:gap-4">
                     <div class="font-semibold">{experience.companyName}</div>
-                    <div class="hidden font-mono text-xs font-extralight md:block">
-                      {experience.companyAbout}
-                    </div>
+                    {experience.companyAbout && (
+                      <div class="text-muted-foreground font-mono text-xs md:text-right">
+                        {experience.companyAbout}
+                      </div>
+                    )}
                   </div>
-                  <div class="text-start text-lg">{experience.role}</div>
-                </div>
+                )}
+                {experience.role && <div class="text-start text-lg">{experience.role}</div>}
               </div>
-              <div class="max-w-none p-2 pt-0 text-sm md:p-6 [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>ul]:mb-4 [&>ul]:pl-6">
-                <Fragment set:html={experience.content} />
-              </div>
+            </div>
+            <div class="max-w-none px-4 pb-4 text-sm md:px-6 md:pb-6 [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>ul]:mb-4 [&>ul]:pl-6">
+              <Fragment set:html={experience.html} />
             </div>
           </div>
-        ))
+        </article>
+      ))
     }
   </div>
 </div>

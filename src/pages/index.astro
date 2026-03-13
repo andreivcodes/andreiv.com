@@ -3,17 +3,28 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { AboutShort } from "@/components/about-short";
+import { getPersonStructuredData, getWebsiteStructuredData } from "@/lib/structuredData";
 
 const title = "Andrei Voinea - Software Engineer";
 const description = "Personal website of Andrei Voinea, a software engineer from Romania.";
+const structuredData = [
+  getWebsiteStructuredData(),
+  getPersonStructuredData({
+    pathname: "/",
+    description,
+  }),
+];
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} structuredData={structuredData}>
   <div class="flex min-h-screen flex-col">
     <Header />
-    <main class="flex h-full w-full flex-1 flex-col items-center justify-evenly gap-4 py-8">
+    <main
+      id="main-content"
+      class="flex h-full w-full flex-1 flex-col items-center justify-evenly gap-4 py-8"
+    >
       <div class="flex flex-col gap-2">
-        <AboutShort client:load />
+        <AboutShort client:idle />
       </div>
     </main>
     <Footer />

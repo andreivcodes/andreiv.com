@@ -1,0 +1,117 @@
+---
+import Education from "./Education.astro";
+import Professional from "./Professional.astro";
+import type { ResumeEducationEntry, ResumeProfessionalEntry } from "@/lib/resume";
+
+interface Props {
+  professional: ResumeProfessionalEntry[];
+  education: ResumeEducationEntry[];
+}
+
+const { professional, education } = Astro.props;
+---
+
+<section class="w-full space-y-6" data-about-timeline>
+  <div
+    role="tablist"
+    aria-label="About timeline sections"
+    class="bg-muted flex w-full rounded-lg p-1 md:hidden"
+  >
+    <button
+      id="about-tab-professional"
+      type="button"
+      role="tab"
+      aria-selected="true"
+      aria-controls="about-panel-professional"
+      class="about-tab-button focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none data-[state=active]:shadow-sm"
+      data-tab="professional"
+      data-state="active"
+      tabindex="0"
+    >
+      Professional Experience
+    </button>
+    <button
+      id="about-tab-education"
+      type="button"
+      role="tab"
+      aria-selected="false"
+      aria-controls="about-panel-education"
+      class="about-tab-button focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none data-[state=active]:shadow-sm"
+      data-tab="education"
+      data-state="inactive"
+      tabindex="-1"
+    >
+      Education
+    </button>
+  </div>
+
+  <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)]">
+    <section
+      id="about-panel-professional"
+      role="tabpanel"
+      aria-labelledby="about-tab-professional"
+      data-panel="professional"
+      class="about-tab-panel md:block"
+    >
+      <Professional entries={professional} />
+    </section>
+
+    <div class="hidden w-px bg-current md:block" aria-hidden="true"></div>
+
+    <section
+      id="about-panel-education"
+      role="tabpanel"
+      aria-labelledby="about-tab-education"
+      data-panel="education"
+      class="about-tab-panel hidden md:block"
+    >
+      <Education entries={education} />
+    </section>
+  </div>
+</section>
+
+<script>
+  const timelineRoot = document.querySelector("[data-about-timeline]");
+
+  if (timelineRoot) {
+    const tabButtons = Array.from(
+      timelineRoot.querySelectorAll<HTMLButtonElement>(".about-tab-button")
+    );
+    const tabPanels = Array.from(timelineRoot.querySelectorAll<HTMLElement>(".about-tab-panel"));
+
+    const setActiveTab = (targetTab: string) => {
+      tabButtons.forEach((button) => {
+        const isActive = button.dataset.tab === targetTab;
+        button.dataset.state = isActive ? "active" : "inactive";
+        button.setAttribute("aria-selected", String(isActive));
+        button.tabIndex = isActive ? 0 : -1;
+      });
+
+      tabPanels.forEach((panel) => {
+        const isActive = panel.dataset.panel === targetTab;
+        panel.classList.toggle("hidden", !isActive);
+      });
+    };
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => setActiveTab(button.dataset.tab || "professional"));
+      button.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+          return;
+        }
+
+        event.preventDefault();
+
+        const currentIndex = tabButtons.indexOf(button);
+        const nextIndex =
+          event.key === "ArrowRight"
+            ? (currentIndex + 1) % tabButtons.length
+            : (currentIndex - 1 + tabButtons.length) % tabButtons.length;
+        const nextButton = tabButtons[nextIndex];
+
+        setActiveTab(nextButton.dataset.tab || "professional");
+        nextButton.focus();
+      });
+    });
+  }
+</script>

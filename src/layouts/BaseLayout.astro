@@ -5,11 +5,20 @@ export interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  structuredData?: object | object[];
 }
 
-const { title, description = "Andrei's personal website", ogImage = "/og-image.png" } = Astro.props;
+const {
+  title,
+  description = "Andrei's personal website",
+  ogImage = "/og-image.png",
+  structuredData,
+} = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://andreiv.com");
 const ogImageURL = new URL(ogImage, Astro.site || "https://andreiv.com");
+const structuredDataJson = structuredData
+  ? JSON.stringify(structuredData).replace(/</g, "\\u003c")
+  : null;
 ---
 
 <!doctype html>
@@ -43,9 +52,22 @@ const ogImageURL = new URL(ogImage, Astro.site || "https://andreiv.com");
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImageURL} />
 
+    {
+      structuredDataJson && (
+        <script is:inline type="application/ld+json" set:html={structuredDataJson} />
+      )
+    }
+
+    <slot name="head" />
     <title>{title}</title>
   </head>
   <body class="bg-background min-h-screen font-sans antialiased">
+    <a
+      href="#main-content"
+      class="bg-background text-foreground focus-visible:ring-primary sr-only fixed top-4 left-4 z-[100] rounded-md border px-4 py-2 font-medium shadow-md focus:not-sr-only focus:outline-none focus-visible:ring-2"
+    >
+      Skip to content
+    </a>
     <slot />
   </body>
 </html>

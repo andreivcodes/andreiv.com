@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { Presentation } from "@/components/presentation";
+import { renderPresentationSlides } from "@/lib/slides";
 
 export async function getStaticPaths() {
   const presentations = await getCollection("slides");
@@ -15,18 +16,18 @@ const { presentation } = Astro.props;
 
 const title = `${presentation.data.title} - Andrei Voinea`;
 const description = presentation.data.description || `Presentation: ${presentation.data.title}`;
+const slides = await renderPresentationSlides(presentation.body);
 
-// Prepare the presentation data in the format expected by the component
 const presentationData = {
   slug: presentation.id,
   title: presentation.data.title,
   date: presentation.data.date,
-  content: presentation.body,
+  slides,
 };
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="min-h-screen">
+  <main id="main-content" class="min-h-screen">
     <noscript>
       <div class="flex h-screen items-center justify-center">
         <p class="text-xl">JavaScript is required to view this presentation.</p>
@@ -37,5 +38,5 @@ const presentationData = {
         <p class="text-xl">Loading presentation...</p>
       </div>
     </Presentation>
-  </div>
+  </main>
 </BaseLayout>

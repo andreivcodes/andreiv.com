@@ -1,13 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
 import mermaid from "mermaid";
 import "katex/dist/katex.min.css";
 
@@ -15,7 +8,7 @@ interface Presentation {
   slug: string;
   title: string;
   date: string;
-  content: string;
+  slides: string[];
 }
 
 interface PresentationProps {
@@ -26,13 +19,13 @@ const PPTX_CANVAS_WIDTH = 1280;
 const PPTX_CANVAS_HEIGHT = 720;
 
 export function Presentation({ presentation }: PresentationProps) {
-  const [slides, setSlides] = useState<string[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [scale, setScale] = useState(1);
   const [showControls, setShowControls] = useState(true);
   const slideRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const slides = presentation.slides;
   const currentSlideHtml = slides[currentSlide] ?? "";
   const isCanvasSlide = currentSlideHtml.includes("pptx-slide-canvas");
 
@@ -65,49 +58,6 @@ export function Presentation({ presentation }: PresentationProps) {
       },
     });
   }, []);
-
-  // Process slides
-  useEffect(() => {
-    const processSlides = async () => {
-      const slideContent = presentation.content.split(/\n---\n/).map((slide) => slide.trim());
-
-      const processedSlides = await Promise.all(
-        slideContent.map(async (slide) => {
-          // First, find and extract mermaid code blocks
-          const mermaidRegex = /```mermaid\n([\s\S]*?)```/g;
-          let mermaidBlocks: string[] = [];
-          let processedSlide = slide.replace(mermaidRegex, (_, code) => {
-            mermaidBlocks.push(code.trim());
-            return `%%%MERMAID_PLACEHOLDER_${mermaidBlocks.length - 1}%%%`;
-          });
-
-          // Process the markdown content
-          const result = await unified()
-            .use(remarkParse)
-            .use(remarkGfm) // Enable GitHub Flavored Markdown (tables, etc.)
-            .use(remarkMath) // Enable math support
-            .use(remarkRehype, { allowDangerousHtml: true }) // Allow raw HTML
-            .use(rehypeKatex) // Enable KaTeX for math
-            .use(rehypeStringify, { allowDangerousHtml: true }) // Allow raw HTML in output
-            .process(processedSlide);
-
-          // Replace placeholders with mermaid div elements
-          processedSlide = String(result).replace(
-            /%%%MERMAID_PLACEHOLDER_(\d+)%%%/g,
-            (_, index) => {
-              return `<div class="mermaid">${mermaidBlocks[parseInt(index)]}</div>`;
-            }
-          );
-
-          return processedSlide;
-        })
-      );
-
-      setSlides(processedSlides);
-    };
-
-    processSlides();
-  }, [presentation]);
 
   // Render mermaid diagrams after slide changes
   useEffect(() => {
@@ -210,7 +160,7 @@ export function Presentation({ presentation }: PresentationProps) {
   }
 
   return (
-    <div className="bg-background text-foreground fixed inset-0 flex cursor-none flex-col">
+    <div className="bg-background text-foreground fixed inset-0 flex flex-col">
       {/* Header - minimal and auto-hiding */}
       <div
         className={`absolute top-0 right-0 left-0 z-20 flex items-center justify-between p-6 transition-opacity duration-300 ${
@@ -332,28 +282,6 @@ export function Presentation({ presentation }: PresentationProps) {
           </div>
         </div>
       </div>
-
-      {/* Custom cursor that shows on mouse move */}
-      <div
-        className={`bg-primary/20 pointer-events-none fixed z-50 h-6 w-6 rounded-full transition-opacity duration-150 ${
-          showControls ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          transform: "translate(-50%, -50%)",
-          left: "50%",
-          top: "50%",
-        }}
-        ref={(el) => {
-          if (el) {
-            const handleMouseMove = (e: MouseEvent) => {
-              el.style.left = `${e.clientX}px`;
-              el.style.top = `${e.clientY}px`;
-            };
-            window.addEventListener("mousemove", handleMouseMove);
-            return () => window.removeEventListener("mousemove", handleMouseMove);
-          }
-        }}
-      />
     </div>
   );
 }

@@ -1,51 +1,47 @@
 ---
-import { getEducation } from "@/lib/content";
+import type { ResumeEducationEntry } from "@/lib/resume";
 
 interface Props {
-  withTitle: boolean;
+  entries: ResumeEducationEntry[];
+  title?: string;
+  titleAlign?: "left" | "right" | "center";
 }
 
-const { withTitle } = Astro.props;
-const education = await getEducation();
-
-// Sort education chronologically with latest on top
-const sortedEducation = education.sort((a, b) => {
-  // Parse years from startDate for chronological sorting
-  const getYear = (date: string) => {
-    const match = date.match(/\d{4}/);
-    return match ? parseInt(match[0]) : 0;
-  };
-  return getYear(b.startDate) - getYear(a.startDate);
-});
+const { entries, title = "Education", titleAlign = "right" } = Astro.props;
 ---
 
 <div class="flex flex-col gap-8">
-  {withTitle && <div class="mb-4 text-center text-2xl font-bold md:text-right">Education</div>}
+  <h2
+    class:list={[
+      "mb-4 text-2xl font-bold",
+      titleAlign === "center" ? "text-center" : titleAlign === "left" ? "text-left" : "text-right",
+    ]}
+  >
+    {title}
+  </h2>
   <div>
     {
-      sortedEducation.map((edu) => (
-        <div class="mb-8 flex w-full flex-col items-start gap-2">
-          <div class="text-sm">
-            {edu.startDate === edu.endDate
-              ? edu.startDate
-              : `${edu.startDate} - ${edu.endDate || "Present"}`}
-          </div>
-          <div class="-ml-2 h-[1px] w-32 bg-current md:-ml-8" />
+      entries.map((edu) => (
+        <article class="mb-8 flex w-full flex-col items-start gap-2">
+          <div class="text-sm">{edu.period}</div>
+          <div class="-ml-2 h-px w-32 bg-current md:-ml-8" />
           <div class="bg-card text-card-foreground w-full rounded-lg border-0 shadow-none md:border md:shadow-sm">
-            <div class="w-full p-2 md:p-6">
+            <div class="w-full p-4 md:p-6">
               <div class="flex w-full flex-col gap-2">
                 <div class="font-semibold">{edu.institution}</div>
                 <div class="text-start text-lg">
                   {edu.degree} in {edu.field}
                 </div>
-                {edu.description && <div class="mt-2 text-sm opacity-80">{edu.description}</div>}
+                {edu.description && (
+                  <div class="text-muted-foreground text-sm">{edu.description}</div>
+                )}
               </div>
             </div>
-            <div class="max-w-none p-2 pt-0 text-sm md:p-6 [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>ul]:mb-4 [&>ul]:pl-6">
-              <Fragment set:html={edu.content} />
+            <div class="max-w-none px-4 pb-4 text-sm md:px-6 md:pb-6 [&>li]:mb-2 [&>ol]:mb-4 [&>ol]:pl-6 [&>p]:mb-4 [&>p]:leading-relaxed [&>ul]:mb-4 [&>ul]:pl-6">
+              <Fragment set:html={edu.html} />
             </div>
           </div>
-        </div>
+        </article>
       ))
     }
   </div>

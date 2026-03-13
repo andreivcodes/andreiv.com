@@ -1,66 +1,49 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
 import AboutCombined from "@/components/about/AboutCombined.astro";
-import Professional from "@/components/about/Professional.astro";
-import Education from "@/components/about/Education.astro";
-import MobileTimelineTabs from "@/components/about/MobileTimelineTabs.astro";
-import DownloadPDFButton from "@/components/about/DownloadPDFButton";
-import { getProfessional, getEducation } from "@/lib/content";
-import { marked } from "marked";
-import superjson from "superjson";
+import AboutTimeline from "@/components/about/AboutTimeline.astro";
+import { getResumeEntries } from "@/lib/resume";
+import { getPersonStructuredData } from "@/lib/structuredData";
+import { Download } from "lucide-react";
 
 const title = "About - Andrei Voinea";
 const description =
   "Learn more about Andrei Voinea, a software engineer passionate about building in the open.";
 
-// Fetch data server-side
-const professional = await getProfessional();
-const education = await getEducation();
-
-// Convert markdown content to HTML
-const professionalWithHtml = professional.map((exp) => ({
-  ...exp,
-  content: marked(exp.content || ""),
-}));
-
-const educationWithHtml = education.map((edu) => ({
-  ...edu,
-  content: marked(edu.content || ""),
-}));
-
-// Serialize the data for client-side consumption
-const resumeData = superjson.stringify({
-  professional: professionalWithHtml,
-  education: educationWithHtml,
+const { professional, education } = await getResumeEntries();
+const structuredData = getPersonStructuredData({
+  pathname: "/about",
+  description,
 });
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} structuredData={structuredData}>
   <div class="flex min-h-screen flex-col">
     <Header />
-    <main class="flex flex-1 justify-center">
-      <div class="flex h-full w-full max-w-7xl flex-col gap-12 p-2 md:gap-24 md:p-8">
-        <!-- Combined About and Skills card spanning full width -->
+    <main id="main-content" class="flex flex-1 justify-center">
+      <div class="flex h-full w-full max-w-7xl flex-col gap-10 p-4 md:gap-20 md:p-8">
         <div class="w-full">
           <AboutCombined />
         </div>
 
-        <!-- Mobile view with tabs -->
-        <div class="md:hidden">
-          <MobileTimelineTabs />
+        <div class="border-b pb-4">
+          <p class="text-muted-foreground text-sm">
+            Experience and education, with a printable resume view for saving as PDF.
+          </p>
         </div>
 
-        <!-- Desktop view with timeline -->
-        <div class="hidden auto-cols-auto grid-flow-col gap-8 md:grid">
-          <Professional withTitle={true} />
-          <div class="inset-y-0 w-px bg-current"></div>
-          <Education withTitle={true} />
-        </div>
+        <AboutTimeline professional={professional} education={education} />
       </div>
     </main>
+    <a
+      href="/resume"
+      class="bg-primary text-primary-foreground hover:bg-primary/90 fixed right-8 bottom-8 z-50 inline-flex items-center gap-2 rounded-md px-4 py-3 text-sm font-medium shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+    >
+      <Download className="h-4 w-4" />
+      <span>Download Resume</span>
+    </a>
     <Footer />
-    <DownloadPDFButton client:load resumeData={resumeData} />
   </div>
 </BaseLayout>
