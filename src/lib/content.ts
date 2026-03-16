@@ -73,7 +73,7 @@ export async function getEducation() {
 }
 
 export async function getBlogPosts() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
   return posts.map((post) => {
     const stats = getBlogReadingStats(post.body);
     return {

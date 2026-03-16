@@ -81,7 +81,7 @@ export function getOgCardTitle(page: OgPage) {
 }
 
 export async function getOgPages(): Promise<Record<string, OgPage>> {
-  const blogPosts = await getCollection("blog");
+  const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
   const projects = await getCollection("projects");
   const slides = await getCollection("slides");
 
