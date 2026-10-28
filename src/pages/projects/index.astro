@@ -1,9 +1,11 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import { Badge } from "@/components/ui/badge";
 import { getProjects } from "@/lib/content";
+import { getProjectImage } from "@/lib/projectImages";
 import { STATIC_PAGE_METADATA } from "@/lib/pageMetadata";
 import { ArrowRight, Calendar, ExternalLink } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
@@ -11,19 +13,12 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons";
 const { title, description } = STATIC_PAGE_METADATA.projects;
 
 const projects = await getProjects();
-const sortedProjects = projects.sort((a, b) => (a.index || 999) - (b.index || 999));
-const featuredProject = sortedProjects.find((project) => project.featuredImage);
+const sortedProjects = projects
+  .sort((a, b) => (a.index || 999) - (b.index || 999))
+  .map((project) => ({ ...project, image: getProjectImage(project.featuredImage) }));
 ---
 
 <BaseLayout title={title} description={description}>
-  <Fragment slot="head">
-    {
-      featuredProject?.featuredImage && (
-        <link rel="preload" as="image" href={featuredProject.featuredImage} />
-      )
-    }
-  </Fragment>
-
   <div class="flex min-h-screen flex-col">
     <Header />
     <main id="main-content" class="bg-background flex-1">
@@ -42,14 +37,16 @@ const featuredProject = sortedProjects.find((project) => project.featuredImage);
                 <div class="site-card-shell relative flex flex-col overflow-hidden xl:grid xl:grid-cols-2">
                   <div class="relative overflow-hidden xl:order-2">
                     <div class="bg-muted/20 relative aspect-[16/9] w-full">
-                      {project.featuredImage ? (
-                        <img
-                          src={project.featuredImage}
+                      {project.image ? (
+                        <Image
+                          src={project.image}
                           alt={`${project.name} preview`}
                           class="h-full w-full object-cover"
+                          width={1600}
+                          widths={[480, 800, 1200, 1600]}
+                          sizes="(min-width: 1280px) 640px, 100vw"
                           loading={index === 0 ? "eager" : "lazy"}
-                          width="800"
-                          height="450"
+                          fetchpriority={index === 0 ? "high" : "auto"}
                         />
                       ) : (
                         <div class="from-muted via-muted/80 to-background flex h-full w-full items-center justify-center bg-gradient-to-br">
