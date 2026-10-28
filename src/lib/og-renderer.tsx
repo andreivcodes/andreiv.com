@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
@@ -96,7 +97,10 @@ function getFooterPath() {
 }
 
 function getImagePath(imagePath: string) {
-  return path.join(process.cwd(), "public", imagePath.replace(/^\//, ""));
+  const relativePath = imagePath.replace(/^\//, "");
+  const assetPath = path.join(process.cwd(), "src", "assets", relativePath);
+
+  return existsSync(assetPath) ? assetPath : path.join(process.cwd(), "public", relativePath);
 }
 
 function toDataUrl(buffer: Buffer, mimeType = "image/png") {

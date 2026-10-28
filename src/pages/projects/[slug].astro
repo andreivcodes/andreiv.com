@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -6,6 +7,7 @@ import { getCollection, render } from "astro:content";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Calendar } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { getProjectImage } from "@/lib/projectImages";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -17,6 +19,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+const featuredImage = getProjectImage(project.data.featuredImage);
 
 const title = `${project.data.name} - Andrei Voinea`;
 const description = project.data.shortDescription;
@@ -38,12 +41,17 @@ const description = project.data.shortDescription;
         <article>
           {/* Hero Section with Featured Image */}
           {
-            project.data.featuredImage && (
+            featuredImage && (
               <div class="bg-muted mb-12 aspect-video overflow-hidden rounded-lg">
-                <img
-                  src={project.data.featuredImage}
+                <Image
+                  src={featuredImage}
                   alt={`${project.data.name} preview`}
                   class="h-full w-full object-cover"
+                  width={1664}
+                  widths={[640, 960, 1280, 1664]}
+                  sizes="(min-width: 896px) 832px, 100vw"
+                  loading="eager"
+                  fetchpriority="high"
                 />
               </div>
             )
